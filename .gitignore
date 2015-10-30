@@ -1,0 +1,15 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.sln
+
+# Exclude directories#
+server/packages
+server/.vs
+server/ECEInventory/obj
+server/ECEInventory/bin
