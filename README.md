@@ -17,4 +17,4 @@ Ramachandra Pai,    rampai@vt.edu
 
 ### Server:
 
-Server is hosted on eceinventory.azurewebsites.net. Refer to avaialbe API at eceinventory.azurewebsites.net/help.
+Server is hosted at http://eceinventory2.azurewebsites.net/. Refer to avaialbe API at http://eceinventory2.azurewebsites.net/Help.
