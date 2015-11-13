@@ -7,9 +7,8 @@
 *.o
 *.so
 *.sln
+*.ico
 
 # Exclude directories#
-server/packages
-server/.vs
-server/ECEInventory/obj
-server/ECEInventory/bin
+server/bin
+server/obj
