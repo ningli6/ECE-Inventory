@@ -36,6 +36,12 @@ namespace ECEInventory2.Controllers
             return Ok(item);
         }
 
+        [Route("api/Users/{userId}/items")]
+        public IQueryable<Item> GetItemsByUser(int userId)
+        {
+            return db.Items.Where(it => it.UserId == userId);
+        }
+
         // PUT: api/Items/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutItem(int id, Item item)
@@ -45,7 +51,7 @@ namespace ECEInventory2.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != item.Id)
+            if (id != item.ItemId)
             {
                 return BadRequest();
             }
@@ -83,7 +89,7 @@ namespace ECEInventory2.Controllers
             db.Items.Add(item);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = item.Id }, item);
+            return CreatedAtRoute("DefaultApi", new { id = item.ItemId }, item);
         }
 
         // DELETE: api/Items/5
@@ -113,7 +119,7 @@ namespace ECEInventory2.Controllers
 
         private bool ItemExists(int id)
         {
-            return db.Items.Count(e => e.Id == id) > 0;
+            return db.Items.Count(e => e.ItemId == id) > 0;
         }
     }
 }

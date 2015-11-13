@@ -27,19 +27,21 @@ namespace ECEInventory2.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
             context.Users.AddOrUpdate(
-                u => u.Id,
-                new User { Id = 1, Name = "Mark" },
-                new User { Id = 2, Name = "Jack" },
-                new User { Id = 3, Name = "Peter" }
+                u => u.UserId,
+                new User { UserId = 1, Name = "Mark" },
+                new User { UserId = 2, Name = "Jack" },
+                new User { UserId = 3, Name = "Peter" }
                 );
 
             context.Items.AddOrUpdate(
-                i => i.Id,
-                new Item { Id = 1, Name = "Surface" },
-                new Item { Id = 2, Name = "Mac" },
-                new Item { Id = 3, Name = "Nexus 7" }
+                i => i.ItemId,
+                new Item { ItemId = 1, Name = "Surface", UserId = 1 },
+                new Item { ItemId = 2, Name = "Mac", UserId = 1 },
+                new Item { ItemId = 3, Name = "Nexus 7", UserId = 2 },
+                new Item { ItemId = 4, Name = "Nexus 5", UserId = 2 },
+                new Item { ItemId = 5, Name = "Kindle", UserId = 3 },
+                new Item { ItemId = 6, Name = "Ipad", UserId = 3 }
                 );
         }
     }

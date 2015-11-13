@@ -45,7 +45,7 @@ namespace ECEInventory2.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != user.Id)
+            if (id != user.UserId)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace ECEInventory2.Controllers
             db.Users.Add(user);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
+            return CreatedAtRoute("DefaultApi", new { id = user.UserId }, user);
         }
 
         // DELETE: api/Users/5
@@ -113,7 +113,7 @@ namespace ECEInventory2.Controllers
 
         private bool UserExists(int id)
         {
-            return db.Users.Count(e => e.Id == id) > 0;
+            return db.Users.Count(e => e.UserId == id) > 0;
         }
     }
 }
