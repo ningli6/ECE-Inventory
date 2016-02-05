@@ -1,5 +1,5 @@
 //
-//  ItemsViewController.swift
+//  AddItemController.swift
 //  Inventory
 //
 //  Created by Ning Li on 2/4/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ItemsViewController: UITableViewController {
+class AddItemController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class ItemsViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
+    /*
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
@@ -36,6 +36,7 @@ class ItemsViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 0
     }
+    */
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -91,13 +92,5 @@ class ItemsViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
-    @IBAction func cancelToItemsViewController(segue:UIStoryboardSegue) {
-        
-    }
-    
-    @IBAction func saveToItemsViewController(segue:UIStoryboardSegue) {
-        
-    }
 
 }

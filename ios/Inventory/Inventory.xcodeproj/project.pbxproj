@@ -14,6 +14,7 @@
 		9B4C69D71C642D5000400C84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B4C69D51C642D5000400C84 /* LaunchScreen.storyboard */; };
 		9B4C69E11C64373B00400C84 /* UserInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C69E01C64373B00400C84 /* UserInfoController.swift */; };
 		9B4C69E31C6439EE00400C84 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C69E21C6439EE00400C84 /* ItemsViewController.swift */; };
+		9B4C69E51C644A3D00400C84 /* AddItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C69E41C644A3D00400C84 /* AddItemController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		9B4C69D81C642D5000400C84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B4C69E01C64373B00400C84 /* UserInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoController.swift; sourceTree = "<group>"; };
 		9B4C69E21C6439EE00400C84 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
+		9B4C69E41C644A3D00400C84 /* AddItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				9B4C69D81C642D5000400C84 /* Info.plist */,
 				9B4C69E01C64373B00400C84 /* UserInfoController.swift */,
 				9B4C69E21C6439EE00400C84 /* ItemsViewController.swift */,
+				9B4C69E41C644A3D00400C84 /* AddItemController.swift */,
 			);
 			path = Inventory;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B4C69E51C644A3D00400C84 /* AddItemController.swift in Sources */,
 				9B4C69E11C64373B00400C84 /* UserInfoController.swift in Sources */,
 				9B4C69E31C6439EE00400C84 /* ItemsViewController.swift in Sources */,
 				9B4C69CF1C642D5000400C84 /* ViewController.swift in Sources */,
