@@ -10,9 +10,15 @@ import UIKit
 
 class ItemViewController: UITableViewController {
     
+    var barcode: String = "Default Item"
+    
+    @IBOutlet weak var itemBarcodeLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        itemBarcodeLabel.text? = barcode
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

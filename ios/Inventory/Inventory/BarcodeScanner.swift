@@ -104,22 +104,29 @@ class BarcodeScanner: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             qrCodeFrameView?.frame = barCodeObject!.bounds
             
             if metadataObj.stringValue != nil {
+                captureSession?.stopRunning()
                 self.itemBarcodeString = metadataObj.stringValue
-                performSegueWithIdentifier("BarcodeFound", sender: nil)
+                print("Barcode is " + self.itemBarcodeString!)
+                performSegueWithIdentifier("BarcodeFound", sender: self)
 //                messageLabel.text = metadataObj.stringValue
             }
         }
     }
     
-
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if (segue.identifier == "BarcodeFound") {
+            print("Prepare for segue!")
+            let itemViewController = segue.destinationViewController as! ItemViewController
+            itemViewController.barcode = self.itemBarcodeString!
+        }
+
     }
-    */
+    
 
 }

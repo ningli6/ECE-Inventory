@@ -284,7 +284,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="09N-iO-jfF" kind="presentation" identifier="BarcodeFound" id="YHG-zB-yTO"/>
+                        <segue destination="pXK-qu-dW3" kind="show" identifier="BarcodeFound" id="jKh-sa-BQp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJz-vs-dbj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -388,7 +388,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="B7K-ic-d8B">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="123456789" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="B7K-ic-d8B">
                                                     <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -413,13 +413,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="itemBarcodeLabel" destination="B7K-ic-d8B" id="prw-Gs-bXW"/>
+                        <outlet property="itemBarcodeLabel" destination="B7K-ic-d8B" id="nnL-e5-gwo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JnZ-gW-xRg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="icB-p5-hUd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3368" y="1023"/>
+            <point key="canvasLocation" x="3248" y="223"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9cs-an-zaF">
@@ -456,24 +456,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LOC-xe-aZi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1847" y="223"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="UBh-UP-H28">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="09N-iO-jfF" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FrG-0x-YkL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="pXK-qu-dW3" kind="relationship" relationship="rootViewController" id="9CQ-DG-Bl5"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PEa-wX-7TZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2556" y="1023"/>
         </scene>
     </scenes>
     <resources>
