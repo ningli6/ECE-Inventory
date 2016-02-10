@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -48,7 +48,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-448" y="-252"/>
+            <point key="canvasLocation" x="-568" y="112"/>
         </scene>
         <!--Scan-->
         <scene sceneID="EHv-bP-TqK">
@@ -80,6 +80,49 @@
             </objects>
             <point key="canvasLocation" x="1153" y="223"/>
         </scene>
+        <!--Search Items View Controller-->
+        <scene sceneID="zol-U3-lTM">
+            <objects>
+                <viewController id="dVx-bx-noM" customClass="SearchItemsViewController" customModule="Inventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qyw-kl-jpY"/>
+                        <viewControllerLayoutGuide type="bottom" id="wBy-kP-Px8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="L71-rs-lWn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" fixedFrame="YES" text="" placeholder="Search Item ID" translatesAutoresizingMaskIntoConstraints="NO" id="gAS-bN-fpL">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zUm-Me-cNN">
+                                <rect key="frame" x="225" y="96" width="150" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="lookForItems:" destination="dVx-bx-noM" eventType="touchUpInside" id="SEN-tP-MDp"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Search for Items" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lq8-XQ-JSc">
+                                <rect key="frame" x="225" y="285" width="150" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="KG2-nX-TA5"/>
+                    <connections>
+                        <outlet property="itemNameLable" destination="Lq8-XQ-JSc" id="acb-Ix-DmW"/>
+                        <outlet property="searchBar" destination="gAS-bN-fpL" id="KA7-yb-MmS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oI2-gU-NU0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1153" y="1092"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="cwN-JX-TFX">
             <objects>
@@ -92,11 +135,12 @@
                     <connections>
                         <segue destination="sMY-Ul-RJy" kind="relationship" relationship="viewControllers" id="ETh-x2-AYO"/>
                         <segue destination="vmf-on-3os" kind="relationship" relationship="viewControllers" id="YIS-th-bOi"/>
+                        <segue destination="dVx-bx-noM" kind="relationship" relationship="viewControllers" id="96d-xt-geH"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ulG-8p-6Ab" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="293" y="-252"/>
+            <point key="canvasLocation" x="182" y="112"/>
         </scene>
         <!--User Info-->
         <scene sceneID="bDo-ue-bya">

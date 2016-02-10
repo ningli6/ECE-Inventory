@@ -18,6 +18,7 @@
 		9B9A83B61C653055001732CE /* ScanTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9A83B51C653055001732CE /* ScanTabController.swift */; };
 		9B9A83B81C653080001732CE /* BarcodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9A83B71C653080001732CE /* BarcodeScanner.swift */; };
 		9B9A83BA1C654775001732CE /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9A83B91C654775001732CE /* ItemViewController.swift */; };
+		9BEF5F831C6AD6A70051EE11 /* SearchItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF5F821C6AD6A70051EE11 /* SearchItemsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		9B9A83B51C653055001732CE /* ScanTabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTabController.swift; sourceTree = "<group>"; };
 		9B9A83B71C653080001732CE /* BarcodeScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScanner.swift; sourceTree = "<group>"; };
 		9B9A83B91C654775001732CE /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
+		9BEF5F821C6AD6A70051EE11 /* SearchItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchItemsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				9B9A83B51C653055001732CE /* ScanTabController.swift */,
 				9B9A83B71C653080001732CE /* BarcodeScanner.swift */,
 				9B9A83B91C654775001732CE /* ItemViewController.swift */,
+				9BEF5F821C6AD6A70051EE11 /* SearchItemsViewController.swift */,
 			);
 			path = Inventory;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 				9B4C69E11C64373B00400C84 /* UserInfoController.swift in Sources */,
 				9B9A83B61C653055001732CE /* ScanTabController.swift in Sources */,
 				9B4C69E31C6439EE00400C84 /* ItemsViewController.swift in Sources */,
+				9BEF5F831C6AD6A70051EE11 /* SearchItemsViewController.swift in Sources */,
 				9B4C69CF1C642D5000400C84 /* ViewController.swift in Sources */,
 				9B4C69CD1C642D5000400C84 /* AppDelegate.swift in Sources */,
 			);
