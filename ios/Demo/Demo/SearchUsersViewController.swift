@@ -9,7 +9,14 @@
 import UIKit
 
 class SearchUsersViewController: UIViewController {
+    
+    // hardcoded user data
+    var users: [User] = [User(), User(id: "ningli", name: "Ning Li", email: "ningli@vt.edu")]
+    
+    var selectedUser: User?
 
+    @IBOutlet weak var userIDTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,6 +32,23 @@ class SearchUsersViewController: UIViewController {
     // MARK: - Navigation
     @IBAction func cancelFromUserDetailsViewToSearchUsersView(segue: UIStoryboardSegue) {
     
+    }
+    
+    @IBAction func searchForUsers() {
+        var found: Bool = false
+        for user in users {
+            if user.id == userIDTextField.text {
+                found = true
+                self.selectedUser = user
+                print(self.selectedUser)
+                performSegueWithIdentifier("UserSelected", sender: nil)
+            }
+        }
+        if !found {
+            let alert = UIAlertController(title: "Error", message: "User not found.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     /*

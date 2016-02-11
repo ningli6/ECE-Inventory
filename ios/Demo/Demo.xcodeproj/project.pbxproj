@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B5921071C6CF3E1005C6FEC /* ScanTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5921061C6CF3E1005C6FEC /* ScanTabViewController.swift */; };
+		9B5921091C6CF45A005C6FEC /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5921081C6CF45A005C6FEC /* BarcodeScannerViewController.swift */; };
+		9B59210B1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210A1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift */; };
+		9B59210D1C6D0858005C6FEC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210C1C6D0858005C6FEC /* User.swift */; };
+		9B59210F1C6D0915005C6FEC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210E1C6D0915005C6FEC /* Item.swift */; };
 		9B89009A1C6C28BA00BF5DE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900991C6C28BA00BF5DE1 /* AppDelegate.swift */; };
 		9B89009C1C6C28BA00BF5DE1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89009B1C6C28BA00BF5DE1 /* ViewController.swift */; };
 		9B89009F1C6C28BA00BF5DE1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B89009D1C6C28BA00BF5DE1 /* Main.storyboard */; };
@@ -19,6 +24,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B5921061C6CF3E1005C6FEC /* ScanTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTabViewController.swift; sourceTree = "<group>"; };
+		9B5921081C6CF45A005C6FEC /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
+		9B59210A1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannedItemDetailsViewController.swift; sourceTree = "<group>"; };
+		9B59210C1C6D0858005C6FEC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9B59210E1C6D0915005C6FEC /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		9B8900961C6C28BA00BF5DE1 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B8900991C6C28BA00BF5DE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B89009B1C6C28BA00BF5DE1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +82,11 @@
 				9B8900B11C6C528700BF5DE1 /* SearchUsersViewController.swift */,
 				9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */,
 				9B8900B51C6C53F100BF5DE1 /* AddItemViewController.swift */,
+				9B5921061C6CF3E1005C6FEC /* ScanTabViewController.swift */,
+				9B5921081C6CF45A005C6FEC /* BarcodeScannerViewController.swift */,
+				9B59210A1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift */,
+				9B59210C1C6D0858005C6FEC /* User.swift */,
+				9B59210E1C6D0915005C6FEC /* Item.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -148,11 +163,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B59210B1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift in Sources */,
 				9B89009C1C6C28BA00BF5DE1 /* ViewController.swift in Sources */,
 				9B8900B21C6C528700BF5DE1 /* SearchUsersViewController.swift in Sources */,
 				9B8900B41C6C532900BF5DE1 /* ItemsListViewController.swift in Sources */,
 				9B89009A1C6C28BA00BF5DE1 /* AppDelegate.swift in Sources */,
+				9B5921071C6CF3E1005C6FEC /* ScanTabViewController.swift in Sources */,
+				9B59210F1C6D0915005C6FEC /* Item.swift in Sources */,
 				9B8900B01C6C51D200BF5DE1 /* UserDetailsViewController.swift in Sources */,
+				9B5921091C6CF45A005C6FEC /* BarcodeScannerViewController.swift in Sources */,
+				9B59210D1C6D0858005C6FEC /* User.swift in Sources */,
 				9B8900B61C6C53F100BF5DE1 /* AddItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,6 +325,7 @@
 				9B8900AA1C6C28BA00BF5DE1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

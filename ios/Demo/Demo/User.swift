@@ -1,0 +1,31 @@
+//
+//  User.swift
+//  Demo
+//
+//  Created by Ning Li on 2/11/16.
+//  Copyright © 2016 ningli. All rights reserved.
+//
+
+import Foundation
+
+
+class User {
+    var id: String
+    var name: String
+    var email: String
+    var items: [Item]
+    
+    init() {
+        self.id = "vt"
+        self.name = "Virginia Tech"
+        self.email = "email@vt.edu"
+        self.items = []
+    }
+    
+    init(id: String, name: String, email: String) {
+        self.id = id
+        self.name = name
+        self.email = email
+        self.items = []
+    }
+}
