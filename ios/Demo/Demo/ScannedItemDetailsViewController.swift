@@ -10,9 +10,24 @@ import UIKit
 
 class ScannedItemDetailsViewController: UITableViewController {
 
+    var item: Item?
+    
+    @IBOutlet weak var scannedItemNameLabel: UILabel!
+    
+    @IBOutlet weak var scannedItemBarcodeLabel: UILabel!
+    
+    @IBOutlet weak var scannedItemLocationLabel: UILabel!
+    
+    @IBOutlet weak var scannedItemOwnerLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        scannedItemNameLabel.text = item?.name
+        scannedItemBarcodeLabel.text = item?.barcode
+        scannedItemLocationLabel.text = item?.location
+        scannedItemOwnerLabel.text = item?.owner
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

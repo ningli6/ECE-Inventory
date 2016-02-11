@@ -12,6 +12,8 @@ import AVFoundation
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     // barcode
     var itemBarcodeString: String?
+    var scannedItem: Item?
+    var items: [Item] = [Item(name: "Nexus 5", barcode: "0987654321098", location: "Whittemore 340"), Item(name: "Macbook", barcode: "65833254", location: "Whittemore 320")]
     
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
@@ -97,7 +99,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         // Instead of hardcoding the AVMetadataObjectTypeQRCode, we check if the type
         // can be found in the array of supported bar codes.
         if supportedBarCodes.contains(metadataObj.type) {
-            //        if metadataObj.type == AVMetadataObjectTypeQRCode {
             // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
             let barCodeObject = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
@@ -106,21 +107,38 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 captureSession?.stopRunning()
                 self.itemBarcodeString = metadataObj.stringValue
                 print("Barcode is " + self.itemBarcodeString!)
-                performSegueWithIdentifier("BarcodeFound", sender: self)
-                //                messageLabel.text = metadataObj.stringValue
+                
+                var found: Bool = false
+                for item in items {
+                    if item.barcode == self.itemBarcodeString {
+                        found = true
+                        self.scannedItem = item
+                        performSegueWithIdentifier("BarcodeFound", sender: self)
+                        break
+                    }
+                }
+                if !found {
+                    let alert = UIAlertController(title: "Error", message: "The barcode doesn't match anyting in our database.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    captureSession?.startRunning()
+                }
             }
         }
     }
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if (segue.identifier == "BarcodeFound") {
+            let navView = segue.destinationViewController as! UINavigationController
+            let scannedItemDetailsView = navView.viewControllers.first as! ScannedItemDetailsViewController
+            scannedItemDetailsView.item = self.scannedItem
+        }
     }
-    */
 
 }

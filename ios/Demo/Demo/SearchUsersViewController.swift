@@ -11,7 +11,15 @@ import UIKit
 class SearchUsersViewController: UIViewController {
     
     // hardcoded user data
-    var users: [User] = [User(), User(id: "ningli", name: "Ning Li", email: "ningli@vt.edu")]
+    var users: [User] = [
+            User(),
+            User(id: "ningli", name: "Ning Li", email: "ningli@vt.edu",
+                items: [Item(name: "Windows Server", barcode: "0123456789", location: "Virginia Tech", owner: "Ning Li"),
+                        Item(name: "Projector", barcode: "0123456789", location: "Virginia Tech", owner: "Ning Li"),
+                        Item(name: "Amazon Kindle", barcode: "0123456789", location: "Virginia Tech", owner: "Ning Li")
+                       ]
+                )
+    ]
     
     var selectedUser: User?
 
@@ -21,6 +29,15 @@ class SearchUsersViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        //Looks for single or multiple taps.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+    }
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,7 +57,6 @@ class SearchUsersViewController: UIViewController {
             if user.id == userIDTextField.text {
                 found = true
                 self.selectedUser = user
-                print(self.selectedUser)
                 performSegueWithIdentifier("UserSelected", sender: nil)
             }
         }
@@ -51,12 +67,15 @@ class SearchUsersViewController: UIViewController {
         }
     }
     
-    /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if (segue.identifier == "UserSelected") {
+            let navView = segue.destinationViewController as! UINavigationController
+            let userDetailsView = navView.viewControllers.first as! UserDetailsViewController
+            userDetailsView.user = self.selectedUser
+        }
     }
-    */
 
 }

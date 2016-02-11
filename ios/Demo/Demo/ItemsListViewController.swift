@@ -9,6 +9,8 @@
 import UIKit
 
 class ItemsListViewController: UITableViewController {
+    
+    var items: [Item]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,23 +31,22 @@ class ItemsListViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return (items?.count)!
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath)
 
         // Configure the cell...
+        cell.textLabel?.text = items![indexPath.row].name
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -92,12 +93,16 @@ class ItemsListViewController: UITableViewController {
         
     }
     
-    /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "LookForItemDetails" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let itemDetailView = segue.destinationViewController as! ItemDetailsViewController
+                itemDetailView.item = self.items![indexPath.row]
+            }
+        }
     }
-    */
 
 }

@@ -1,5 +1,5 @@
 //
-//  UserDetailsViewController.swift
+//  ItemDetailsViewController.swift
 //  Demo
 //
 //  Created by Ning Li on 2/11/16.
@@ -8,20 +8,26 @@
 
 import UIKit
 
-class UserDetailsViewController: UITableViewController {
+class ItemDetailsViewController: UITableViewController {
     
-    var user: User?
+    var item: Item?
     
-    @IBOutlet weak var nameTextLable: UILabel!
+    @IBOutlet weak var itemNameLabel: UILabel!
+    
+    @IBOutlet weak var itemBarcodeLabel: UILabel!
 
-    @IBOutlet weak var emailTextLable: UILabel!
+    @IBOutlet weak var itemLocationLabel: UILabel!
+    
+    @IBOutlet weak var itemOwnerLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameTextLable.text = user?.name
-        emailTextLable.text = user?.email
-
+        itemNameLabel.text = item?.name
+        itemBarcodeLabel.text = item?.barcode
+        itemLocationLabel.text = item?.location
+        itemOwnerLabel.text = item?.owner
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -35,7 +41,6 @@ class UserDetailsViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-    
     /*
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -92,15 +97,15 @@ class UserDetailsViewController: UITableViewController {
         return true
     }
     */
-    
+
+    /*
+    // MARK: - Navigation
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if (segue.identifier == "ShowItemsList") {
-            let itemsListView = segue.destinationViewController as! ItemsListViewController
-            itemsListView.items = self.user?.items
-        }
     }
+    */
 
 }

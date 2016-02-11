@@ -10,13 +10,30 @@ import Foundation
 
 
 class Item {
-    var barcode: String
-    var location: String
-    var owner: User?
+    var name: String
+    var barcode: String = "0123456789"
+    var location: String = "Virginia Tech"
+    var owner: String = "Virginia Tech"
     
-    init(barcode: String) {
+    init(name: String) {
+        self.name = name
+    }
+    
+    init(name: String, barcode: String) {
+        self.name = name
         self.barcode = barcode
-        self.location = "Virginia Tech"
-//        self.owner = nil
+    }
+    
+    init(name:String, barcode: String, location: String) {
+        self.name = name
+        self.barcode = barcode
+        self.location = location
+    }
+    
+    init(name:String, barcode: String, location: String, owner: String) {
+        self.name = name
+        self.barcode = barcode
+        self.location = location
+        self.owner = owner
     }
 }
