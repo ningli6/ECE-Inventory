@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace ECEInventory2.Areas.HelpPage
+namespace ECEInventory.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

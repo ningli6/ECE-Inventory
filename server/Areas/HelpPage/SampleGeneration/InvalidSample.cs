@@ -1,6 +1,6 @@
 using System;
 
-namespace ECEInventory2.Areas.HelpPage
+namespace ECEInventory.Areas.HelpPage
 {
     /// <summary>
     /// This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.

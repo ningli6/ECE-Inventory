@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace ECEInventory2.Areas.HelpPage
+namespace ECEInventory.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
-using ECEInventory2.Areas.HelpPage.ModelDescriptions;
+using ECEInventory.Areas.HelpPage.ModelDescriptions;
 
-namespace ECEInventory2.Areas.HelpPage
+namespace ECEInventory.Areas.HelpPage
 {
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.

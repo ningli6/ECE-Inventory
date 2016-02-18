@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using ECEInventory2.Areas.HelpPage.ModelDescriptions;
+using ECEInventory.Areas.HelpPage.ModelDescriptions;
 
-namespace ECEInventory2.Areas.HelpPage.Models
+namespace ECEInventory.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

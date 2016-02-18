@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using ECEInventory2.Areas.HelpPage.ModelDescriptions;
-using ECEInventory2.Areas.HelpPage.Models;
+using ECEInventory.Areas.HelpPage.ModelDescriptions;
+using ECEInventory.Areas.HelpPage.Models;
 
-namespace ECEInventory2.Areas.HelpPage
+namespace ECEInventory.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {
