@@ -13,9 +13,9 @@ class ViewController: UIViewController {
     // hardcoded logins
     var logins:[String:String] = ["admin":"admin"]
     
-    @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var userIDTextField: UITextField!
+    
+    @IBOutlet weak var passwordTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
     // navigation
     @IBAction func tryToLogInAdmin() {

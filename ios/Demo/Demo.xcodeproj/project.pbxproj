@@ -21,7 +21,6 @@
 		9B8900B01C6C51D200BF5DE1 /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900AF1C6C51D200BF5DE1 /* UserDetailsViewController.swift */; };
 		9B8900B21C6C528700BF5DE1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900B11C6C528700BF5DE1 /* SearchUsersViewController.swift */; };
 		9B8900B41C6C532900BF5DE1 /* ItemsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */; };
-		9B8900B61C6C53F100BF5DE1 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900B51C6C53F100BF5DE1 /* AddItemViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +40,6 @@
 		9B8900AF1C6C51D200BF5DE1 /* UserDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
 		9B8900B11C6C528700BF5DE1 /* SearchUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersViewController.swift; sourceTree = "<group>"; };
 		9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsListViewController.swift; sourceTree = "<group>"; };
-		9B8900B51C6C53F100BF5DE1 /* AddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,21 +73,20 @@
 			isa = PBXGroup;
 			children = (
 				9B8900991C6C28BA00BF5DE1 /* AppDelegate.swift */,
-				9B89009B1C6C28BA00BF5DE1 /* ViewController.swift */,
 				9B89009D1C6C28BA00BF5DE1 /* Main.storyboard */,
 				9B8900A01C6C28BA00BF5DE1 /* Assets.xcassets */,
 				9B8900A21C6C28BA00BF5DE1 /* LaunchScreen.storyboard */,
 				9B8900A51C6C28BA00BF5DE1 /* Info.plist */,
-				9B8900AF1C6C51D200BF5DE1 /* UserDetailsViewController.swift */,
+				9B89009B1C6C28BA00BF5DE1 /* ViewController.swift */,
 				9B8900B11C6C528700BF5DE1 /* SearchUsersViewController.swift */,
+				9B8900AF1C6C51D200BF5DE1 /* UserDetailsViewController.swift */,
 				9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */,
-				9B8900B51C6C53F100BF5DE1 /* AddItemViewController.swift */,
 				9B5921061C6CF3E1005C6FEC /* ScanTabViewController.swift */,
 				9B5921081C6CF45A005C6FEC /* BarcodeScannerViewController.swift */,
 				9B59210A1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift */,
+				9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */,
 				9B59210C1C6D0858005C6FEC /* User.swift */,
 				9B59210E1C6D0915005C6FEC /* Item.swift */,
-				9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -177,7 +174,6 @@
 				9B8900B01C6C51D200BF5DE1 /* UserDetailsViewController.swift in Sources */,
 				9B5921091C6CF45A005C6FEC /* BarcodeScannerViewController.swift in Sources */,
 				9B59210D1C6D0858005C6FEC /* User.swift in Sources */,
-				9B8900B61C6C53F100BF5DE1 /* AddItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

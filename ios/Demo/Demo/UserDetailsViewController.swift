@@ -10,18 +10,17 @@ import UIKit
 
 class UserDetailsViewController: UITableViewController {
     
+    // display information about this user
     var user: User?
     
-    @IBOutlet weak var nameTextLable: UILabel!
-
-    @IBOutlet weak var emailTextLable: UILabel!
+    @IBOutlet weak var userNameLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameTextLable.text = user?.name
-        emailTextLable.text = user?.email
-
+        // display user name in the text label
+        userNameLabel.text = user?.name
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

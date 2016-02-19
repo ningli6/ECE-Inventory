@@ -9,24 +9,52 @@
 import UIKit
 
 class ScannedItemDetailsViewController: UITableViewController {
-
+    
     var item: Item?
     
-    @IBOutlet weak var scannedItemNameLabel: UILabel!
+    @IBOutlet weak var itemDescriptionLabel: UILabel!
     
-    @IBOutlet weak var scannedItemBarcodeLabel: UILabel!
+    @IBOutlet weak var itemOrgnTitleLabel: UILabel!
     
-    @IBOutlet weak var scannedItemLocationLabel: UILabel!
+    @IBOutlet weak var itemLocationLabel: UILabel!
     
-    @IBOutlet weak var scannedItemOwnerLabel: UILabel!
+    @IBOutlet weak var itemBarcodeLabel: UILabel!
+    
+    @IBOutlet weak var itemManufacturerLabel: UILabel!
+    
+    @IBOutlet weak var itemModelLabel: UILabel!
+    
+    @IBOutlet weak var itemCustodianLabel: UILabel!
+    
+    @IBOutlet weak var itemAcqDateLabel: UILabel!
+    
+    @IBOutlet weak var itemAMTLabel: UILabel!
+    
+    @IBOutlet weak var itemOwnershipLabel: UILabel!
+    
+    @IBOutlet weak var itemConditionLabel: UILabel!
+    
+    @IBOutlet weak var itemLastInvDateLabel: UILabel!
+    
+    @IBOutlet weak var itemDesignationLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        scannedItemNameLabel.text = item?.name
-        scannedItemBarcodeLabel.text = item?.barcode
-        scannedItemLocationLabel.text = item?.location
-        scannedItemOwnerLabel.text = item?.owner
+        
+        // populate item information
+        itemDescriptionLabel.text = item?.description
+        itemOrgnTitleLabel.text = item?.orgnTitle
+        itemLocationLabel.text = item?.sortRoom
+        itemBarcodeLabel.text = item?.ptag
+        itemManufacturerLabel.text = item?.manufacturer
+        itemModelLabel.text = item?.model
+        itemCustodianLabel.text = item?.custodian
+        itemAcqDateLabel.text = item?.acqDate
+        itemAMTLabel.text = item?.amt
+        itemOwnershipLabel.text = item?.ownership
+        itemConditionLabel.text = item?.condition
+        itemLastInvDateLabel.text = item?.lastInvDate
+        itemDesignationLabel.text = item?.designation
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

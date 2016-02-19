@@ -43,8 +43,8 @@ class ItemsListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = items![indexPath.row].name
-
+        cell.textLabel?.text = items![indexPath.row].description
+        
         return cell
     }
 
