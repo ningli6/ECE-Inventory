@@ -10,7 +10,10 @@ import UIKit
 
 class ItemDetailsViewController: UITableViewController {
     
+    var connectionString =  "DefaultEndpointsProtocol=https;AccountName=eceinventory;AccountKey=rzuspKSY65DcSH6EzOFMJrL6067TXKUP7+3iGX+eCNMlDkUJgngPe2irrrMGMZli7RaIlGFVdWmB9GsqYv9kbQ=="
+    
     var item: Item?
+    var image: UIImage?
     
     @IBOutlet weak var itemDescriptionLabel: UILabel!
     
@@ -38,6 +41,7 @@ class ItemDetailsViewController: UITableViewController {
     
     @IBOutlet weak var itemDesignationLabel: UILabel!
     
+    @IBOutlet weak var imageDetailCell: UITableViewCell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +85,40 @@ class ItemDetailsViewController: UITableViewController {
         return 0
     }
     */
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath);
+        if (cell == self.imageDetailCell) {
+            /* Download the image from azure cloud storage if exists */
+            // Create a storage account object from a connection string.
+            let account = AZSCloudStorageAccount(fromConnectionString:connectionString)
+
+            // Create a blob service client object.
+            let blobClient: AZSCloudBlobClient = account.getBlobClient()
+
+            // Create a local container object.
+            let blobContainer: AZSCloudBlobContainer = blobClient.containerReferenceFromName(self.item!.ptag!)
+
+            // Create a local blob object
+            // for now just use hardcoded name image for each item
+            let imageName = "image"
+            let blob: AZSCloudBlockBlob = blobContainer.blockBlobReferenceFromName(imageName as String)
+
+            // Download blob
+            blob.downloadToDataWithCompletionHandler({ (error: NSError?, data: NSData?) -> Void in
+                if ((error) != nil) {
+                    print(error)
+                } else {
+                    self.image = UIImage(data:data!,scale:1.0)
+                }
+                print("Downloaded!")
+                dispatch_async(dispatch_get_main_queue(), {
+                    // code here
+                    self.performSegueWithIdentifier("CheckImage", sender: nil)
+                })
+            })
+        }
+    }
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -127,14 +165,22 @@ class ItemDetailsViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
+    
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print("About to segue")
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "CheckImage" {
+            let itemImageView = segue.destinationViewController as! ItemImageViewController
+            print("Set barcode")
+            itemImageView.barcode = self.item?.ptag
+            print("Set image")
+            itemImageView.image = self.image;
+        }
     }
-    */
 
 }

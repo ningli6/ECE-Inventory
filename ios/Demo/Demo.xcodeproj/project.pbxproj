@@ -21,6 +21,9 @@
 		9B8900B01C6C51D200BF5DE1 /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900AF1C6C51D200BF5DE1 /* UserDetailsViewController.swift */; };
 		9B8900B21C6C528700BF5DE1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900B11C6C528700BF5DE1 /* SearchUsersViewController.swift */; };
 		9B8900B41C6C532900BF5DE1 /* ItemsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */; };
+		9B98D7171C7F818E002EA6F4 /* ItemImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B98D7161C7F818E002EA6F4 /* ItemImageViewController.m */; };
+		9B98D7191C7F82BF002EA6F4 /* Azure Storage Client Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B98D7181C7F82BF002EA6F4 /* Azure Storage Client Library.framework */; };
+		9B98D71B1C7F82C9002EA6F4 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B98D71A1C7F82C9002EA6F4 /* libxml2.2.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,11 @@
 		9B8900AF1C6C51D200BF5DE1 /* UserDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
 		9B8900B11C6C528700BF5DE1 /* SearchUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersViewController.swift; sourceTree = "<group>"; };
 		9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsListViewController.swift; sourceTree = "<group>"; };
+		9B98D7141C7F818E002EA6F4 /* Demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demo-Bridging-Header.h"; sourceTree = "<group>"; };
+		9B98D7151C7F818E002EA6F4 /* ItemImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemImageViewController.h; sourceTree = "<group>"; };
+		9B98D7161C7F818E002EA6F4 /* ItemImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemImageViewController.m; sourceTree = "<group>"; };
+		9B98D7181C7F82BF002EA6F4 /* Azure Storage Client Library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Azure Storage Client Library.framework"; path = "Azure Storage/Azure Storage Client Library.framework"; sourceTree = "<group>"; };
+		9B98D71A1C7F82C9002EA6F4 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B98D71B1C7F82C9002EA6F4 /* libxml2.2.tbd in Frameworks */,
+				9B98D7191C7F82BF002EA6F4 /* Azure Storage Client Library.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +66,8 @@
 		9B89008D1C6C28BA00BF5DE1 = {
 			isa = PBXGroup;
 			children = (
+				9B98D71A1C7F82C9002EA6F4 /* libxml2.2.tbd */,
+				9B98D7181C7F82BF002EA6F4 /* Azure Storage Client Library.framework */,
 				9B8900981C6C28BA00BF5DE1 /* Demo */,
 				9B8900971C6C28BA00BF5DE1 /* Products */,
 			);
@@ -81,12 +93,15 @@
 				9B8900B11C6C528700BF5DE1 /* SearchUsersViewController.swift */,
 				9B8900AF1C6C51D200BF5DE1 /* UserDetailsViewController.swift */,
 				9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */,
+				9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */,
 				9B5921061C6CF3E1005C6FEC /* ScanTabViewController.swift */,
 				9B5921081C6CF45A005C6FEC /* BarcodeScannerViewController.swift */,
 				9B59210A1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift */,
-				9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */,
-				9B59210C1C6D0858005C6FEC /* User.swift */,
+				9B98D7151C7F818E002EA6F4 /* ItemImageViewController.h */,
+				9B98D7161C7F818E002EA6F4 /* ItemImageViewController.m */,
+				9B98D7141C7F818E002EA6F4 /* Demo-Bridging-Header.h */,
 				9B59210E1C6D0915005C6FEC /* Item.swift */,
+				9B59210C1C6D0858005C6FEC /* User.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -123,7 +138,7 @@
 				TargetAttributes = {
 					9B8900951C6C28BA00BF5DE1 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = A3NTWV2M9Z;
+						DevelopmentTeam = V7R823C3H9;
 					};
 				};
 			};
@@ -172,6 +187,7 @@
 				9B5921071C6CF3E1005C6FEC /* ScanTabViewController.swift in Sources */,
 				9B59210F1C6D0915005C6FEC /* Item.swift in Sources */,
 				9B8900B01C6C51D200BF5DE1 /* UserDetailsViewController.swift in Sources */,
+				9B98D7171C7F818E002EA6F4 /* ItemImageViewController.m in Sources */,
 				9B5921091C6CF45A005C6FEC /* BarcodeScannerViewController.swift in Sources */,
 				9B59210D1C6D0858005C6FEC /* User.swift in Sources */,
 			);
@@ -286,13 +302,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Azure",
+					Storage,
+				);
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dongnan.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = ningli.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Demo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -300,13 +322,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Azure",
+					Storage,
+				);
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = dongnan.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = ningli.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Demo-Bridging-Header.h";
 			};
 			name = Release;
 		};
