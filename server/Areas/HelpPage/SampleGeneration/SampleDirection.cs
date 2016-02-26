@@ -1,4 +1,4 @@
-namespace ECEInventory2.Areas.HelpPage
+namespace ECEInventory.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

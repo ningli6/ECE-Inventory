@@ -1,6 +1,6 @@
 using System;
 
-namespace ECEInventory2.Areas.HelpPage.ModelDescriptions
+namespace ECEInventory.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

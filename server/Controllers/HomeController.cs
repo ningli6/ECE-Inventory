@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ECEInventory2.Controllers
+namespace ECEInventory.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace ECEInventory2
+namespace ECEInventory
 {
     public class BundleConfig
     {

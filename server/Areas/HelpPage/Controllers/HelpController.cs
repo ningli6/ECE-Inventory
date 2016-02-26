@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using ECEInventory2.Areas.HelpPage.ModelDescriptions;
-using ECEInventory2.Areas.HelpPage.Models;
+using ECEInventory.Areas.HelpPage.ModelDescriptions;
+using ECEInventory.Areas.HelpPage.Models;
 
-namespace ECEInventory2.Areas.HelpPage.Controllers
+namespace ECEInventory.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.
