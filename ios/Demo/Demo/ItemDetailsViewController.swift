@@ -107,11 +107,12 @@ class ItemDetailsViewController: UITableViewController {
             // Download blob
             blob.downloadToDataWithCompletionHandler({ (error: NSError?, data: NSData?) -> Void in
                 if ((error) != nil) {
-                    print(error)
+//                    print(error)
+                    // image not exists in the cloud storage, clear ram
+                    self.image = nil
                 } else {
                     self.image = UIImage(data:data!,scale:1.0)
                 }
-                print("Downloaded!")
                 dispatch_async(dispatch_get_main_queue(), {
                     // code here
                     self.performSegueWithIdentifier("CheckImage", sender: nil)
@@ -171,14 +172,11 @@ class ItemDetailsViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("About to segue")
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "CheckImage" {
             let itemImageView = segue.destinationViewController as! ItemImageViewController
-            print("Set barcode")
             itemImageView.barcode = self.item?.ptag
-            print("Set image")
             itemImageView.image = self.image;
         }
     }

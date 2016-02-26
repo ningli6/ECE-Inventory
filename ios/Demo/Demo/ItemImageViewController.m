@@ -52,7 +52,47 @@
 }
 
 - (IBAction)deleteImage:(id)sender {
+    self.itemImage.image = nil;
+
+    /* Delete blob */
+    // Create a storage account object from a connection string.
+    AZSCloudStorageAccount *account = [AZSCloudStorageAccount accountFromConnectionString:@"DefaultEndpointsProtocol=https;AccountName=eceinventory;AccountKey=rzuspKSY65DcSH6EzOFMJrL6067TXKUP7+3iGX+eCNMlDkUJgngPe2irrrMGMZli7RaIlGFVdWmB9GsqYv9kbQ=="];
     
+    // Create a blob service client object.
+    AZSCloudBlobClient *blobClient = [account getBlobClient];
+    
+    // Create a local container object.
+    AZSCloudBlobContainer *blobContainer = [blobClient containerReferenceFromName:self.barcode];
+    
+    // Create a local blob object
+    AZSCloudBlockBlob *blockBlob = [blobContainer blockBlobReferenceFromName:@"image"];
+    
+    // Delete blob
+    [blockBlob deleteWithCompletionHandler:^(NSError *error) {
+        if (error) {
+            NSLog(@"Error in deleting blob.");
+        } else {
+            NSLog(@"Deleted!");
+            UIAlertController *alertController = [UIAlertController
+                                               alertControllerWithTitle:@"Congratulations!"
+                                               message:@"Image deleted"
+                                               preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction* ok = [UIAlertAction
+                              actionWithTitle:@"OK"
+                              style:UIAlertActionStyleDefault
+                              handler:^(UIAlertAction * action)
+                              {
+                                  //Do some thing here
+                                  [alertController dismissViewControllerAnimated:YES completion:nil];
+                              }];
+            [alertController addAction:ok];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:alertController animated:YES completion:nil];
+            });
+            
+        }
+    }];
 }
 
 // This method is called when an image has been chosen from the library or taken from the camera.
@@ -69,6 +109,29 @@
     // Or you can get the image url from AssetsLibrary
     //    NSURL *path = [info valueForKey:UIImagePickerControllerReferenceURL];
     
+    /* Indicator */
+    UIAlertController *loadingAlert = [UIAlertController
+                                       alertControllerWithTitle:@"Loading"
+                                       message:@"\n\n\n"
+                                       preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [loadingAlert dismissViewControllerAnimated:YES completion:nil];
+                             }];
+    [loadingAlert addAction:cancel];
+    
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc]
+                                          initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicator.frame = loadingAlert.view.bounds;
+    indicator.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    indicator.color = [UIColor blackColor];
+    [loadingAlert.view addSubview:indicator];
+    [indicator startAnimating];
+
     /* Upload the chosen image to Azure */
     // Create a storage account object from a connection string.
     AZSCloudStorageAccount *account = [AZSCloudStorageAccount accountFromConnectionString:@"DefaultEndpointsProtocol=https;AccountName=eceinventory;AccountKey=rzuspKSY65DcSH6EzOFMJrL6067TXKUP7+3iGX+eCNMlDkUJgngPe2irrrMGMZli7RaIlGFVdWmB9GsqYv9kbQ=="];
@@ -95,29 +158,34 @@
                  } else {
                      // Alert box that indicates the success
                      NSLog(@"Complete!");
-//                     UIAlertController *alertController = [UIAlertController
-//                                                           alertControllerWithTitle:@"Congratulation!"
-//                                                           message:@"Image uploaded successfully"
-//                                                           preferredStyle:UIAlertControllerStyleAlert];
-//                     
-//                     UIAlertAction* ok = [UIAlertAction
-//                                          actionWithTitle:@"OK"
-//                                          style:UIAlertActionStyleDefault
-//                                          handler:^(UIAlertAction * action)
-//                                          {
-//                                              //Do some thing here
-//                                              [alertController dismissViewControllerAnimated:YES completion:nil];
-//                                              
-//                                          }];
-//                     [alertController addAction:ok];
-//                     
-//                     [self presentViewController:alertController animated:YES completion:nil];
+                     UIAlertController *alertController = [UIAlertController
+                                                           alertControllerWithTitle:@"Congratulations!"
+                                                           message:@"Image uploaded successfully"
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+                     
+                     UIAlertAction* ok = [UIAlertAction
+                                          actionWithTitle:@"OK"
+                                          style:UIAlertActionStyleDefault
+                                          handler:^(UIAlertAction * action)
+                                          {
+                                              //Do some thing here
+                                              [alertController dismissViewControllerAnimated:YES completion:nil];
+                                              
+                                          }];
+                     [alertController addAction:ok];
+                     
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                        [loadingAlert dismissViewControllerAnimated:YES completion:nil];
+                        [self presentViewController:alertController animated:YES completion:nil];
+                     });
                  }
              }];
          }
      }];
     
     [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    [self presentViewController:loadingAlert animated:YES completion:nil];
 }
 
 

@@ -22,8 +22,8 @@
 		9B8900B21C6C528700BF5DE1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900B11C6C528700BF5DE1 /* SearchUsersViewController.swift */; };
 		9B8900B41C6C532900BF5DE1 /* ItemsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */; };
 		9B98D7171C7F818E002EA6F4 /* ItemImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B98D7161C7F818E002EA6F4 /* ItemImageViewController.m */; };
-		9B98D7191C7F82BF002EA6F4 /* Azure Storage Client Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B98D7181C7F82BF002EA6F4 /* Azure Storage Client Library.framework */; };
-		9B98D71B1C7F82C9002EA6F4 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B98D71A1C7F82C9002EA6F4 /* libxml2.2.tbd */; };
+		9B98D71D1C7FCB04002EA6F4 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B98D71C1C7FCB04002EA6F4 /* libxml2.2.tbd */; };
+		9B98D71F1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B98D71E1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,8 +46,8 @@
 		9B98D7141C7F818E002EA6F4 /* Demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demo-Bridging-Header.h"; sourceTree = "<group>"; };
 		9B98D7151C7F818E002EA6F4 /* ItemImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemImageViewController.h; sourceTree = "<group>"; };
 		9B98D7161C7F818E002EA6F4 /* ItemImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemImageViewController.m; sourceTree = "<group>"; };
-		9B98D7181C7F82BF002EA6F4 /* Azure Storage Client Library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Azure Storage Client Library.framework"; path = "Azure Storage/Azure Storage Client Library.framework"; sourceTree = "<group>"; };
-		9B98D71A1C7F82C9002EA6F4 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
+		9B98D71C1C7FCB04002EA6F4 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
+		9B98D71E1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Azure Storage Client Library.framework"; path = "Azure Storage/Azure Storage Client Library.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B98D71B1C7F82C9002EA6F4 /* libxml2.2.tbd in Frameworks */,
-				9B98D7191C7F82BF002EA6F4 /* Azure Storage Client Library.framework in Frameworks */,
+				9B98D71F1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework in Frameworks */,
+				9B98D71D1C7FCB04002EA6F4 /* libxml2.2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,8 +66,8 @@
 		9B89008D1C6C28BA00BF5DE1 = {
 			isa = PBXGroup;
 			children = (
-				9B98D71A1C7F82C9002EA6F4 /* libxml2.2.tbd */,
-				9B98D7181C7F82BF002EA6F4 /* Azure Storage Client Library.framework */,
+				9B98D71E1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework */,
+				9B98D71C1C7FCB04002EA6F4 /* libxml2.2.tbd */,
 				9B8900981C6C28BA00BF5DE1 /* Demo */,
 				9B8900971C6C28BA00BF5DE1 /* Products */,
 			);
@@ -308,6 +308,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Azure",
 					Storage,
+					"$(PROJECT_DIR)/Azure",
+					Storage,
 				);
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -326,6 +328,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Azure",
+					Storage,
 					"$(PROJECT_DIR)/Azure",
 					Storage,
 				);

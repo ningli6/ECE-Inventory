@@ -587,8 +587,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c8G-W8-Geu">
-                                <rect key="frame" x="180" y="84" width="240" height="360"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c8G-W8-Geu">
+                                <rect key="frame" x="40" y="84" width="520" height="341"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="gT6-C2-gll"/>
                                     <constraint firstAttribute="height" constant="360" id="pYg-DI-1qc"/>
@@ -596,6 +596,8 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="gT6-C2-gll"/>
+                                        <exclude reference="pYg-DI-1qc"/>
                                         <exclude reference="syg-DN-1Fe"/>
                                     </mask>
                                 </variation>
@@ -654,6 +656,7 @@
                             <constraint firstItem="bag-yT-WIk" firstAttribute="top" secondItem="YBp-fj-Ldk" secondAttribute="bottom" constant="481" id="2el-Se-4MM"/>
                             <constraint firstItem="c8G-W8-Geu" firstAttribute="centerX" secondItem="gad-vP-Osf" secondAttribute="centerX" id="2xs-bw-sEq"/>
                             <constraint firstItem="7if-QM-pcW" firstAttribute="centerX" secondItem="gad-vP-Osf" secondAttribute="centerX" id="3Yz-xP-FK6"/>
+                            <constraint firstItem="c8G-W8-Geu" firstAttribute="leading" secondItem="gad-vP-Osf" secondAttribute="leadingMargin" constant="20" id="5vh-Wp-P6y"/>
                             <constraint firstItem="7if-QM-pcW" firstAttribute="height" secondItem="bag-yT-WIk" secondAttribute="height" id="7Rv-fC-Pjk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Gi0-aO-j9b" secondAttribute="trailing" constant="50" id="AuQ-9o-PJm"/>
                             <constraint firstItem="jdH-Y5-tEc" firstAttribute="top" secondItem="bag-yT-WIk" secondAttribute="bottom" constant="25" id="BFf-Zb-D66"/>
@@ -669,6 +672,8 @@
                             <constraint firstItem="bag-yT-WIk" firstAttribute="leading" secondItem="gad-vP-Osf" secondAttribute="leadingMargin" constant="50" id="bea-hC-7Km"/>
                             <constraint firstItem="Gi0-aO-j9b" firstAttribute="centerX" secondItem="gad-vP-Osf" secondAttribute="centerX" id="eJg-8V-jfs"/>
                             <constraint firstItem="bag-yT-WIk" firstAttribute="top" secondItem="7if-QM-pcW" secondAttribute="bottom" constant="20" id="fij-bc-rtS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="c8G-W8-Geu" secondAttribute="trailing" constant="20" id="hfC-e3-nf3"/>
+                            <constraint firstItem="Gi0-aO-j9b" firstAttribute="top" secondItem="c8G-W8-Geu" secondAttribute="bottom" constant="20" id="irR-Js-a6O"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bag-yT-WIk" secondAttribute="trailing" constant="50" id="j0E-qx-bDl"/>
                             <constraint firstItem="Gi0-aO-j9b" firstAttribute="height" secondItem="7if-QM-pcW" secondAttribute="height" id="jVY-6W-LaO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7if-QM-pcW" secondAttribute="trailing" constant="50" id="l6r-Cd-dq0"/>
@@ -684,6 +689,7 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="2xs-bw-sEq"/>
                                 <exclude reference="PS5-ur-HOh"/>
                                 <exclude reference="MQN-Pd-lEG"/>
                                 <exclude reference="eJg-8V-jfs"/>
@@ -738,7 +744,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="7fs-yl-H1D" kind="show" id="cVB-78-w1U"/>
+                                    <segue destination="7fs-yl-H1D" kind="presentation" id="cVB-78-w1U"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1248,6 +1254,34 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="ZIR-Lb-All" userLabel="Image">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="TVp-V7-sqQ" detailTextLabel="20m-kJ-ZFk" style="IBUITableViewCellStyleValue1" id="t6i-4U-wN8">
+                                        <rect key="frame" x="0.0" y="1321.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t6i-4U-wN8" id="jNl-ID-1iT">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TVp-V7-sqQ">
+                                                    <rect key="frame" x="15" y="12" width="44.5" height="19.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="20m-kJ-ZFk">
+                                                    <rect key="frame" x="523.5" y="12" width="41.5" height="19.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="Pbo-q2-mJP" id="lOY-ts-AbS"/>
@@ -1263,6 +1297,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="imageDetailCell" destination="t6i-4U-wN8" id="KsI-Ug-LQQ"/>
                         <outlet property="itemAMTLabel" destination="ae9-51-yLG" id="kS0-0d-1nX"/>
                         <outlet property="itemAcqDateLabel" destination="4JV-FH-WuJ" id="5nt-8P-9YY"/>
                         <outlet property="itemBarcodeLabel" destination="aP9-Aa-IXK" id="FB7-5N-fpp"/>
@@ -1276,6 +1311,7 @@
                         <outlet property="itemModelLabel" destination="OW9-J4-NMO" id="o0n-I8-XeQ"/>
                         <outlet property="itemOrgnTitleLabel" destination="o3d-XY-BhP" id="h6L-6U-emZ"/>
                         <outlet property="itemOwnershipLabel" destination="s5W-To-8BX" id="qSD-zb-vyk"/>
+                        <segue destination="BDg-81-xBW" kind="show" identifier="CheckScannedImage" id="4DH-RN-SMo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xPQ-7q-A0m" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1291,6 +1327,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="1lp-92-GHH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.40000000000000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1314,6 +1351,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Ht2-8X-5CJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.40000000000000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1334,4 +1372,7 @@
         <image name="SLR Camera Filled-30" width="30" height="30"/>
         <image name="User Group-30" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="4DH-RN-SMo"/>
+    </inferredMetricsTieBreakers>
 </document>
