@@ -173,11 +173,11 @@ class ScannedItemDetailsViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "CheckScannedImage" {
-            let itemImageView = segue.destinationViewController as! ItemImageViewController
-            itemImageView.barcode = self.item?.ptag
-            itemImageView.image = self.image;
-        }
+//        if segue.identifier == "CheckScannedImage" {
+//            let itemImageView = segue.destinationViewController as! ItemImageViewController
+//            itemImageView.barcode = self.item?.ptag
+//            itemImageView.image = self.image;
+//        }
     }
 
 }

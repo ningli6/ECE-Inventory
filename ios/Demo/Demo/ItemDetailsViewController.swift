@@ -13,7 +13,8 @@ class ItemDetailsViewController: UITableViewController {
     var connectionString =  "DefaultEndpointsProtocol=https;AccountName=eceinventory;AccountKey=rzuspKSY65DcSH6EzOFMJrL6067TXKUP7+3iGX+eCNMlDkUJgngPe2irrrMGMZli7RaIlGFVdWmB9GsqYv9kbQ=="
     
     var item: Item?
-    var image: UIImage?
+    var bloblist: AZSBlobResultSegment?
+//    var images: [UIImage]?
     
     @IBOutlet weak var itemDescriptionLabel: UILabel!
     
@@ -98,26 +99,39 @@ class ItemDetailsViewController: UITableViewController {
 
             // Create a local container object.
             let blobContainer: AZSCloudBlobContainer = blobClient.containerReferenceFromName(self.item!.ptag!)
+            
+            // list blobs in a container
+            blobContainer.listBlobsSegmentedWithContinuationToken(nil, prefix: nil, useFlatBlobListing: true, blobListingDetails: AZSBlobListingDetails.All, maxResults: -1, completionHandler: { (error: NSError?, results: AZSBlobResultSegment?) -> Void in
+                if (error != nil) {
+                    NSLog("Error downloading blobs list")
+                } else {
+//                    print(results?.blobs?.count)
+                    self.bloblist = results
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.performSegueWithIdentifier("GallerySegue", sender: nil)
+                    })
+                }
+            })
 
             // Create a local blob object
             // for now just use hardcoded name image for each item
-            let imageName = "image"
-            let blob: AZSCloudBlockBlob = blobContainer.blockBlobReferenceFromName(imageName as String)
-
-            // Download blob
-            blob.downloadToDataWithCompletionHandler({ (error: NSError?, data: NSData?) -> Void in
-                if ((error) != nil) {
-//                    print(error)
-                    // image not exists in the cloud storage, clear ram
-                    self.image = nil
-                } else {
-                    self.image = UIImage(data:data!,scale:1.0)
-                }
-                dispatch_async(dispatch_get_main_queue(), {
-                    // code here
-                    self.performSegueWithIdentifier("CheckImage", sender: nil)
-                })
-            })
+//            let imageName = "image"
+//            let blob: AZSCloudBlockBlob = blobContainer.blockBlobReferenceFromName(imageName as String)
+//
+//            // Download blob
+//            blob.downloadToDataWithCompletionHandler({ (error: NSError?, data: NSData?) -> Void in
+//                if ((error) != nil) {
+////                    print(error)
+//                    // image not exists in the cloud storage, clear ram
+//                    self.image = nil
+//                } else {
+//                    self.image = UIImage(data:data!,scale:1.0)
+//                }
+//                dispatch_async(dispatch_get_main_queue(), {
+//                    // code here
+//                    self.performSegueWithIdentifier("CheckImage", sender: nil)
+//                })
+//            })
         }
     }
 
@@ -174,10 +188,16 @@ class ItemDetailsViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "CheckImage" {
-            let itemImageView = segue.destinationViewController as! ItemImageViewController
-            itemImageView.barcode = self.item?.ptag
-            itemImageView.image = self.image;
+//        if segue.identifier == "CheckImage" {
+//            let itemImageView = segue.destinationViewController as! ItemImageViewController
+//            itemImageView.barcode = self.item?.ptag
+////            itemImageView.image = self.image;
+//        }
+//        
+        if segue.identifier == "GallerySegue" {
+            let imageGalleryView = segue.destinationViewController as! ImagesCollectionViewController
+            imageGalleryView.bloblist = self.bloblist;
+            imageGalleryView.barcode = self.item?.ptag;
         }
     }
 
