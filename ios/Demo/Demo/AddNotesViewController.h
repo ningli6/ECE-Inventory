@@ -16,6 +16,8 @@
 @property NSString * barcode;
 @property NSString * notes;
 
+@property (weak, nonatomic) IBOutlet UITextView *notesForImage;
+
 - (IBAction)uploadingImage:(id)sender;
 
 @end

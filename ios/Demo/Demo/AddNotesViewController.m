@@ -17,11 +17,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //Looks for single or multiple taps.
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+//    let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+    [self.view addGestureRecognizer:tap];
+//    view.addGestureRecognizer(tap)
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) hideKeyboard {
+    [self.notesForImage resignFirstResponder];
 }
 
 /*
@@ -62,6 +72,11 @@
     [loadingAlert.view addSubview:indicator];
     [indicator startAnimating];
     
+    // use timestamp as the blob name
+    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    // convert to int
+    NSString *timeStampString = [NSString stringWithFormat:@"%i", (int)timeStamp];
+    
      // Upload the chosen image to Azure
      // Create a storage account object from a connection string.
      AZSCloudStorageAccount *account = [AZSCloudStorageAccount accountFromConnectionString:@"DefaultEndpointsProtocol=https;AccountName=eceinventory;AccountKey=rzuspKSY65DcSH6EzOFMJrL6067TXKUP7+3iGX+eCNMlDkUJgngPe2irrrMGMZli7RaIlGFVdWmB9GsqYv9kbQ=="];
@@ -78,10 +93,9 @@
              NSLog(@"Error in creating container.");
          }
          else{
-             NSLog(@"Container created or exists");
              // Create a local blob object
-             NSString *uuid = [[NSUUID UUID] UUIDString];
-             AZSCloudBlockBlob *blockBlob = [blobContainer blockBlobReferenceFromName:uuid];
+//             NSString *uuid = [[NSUUID UUID] UUIDString];
+             AZSCloudBlockBlob *blockBlob = [blobContainer blockBlobReferenceFromName:timeStampString];
              
              // Upload blob to Storage
              [blockBlob uploadFromData:data completionHandler:^(NSError *uerror) {
@@ -89,7 +103,7 @@
                      NSLog(@"Error in creating blob.");
                  } else {
                      // Alert box that indicates the success
-                     NSLog(@"Complete!");
+                     NSLog(@"Complete uploading image!");
                      UIAlertController *alertController = [UIAlertController
                                                            alertControllerWithTitle:@"Congratulations!"
                                                            message:@"Image uploaded successfully"
@@ -113,6 +127,30 @@
              }];
          }
      }];
+    
+    // Upload notes
+    // Create a local container object. A container name must be all lowercase.
+    NSString * text = @"text";
+    AZSCloudBlobContainer *textContainer = [blobClient containerReferenceFromName:[self.barcode stringByAppendingString:text]];
+    [textContainer createContainerIfNotExistsWithAccessType:AZSContainerPublicAccessTypeContainer requestOptions:nil operationContext:nil completionHandler:^(NSError *error, BOOL exists)
+     {
+         if (error){
+             NSLog(@"Error in creating container.");
+         }
+         else{
+
+             AZSCloudBlockBlob *blockBlob = [textContainer blockBlobReferenceFromName:timeStampString];
+             
+             // Upload blob to Storage
+             self.notes = self.notesForImage.text;
+             [blockBlob uploadFromText:self.notes completionHandler:^(NSError *uerror) {
+                 if (uerror){
+                     NSLog(@"Error in creating blob.");
+                 }
+             }];
+         }
+     }];
+
      
      [self presentViewController:loadingAlert animated:YES completion:nil];
 }

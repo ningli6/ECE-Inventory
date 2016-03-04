@@ -10,6 +10,9 @@ import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
     
+    var notesId: String?
+    var uploadingDate: NSDate?
+    
     @IBOutlet weak var imageView: UIImageView!
 
 }

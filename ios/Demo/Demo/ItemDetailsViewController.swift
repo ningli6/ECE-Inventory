@@ -14,7 +14,6 @@ class ItemDetailsViewController: UITableViewController {
     
     var item: Item?
     var bloblist: AZSBlobResultSegment?
-//    var images: [UIImage]?
     
     @IBOutlet weak var itemDescriptionLabel: UILabel!
     
@@ -100,18 +99,22 @@ class ItemDetailsViewController: UITableViewController {
             // Create a local container object.
             let blobContainer: AZSCloudBlobContainer = blobClient.containerReferenceFromName(self.item!.ptag!)
             
-            // list blobs in a container
-            blobContainer.listBlobsSegmentedWithContinuationToken(nil, prefix: nil, useFlatBlobListing: true, blobListingDetails: AZSBlobListingDetails.All, maxResults: -1, completionHandler: { (error: NSError?, results: AZSBlobResultSegment?) -> Void in
-                if (error != nil) {
-                    NSLog("Error downloading blobs list")
-                } else {
-//                    print(results?.blobs?.count)
-                    self.bloblist = results
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.performSegueWithIdentifier("GallerySegue", sender: nil)
-                    })
-                }
+            // Create container if not exists
+            blobContainer.createContainerIfNotExistsWithCompletionHandler({ (cerror: NSError?, exists: Bool) -> Void in
+                // list blobs in a container
+                blobContainer.listBlobsSegmentedWithContinuationToken(nil, prefix: nil, useFlatBlobListing: true, blobListingDetails: AZSBlobListingDetails.All, maxResults: -1, completionHandler: { (error: NSError?, results: AZSBlobResultSegment?) -> Void in
+                    if (error != nil) {
+                        print(error)
+                        print("Error downloading blobs list")
+                    } else {
+                        self.bloblist = results
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.performSegueWithIdentifier("GallerySegue", sender: nil)
+                        })
+                    }
+                })
             })
+
 
             // Create a local blob object
             // for now just use hardcoded name image for each item

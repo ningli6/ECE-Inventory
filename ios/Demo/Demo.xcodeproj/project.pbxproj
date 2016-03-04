@@ -16,6 +16,7 @@
 		9B59210D1C6D0858005C6FEC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210C1C6D0858005C6FEC /* User.swift */; };
 		9B59210F1C6D0915005C6FEC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210E1C6D0915005C6FEC /* Item.swift */; };
 		9B5921131C6D3D49005C6FEC /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */; };
+		9B77E32C1C889B7700D7DCE4 /* ImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */; };
 		9B89009A1C6C28BA00BF5DE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900991C6C28BA00BF5DE1 /* AppDelegate.swift */; };
 		9B89009C1C6C28BA00BF5DE1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89009B1C6C28BA00BF5DE1 /* ViewController.swift */; };
 		9B89009F1C6C28BA00BF5DE1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B89009D1C6C28BA00BF5DE1 /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 		9B59210C1C6D0858005C6FEC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9B59210E1C6D0915005C6FEC /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
+		9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailsViewController.swift; sourceTree = "<group>"; };
 		9B8900961C6C28BA00BF5DE1 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B8900991C6C28BA00BF5DE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B89009B1C6C28BA00BF5DE1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */,
 				9B3E52C81C87A779007EDC85 /* ImagesCollectionViewController.swift */,
 				9B3E52CA1C87C46A007EDC85 /* ImageCollectionViewCell.swift */,
+				9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */,
 				9B98D7151C7F818E002EA6F4 /* AddImageViewController.h */,
 				9B98D7161C7F818E002EA6F4 /* AddImageViewController.m */,
 				9B3E52CE1C87E026007EDC85 /* AddNotesViewController.h */,
@@ -195,6 +198,7 @@
 				9B5921131C6D3D49005C6FEC /* ItemDetailsViewController.swift in Sources */,
 				9B8900B21C6C528700BF5DE1 /* SearchUsersViewController.swift in Sources */,
 				9B3E52D01C87E026007EDC85 /* AddNotesViewController.m in Sources */,
+				9B77E32C1C889B7700D7DCE4 /* ImageDetailsViewController.swift in Sources */,
 				9B8900B41C6C532900BF5DE1 /* ItemsListViewController.swift in Sources */,
 				9B89009A1C6C28BA00BF5DE1 /* AppDelegate.swift in Sources */,
 				9B5921071C6CF3E1005C6FEC /* ScanTabViewController.swift in Sources */,
@@ -328,6 +332,12 @@
 					Storage,
 					"$(PROJECT_DIR)/Azure",
 					Storage,
+					"$(PROJECT_DIR)/Azure",
+					Storage,
+					"$(PROJECT_DIR)/Azure",
+					Storage,
+					"$(PROJECT_DIR)/Azure",
+					Storage,
 				);
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -346,6 +356,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Azure",
+					Storage,
+					"$(PROJECT_DIR)/Azure",
+					Storage,
+					"$(PROJECT_DIR)/Azure",
+					Storage,
 					"$(PROJECT_DIR)/Azure",
 					Storage,
 					"$(PROJECT_DIR)/Azure",
