@@ -20,9 +20,8 @@
     
     //Looks for single or multiple taps.
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
-//    let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+
     [self.view addGestureRecognizer:tap];
-//    view.addGestureRecognizer(tap)
 }
 
 - (void)didReceiveMemoryWarning {

@@ -12,10 +12,17 @@ private let reuseIdentifier = "ImageCell"
 
 class ImagesCollectionViewController: UICollectionViewController {
     
+    // selected image
     var selectedImage: UIImage?
+    // blob name for the selected image
+    var selectedBlobName: String?
+    // uploading date for the image
     var uploadingDate: NSDate?
+    // notes of the selected image
     var notesOfImage: String?
+    // barcode of the item (container name), set by previous view
     var barcode: String?
+    // blob list, set by previous view
     var bloblist: AZSBlobResultSegment?
     
     var connectionString =  "DefaultEndpointsProtocol=https;AccountName=eceinventory;AccountKey=rzuspKSY65DcSH6EzOFMJrL6067TXKUP7+3iGX+eCNMlDkUJgngPe2irrrMGMZli7RaIlGFVdWmB9GsqYv9kbQ=="
@@ -77,7 +84,7 @@ class ImagesCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! ImageCollectionViewCell
         
         // Configure the cell
-        // Download blob
+        // Download blob according to the blob list
         bloblist?.blobs![bloblist!.blobs!.count - 1 - indexPath.row].downloadToDataWithCompletionHandler({ (error: NSError?, data: NSData?) -> Void in
             if ((error) != nil) {
                 print("Error with downloading image!")
@@ -89,6 +96,7 @@ class ImagesCollectionViewController: UICollectionViewController {
             }
         })
         cell.notesId = bloblist?.blobs![bloblist!.blobs!.count - 1 - indexPath.row].blobName
+        // keep track of the uploading date, date comes from the system
         cell.uploadingDate = NSDate(timeIntervalSince1970: Double(cell.notesId!)! - 18000)
         
         cell.backgroundColor = UIColor.whiteColor()
@@ -110,6 +118,7 @@ class ImagesCollectionViewController: UICollectionViewController {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ImageCollectionViewCell
         self.selectedImage = cell.imageView.image
         self.uploadingDate = cell.uploadingDate
+        self.selectedBlobName = cell.notesId
         
         // Create a storage account object from a connection string.
         let account = AZSCloudStorageAccount(fromConnectionString:connectionString)
@@ -166,6 +175,8 @@ class ImagesCollectionViewController: UICollectionViewController {
         
         if segue.identifier == "ShowImageDetails" {
             let imageDetailsView = segue.destinationViewController as! ImageDetailsViewController
+            imageDetailsView.container = self.barcode
+            imageDetailsView.blobName = self.selectedBlobName
             imageDetailsView.image = self.selectedImage
             imageDetailsView.notes = self.notesOfImage
             imageDetailsView.uploadingDate = self.uploadingDate

@@ -338,6 +338,8 @@
 					Storage,
 					"$(PROJECT_DIR)/Azure",
 					Storage,
+					"$(PROJECT_DIR)/Azure",
+					Storage,
 				);
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -356,6 +358,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Azure",
+					Storage,
 					"$(PROJECT_DIR)/Azure",
 					Storage,
 					"$(PROJECT_DIR)/Azure",

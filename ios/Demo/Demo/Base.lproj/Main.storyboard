@@ -282,6 +282,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="deleteImage:" destination="q1c-5N-pvs" eventType="touchUpInside" id="54R-6v-OtW"/>
                                     <action selector="updateImageFromCamera:" destination="BDg-81-xBW" eventType="touchUpInside" id="S27-Ob-VoT"/>
                                 </connections>
                             </button>
@@ -341,11 +342,13 @@
                         <outlet property="dateLabelView" destination="Gcp-sk-tpc" id="tB6-sY-y0T"/>
                         <outlet property="imageView" destination="U3o-WS-GfD" id="oSB-6M-LWl"/>
                         <outlet property="notesTextView" destination="Ar9-7n-cTu" id="Ltm-GB-kVE"/>
+                        <segue destination="Vu8-3w-d94" kind="unwind" identifier="FinishDeleting" unwindAction="uploadingFromAddNotesViewController:" id="fnb-s1-CiS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qvl-u0-q5x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Vu8-3w-d94" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4809" y="-230"/>
+            <point key="canvasLocation" x="4809" y="-232"/>
         </scene>
         <!--Item Details-->
         <scene sceneID="SyY-IT-MC7">

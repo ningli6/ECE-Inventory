@@ -10,7 +10,9 @@ import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
     
+    // Notes Id (blob name)
     var notesId: String?
+    // uploading date for that image and notes
     var uploadingDate: NSDate?
     
     @IBOutlet weak var imageView: UIImageView!
