@@ -17,6 +17,7 @@
 		9B59210D1C6D0858005C6FEC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210C1C6D0858005C6FEC /* User.swift */; };
 		9B59210F1C6D0915005C6FEC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210E1C6D0915005C6FEC /* Item.swift */; };
 		9B5921131C6D3D49005C6FEC /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */; };
+		9B7799691C948E4800FD2370 /* Azure Storage Client Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7799681C948E4800FD2370 /* Azure Storage Client Library.framework */; };
 		9B77E32C1C889B7700D7DCE4 /* ImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */; };
 		9B89009A1C6C28BA00BF5DE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900991C6C28BA00BF5DE1 /* AppDelegate.swift */; };
 		9B89009C1C6C28BA00BF5DE1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89009B1C6C28BA00BF5DE1 /* ViewController.swift */; };
@@ -28,7 +29,6 @@
 		9B8900B41C6C532900BF5DE1 /* ItemsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */; };
 		9B98D7171C7F818E002EA6F4 /* AddImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B98D7161C7F818E002EA6F4 /* AddImageViewController.m */; };
 		9BA74DD11C7FFB7B0035ABB3 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B98D71C1C7FCB04002EA6F4 /* libxml2.2.tbd */; };
-		9BA74DD21C7FFB870035ABB3 /* Azure Storage Client Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B98D71E1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +43,7 @@
 		9B59210C1C6D0858005C6FEC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9B59210E1C6D0915005C6FEC /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
+		9B7799681C948E4800FD2370 /* Azure Storage Client Library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Azure Storage Client Library.framework"; path = "AzureStorage/Azure Storage Client Library.framework"; sourceTree = "<group>"; };
 		9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailsViewController.swift; sourceTree = "<group>"; };
 		9B8900961C6C28BA00BF5DE1 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B8900991C6C28BA00BF5DE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +59,6 @@
 		9B98D7151C7F818E002EA6F4 /* AddImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImageViewController.h; sourceTree = "<group>"; };
 		9B98D7161C7F818E002EA6F4 /* AddImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddImageViewController.m; sourceTree = "<group>"; };
 		9B98D71C1C7FCB04002EA6F4 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
-		9B98D71E1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Azure Storage Client Library.framework"; path = "Azure Storage/Azure Storage Client Library.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BA74DD21C7FFB870035ABB3 /* Azure Storage Client Library.framework in Frameworks */,
+				9B7799691C948E4800FD2370 /* Azure Storage Client Library.framework in Frameworks */,
 				9BA74DD11C7FFB7B0035ABB3 /* libxml2.2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,7 +77,7 @@
 		9B89008D1C6C28BA00BF5DE1 = {
 			isa = PBXGroup;
 			children = (
-				9B98D71E1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework */,
+				9B7799681C948E4800FD2370 /* Azure Storage Client Library.framework */,
 				9B98D71C1C7FCB04002EA6F4 /* libxml2.2.tbd */,
 				9B8900981C6C28BA00BF5DE1 /* Demo */,
 				9B8900971C6C28BA00BF5DE1 /* Products */,
@@ -328,22 +328,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
+					"$(PROJECT_DIR)/AzureStorage",
 				);
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -362,22 +347,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
+					"$(PROJECT_DIR)/AzureStorage",
 				);
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

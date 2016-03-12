@@ -118,7 +118,7 @@ class ImagesCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return self.blobBySection![section].count
+        return self.blobBySection![self.blobBySection!.count - 1 - section].count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -126,9 +126,10 @@ class ImagesCollectionViewController: UICollectionViewController {
         
         // Configure the cell
         // Download blob according to the blob list
-        let sections = self.blobBySection?.count
-        let len = self.blobBySection?[indexPath.section].count
-        self.blobBySection?[sections! - 1 - indexPath.section][len! - 1 - indexPath.row].downloadToDataWithCompletionHandler({ (error: NSError?, data: NSData?) -> Void in
+        let indexSection = self.blobBySection!.count - 1 - indexPath.section
+        let indexRow = self.blobBySection![indexSection].count - 1 - indexPath.row
+        
+        self.blobBySection![indexSection][indexRow].downloadToDataWithCompletionHandler({ (error: NSError?, data: NSData?) -> Void in
             if ((error) != nil) {
                 print("Error with downloading image!")
                 // image not exists in the cloud storage, clear ram
@@ -138,7 +139,8 @@ class ImagesCollectionViewController: UICollectionViewController {
                 })
             }
         })
-        cell.notesId = bloblist?.blobs![bloblist!.blobs!.count - 1 - indexPath.row].blobName
+        
+        cell.notesId = blobBySection![indexSection][indexRow].blobName
         // keep track of the uploading date, date comes from the system
         cell.uploadingDate = NSDate(timeIntervalSince1970: Double(cell.notesId!)! - 18000)
         
