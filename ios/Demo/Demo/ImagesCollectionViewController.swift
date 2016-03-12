@@ -24,6 +24,10 @@ class ImagesCollectionViewController: UICollectionViewController {
     var barcode: String?
     // blob list, set by previous view
     var bloblist: AZSBlobResultSegment?
+    // blob array, divided by time
+    var blobBySection: [[AZSCloudBlob]]?
+    // timestamp array
+    var sectionTimeStamp: [String]?
     
     var connectionString =  "DefaultEndpointsProtocol=https;AccountName=eceinventory;AccountKey=rzuspKSY65DcSH6EzOFMJrL6067TXKUP7+3iGX+eCNMlDkUJgngPe2irrrMGMZli7RaIlGFVdWmB9GsqYv9kbQ=="
 
@@ -34,9 +38,10 @@ class ImagesCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-//        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        // self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        divideBlobByTime(self.bloblist)
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,7 +49,42 @@ class ImagesCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func divideBlobByTime(bloblist: AZSBlobResultSegment?) -> Void {
+        self.blobBySection = nil
+        self.sectionTimeStamp = nil
+        if (bloblist != nil && bloblist!.blobs!.count > 0) {
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = NSDateFormatterStyle.LongStyle
+            
+            self.blobBySection = [[AZSCloudBlob]]()
+            self.sectionTimeStamp = [String]()
+            var lastDate: NSDate?
+            var index: Int?
+            for blob in bloblist!.blobs! {
+                let newDate = NSDate(timeIntervalSince1970: Double(blob.blobName)! - 18000)
+                if lastDate == nil {
+                    self.blobBySection?.append([AZSCloudBlob]())
+                    self.blobBySection![0].append(blob as! AZSCloudBlob)
+                    self.sectionTimeStamp?.append(formatter.stringFromDate(newDate))
+                    lastDate = newDate
+                    index = 0
+                } else if NSCalendar.currentCalendar().compareDate(newDate, toDate: lastDate!,
+                    toUnitGranularity: NSCalendarUnit.Day) == NSComparisonResult.OrderedSame {
+                        self.blobBySection![index!].append(blob as! AZSCloudBlob)
+                } else {
+                    self.blobBySection?.append([AZSCloudBlob]())
+                    index = index! + 1
+                    self.blobBySection![index!].append(blob as! AZSCloudBlob)
+                    lastDate = newDate
+                    self.sectionTimeStamp?.append(formatter.stringFromDate(newDate))
+                }
+            }
+        }
+    }
+    
     @IBAction func uploadingFromAddNotesViewController(segue: UIStoryboardSegue) {
+        print("Reload collection view!")
+        
         /* Download the image from azure cloud storage if exists */
         // Create a storage account object from a connection string.
         let account = AZSCloudStorageAccount(fromConnectionString:connectionString)
@@ -61,6 +101,7 @@ class ImagesCollectionViewController: UICollectionViewController {
                 NSLog("Error downloading blobs list")
             } else {
                 self.bloblist = results
+                self.divideBlobByTime(self.bloblist)
                 dispatch_async(dispatch_get_main_queue(), {
                     self.collectionView?.reloadData()
                 })
@@ -72,12 +113,12 @@ class ImagesCollectionViewController: UICollectionViewController {
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return self.blobBySection == nil ? 0 : self.blobBySection!.count
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return bloblist == nil ? 0 : bloblist!.blobs!.count
+        return self.blobBySection![section].count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -85,7 +126,9 @@ class ImagesCollectionViewController: UICollectionViewController {
         
         // Configure the cell
         // Download blob according to the blob list
-        bloblist?.blobs![bloblist!.blobs!.count - 1 - indexPath.row].downloadToDataWithCompletionHandler({ (error: NSError?, data: NSData?) -> Void in
+        let sections = self.blobBySection?.count
+        let len = self.blobBySection?[indexPath.section].count
+        self.blobBySection?[sections! - 1 - indexPath.section][len! - 1 - indexPath.row].downloadToDataWithCompletionHandler({ (error: NSError?, data: NSData?) -> Void in
             if ((error) != nil) {
                 print("Error with downloading image!")
                 // image not exists in the cloud storage, clear ram
@@ -101,6 +144,22 @@ class ImagesCollectionViewController: UICollectionViewController {
         
         cell.backgroundColor = UIColor.whiteColor()
         return cell
+    }
+    
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        //1
+        switch kind {
+            //2
+        case UICollectionElementKindSectionHeader:
+            //3
+            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "ImageCollectionHeaderView", forIndexPath: indexPath) as! ImageCollectionReusableView
+            let sections = self.sectionTimeStamp?.count
+            headerView.headerLabel.text = self.sectionTimeStamp![sections! - 1 - indexPath.section]
+            return headerView
+        default:
+            //4
+            assert(false, "Unexpected element kind")
+        }
     }
 
     // MARK: UICollectionViewDelegate

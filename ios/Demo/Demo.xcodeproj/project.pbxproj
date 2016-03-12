@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B1CAB4C1C9363C000C830C6 /* ImageCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CAB4B1C9363C000C830C6 /* ImageCollectionReusableView.swift */; };
 		9B3E52C91C87A779007EDC85 /* ImagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3E52C81C87A779007EDC85 /* ImagesCollectionViewController.swift */; };
 		9B3E52CB1C87C46A007EDC85 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3E52CA1C87C46A007EDC85 /* ImageCollectionViewCell.swift */; };
 		9B3E52D01C87E026007EDC85 /* AddNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B3E52CF1C87E026007EDC85 /* AddNotesViewController.m */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B1CAB4B1C9363C000C830C6 /* ImageCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionReusableView.swift; sourceTree = "<group>"; };
 		9B3E52C81C87A779007EDC85 /* ImagesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewController.swift; sourceTree = "<group>"; };
 		9B3E52CA1C87C46A007EDC85 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9B3E52CE1C87E026007EDC85 /* AddNotesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNotesViewController.h; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */,
 				9B3E52C81C87A779007EDC85 /* ImagesCollectionViewController.swift */,
 				9B3E52CA1C87C46A007EDC85 /* ImageCollectionViewCell.swift */,
+				9B1CAB4B1C9363C000C830C6 /* ImageCollectionReusableView.swift */,
 				9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */,
 				9B98D7151C7F818E002EA6F4 /* AddImageViewController.h */,
 				9B98D7161C7F818E002EA6F4 /* AddImageViewController.m */,
@@ -195,6 +198,7 @@
 				9B3E52C91C87A779007EDC85 /* ImagesCollectionViewController.swift in Sources */,
 				9B59210B1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift in Sources */,
 				9B89009C1C6C28BA00BF5DE1 /* ViewController.swift in Sources */,
+				9B1CAB4C1C9363C000C830C6 /* ImageCollectionReusableView.swift in Sources */,
 				9B5921131C6D3D49005C6FEC /* ItemDetailsViewController.swift in Sources */,
 				9B8900B21C6C528700BF5DE1 /* SearchUsersViewController.swift in Sources */,
 				9B3E52D01C87E026007EDC85 /* AddNotesViewController.m in Sources */,
