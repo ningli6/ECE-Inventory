@@ -18,8 +18,4 @@ class User {
     init() {
         self.items = []
     }
-    
-//    public init?(json: JSON) {
-//        items = modelsFromJSONArray(json)
-//    }
 }

@@ -13,7 +13,7 @@ class SearchUsersViewController: UIViewController {
     // search result
     var user: User?
     
-    var base_url = "http://eceinventory.azurewebsites.net"
+    let base_url = "http://eceinventory.azurewebsites.net"
     
     @IBOutlet weak var searchUserIdTextField: UITextField!
     
