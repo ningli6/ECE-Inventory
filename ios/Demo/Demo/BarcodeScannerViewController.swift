@@ -156,7 +156,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                             dispatch_async(dispatch_get_main_queue(), {
                                 // code here
                                 if (self.item != nil) {
-                                    self.performSegueWithIdentifier("BarcodeFound", sender: nil)
+                                    self.performSegueWithIdentifier("ScanSuccess", sender: nil)
                                 }
                             })
                         }catch {
@@ -187,10 +187,10 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if (segue.identifier == "BarcodeFound") {
-            let navView = segue.destinationViewController as! UINavigationController
-            let scannedItemDetailsView = navView.viewControllers.first as! ScannedItemDetailsViewController
-            scannedItemDetailsView.item = self.item
+        if (segue.identifier == "ScanSuccess") {
+            let itemDetailsView = segue.destinationViewController as! ItemDetailsViewController
+            itemDetailsView.item = self.item
+            itemDetailsView.returnToSearchTab = true
         }
     }
 

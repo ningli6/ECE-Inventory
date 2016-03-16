@@ -14,6 +14,8 @@ class ItemDetailsViewController: UITableViewController {
     
     var item: Item?
     var bloblist: AZSBlobResultSegment?
+    // what is my source view controller
+    var returnToSearchTab: Bool?
     
     @IBOutlet weak var itemDescriptionLabel: UILabel!
     
@@ -61,6 +63,16 @@ class ItemDetailsViewController: UITableViewController {
         itemLastInvDateLabel.text = item?.lastInvDate
         itemDesignationLabel.text = item?.designation
         
+        // show the unwind button if navigate from search tab
+        if self.returnToSearchTab! {
+            let done = UIBarButtonItem(
+                barButtonSystemItem: .Done,
+                target: self,
+                action: "unwindTowardsSearchTab")
+            self.navigationItem.rightBarButtonItem = done
+            self.navigationItem.rightBarButtonItem!.tintColor = UIColor.whiteColor()
+        }
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -114,27 +126,6 @@ class ItemDetailsViewController: UITableViewController {
                     }
                 })
             })
-
-
-            // Create a local blob object
-            // for now just use hardcoded name image for each item
-//            let imageName = "image"
-//            let blob: AZSCloudBlockBlob = blobContainer.blockBlobReferenceFromName(imageName as String)
-//
-//            // Download blob
-//            blob.downloadToDataWithCompletionHandler({ (error: NSError?, data: NSData?) -> Void in
-//                if ((error) != nil) {
-////                    print(error)
-//                    // image not exists in the cloud storage, clear ram
-//                    self.image = nil
-//                } else {
-//                    self.image = UIImage(data:data!,scale:1.0)
-//                }
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    // code here
-//                    self.performSegueWithIdentifier("CheckImage", sender: nil)
-//                })
-//            })
         }
     }
 
@@ -186,17 +177,14 @@ class ItemDetailsViewController: UITableViewController {
 
     // MARK: - Navigation
     
-
+    func unwindTowardsSearchTab() {
+        performSegueWithIdentifier("ReturnToSearchTab", sender: nil)
+    }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-//        if segue.identifier == "CheckImage" {
-//            let itemImageView = segue.destinationViewController as! ItemImageViewController
-//            itemImageView.barcode = self.item?.ptag
-////            itemImageView.image = self.image;
-//        }
-//        
         if segue.identifier == "GallerySegue" {
             let imageGalleryView = segue.destinationViewController as! ImagesCollectionViewController
             imageGalleryView.bloblist = self.bloblist;

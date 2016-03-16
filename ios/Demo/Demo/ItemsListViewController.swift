@@ -101,6 +101,7 @@ class ItemsListViewController: UITableViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let itemDetailView = segue.destinationViewController as! ItemDetailsViewController
                 itemDetailView.item = self.items![indexPath.row]
+                itemDetailView.returnToSearchTab = false
             }
         }
     }

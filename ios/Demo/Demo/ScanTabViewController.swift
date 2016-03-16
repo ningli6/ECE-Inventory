@@ -118,11 +118,7 @@ class ScanTabViewController: UIViewController {
     }
     
     // MARK: - Navigation
-    @IBAction func cancelFromBarcodeScannerViewToScanTabView(segue: UIStoryboardSegue) {
-        
-    }
-    
-    @IBAction func cancelFromScannedItemDetailsViewToScanTabView(segue: UIStoryboardSegue) {
+    @IBAction func cancelFromSearchView(segue: UIStoryboardSegue) {
         
     }
     
@@ -132,8 +128,9 @@ class ScanTabViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if (segue.identifier == "BarcodeFound") {
             let navView = segue.destinationViewController as! UINavigationController
-            let scannedItemDetailsView = navView.viewControllers.first as! ScannedItemDetailsViewController
-            scannedItemDetailsView.item = self.item
+            let itemDetailsView = navView.viewControllers.first as! ItemDetailsViewController
+            itemDetailsView.item = self.item
+            itemDetailsView.returnToSearchTab = true
         }
     }
 

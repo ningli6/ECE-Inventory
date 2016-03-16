@@ -50,51 +50,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*
-- (IBAction)deleteImage:(id)sender {
-    self.itemImage.image = nil;
 
-    // Delete blob
-    // Create a storage account object from a connection string.
-    AZSCloudStorageAccount *account = [AZSCloudStorageAccount accountFromConnectionString:@"DefaultEndpointsProtocol=https;AccountName=eceinventory;AccountKey=rzuspKSY65DcSH6EzOFMJrL6067TXKUP7+3iGX+eCNMlDkUJgngPe2irrrMGMZli7RaIlGFVdWmB9GsqYv9kbQ=="];
-    
-    // Create a blob service client object.
-    AZSCloudBlobClient *blobClient = [account getBlobClient];
-    
-    // Create a local container object.
-    AZSCloudBlobContainer *blobContainer = [blobClient containerReferenceFromName:self.barcode];
-    
-    // Create a local blob object
-    AZSCloudBlockBlob *blockBlob = [blobContainer blockBlobReferenceFromName:@"image"];
-    
-    // Delete blob
-    [blockBlob deleteWithCompletionHandler:^(NSError *error) {
-        if (error) {
-            NSLog(@"Error in deleting blob.");
-        } else {
-            NSLog(@"Deleted!");
-            UIAlertController *alertController = [UIAlertController
-                                               alertControllerWithTitle:@"Congratulations!"
-                                               message:@"Image deleted"
-                                               preferredStyle:UIAlertControllerStyleAlert];
-
-            UIAlertAction* ok = [UIAlertAction
-                              actionWithTitle:@"OK"
-                              style:UIAlertActionStyleDefault
-                              handler:^(UIAlertAction * action)
-                              {
-                                  //Do some thing here
-                                  [alertController dismissViewControllerAnimated:YES completion:nil];
-                              }];
-            [alertController addAction:ok];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self presentViewController:alertController animated:YES completion:nil];
-            });
-            
-        }
-    }];
-}
-*/
 
 - (IBAction)addNotes:(id)sender {
     if (self.image == nil) {
