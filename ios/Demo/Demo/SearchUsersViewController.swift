@@ -19,7 +19,7 @@ class SearchUsersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
@@ -31,7 +31,7 @@ class SearchUsersViewController: UIViewController {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -40,7 +40,7 @@ class SearchUsersViewController: UIViewController {
     
     // MARK: - Navigation
     @IBAction func cancelFromUserDetailsViewToSearchUsersView(segue: UIStoryboardSegue) {
-    
+        
     }
     
     @IBAction func searchForUsers() {
@@ -57,10 +57,21 @@ class SearchUsersViewController: UIViewController {
         let requestURL: NSURL = NSURL(string: query)!
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
         let session = NSURLSession.sharedSession()
+        
+        // create alert
+        let loadingAlert = UIAlertController(title: "Searching", message: "\n\n\n\n", preferredStyle: .Alert)
+        loadingAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        indicator.color = UIColor.blackColor()
+        indicator.frame = loadingAlert.view.bounds
+        indicator.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        indicator.startAnimating()
+        loadingAlert.view.addSubview(indicator)
+        
         let task = session.dataTaskWithRequest(urlRequest) {
             (data, response, error) -> Void in
             
-            dispatch_async(dispatch_get_main_queue(), {
+            loadingAlert.dismissViewControllerAnimated(true, completion: { () -> Void in
                 let httpResponse = response as! NSHTTPURLResponse
                 let statusCode = httpResponse.statusCode
                 
@@ -123,6 +134,7 @@ class SearchUsersViewController: UIViewController {
             })
         }
         task.resume()
+        self.presentViewController(loadingAlert, animated: true, completion: nil)
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -135,5 +147,5 @@ class SearchUsersViewController: UIViewController {
             userDetailsView.user = self.user
         }
     }
-
+    
 }

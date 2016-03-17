@@ -869,7 +869,6 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Add notes such as the exact location of item" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7IR-ZR-YpB">
                                 <rect key="frame" x="40" y="84" width="520" height="200"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="1K3-Xn-fr3"/>
                                     <constraint firstAttribute="height" constant="200" id="jrz-KG-J18"/>
@@ -1194,7 +1193,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="uFY-66-n6w">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="6I6-5v-WKY" kind="unwind" unwindAction="cancelFromBarcodeScannerViewToScanTabView:" id="ylY-8d-9MJ"/>
+                                <segue destination="6I6-5v-WKY" kind="unwind" unwindAction="cancelFromSearchView:" id="s7P-nA-32z"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1215,8 +1214,12 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="1lp-92-GHH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.40000000000000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="lXJ-qF-aYW">
@@ -1240,6 +1243,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="8TA-K1-5iz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.40000000000000002" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
