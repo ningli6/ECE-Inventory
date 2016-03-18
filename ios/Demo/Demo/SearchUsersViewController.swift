@@ -12,10 +12,14 @@ class SearchUsersViewController: UIViewController {
     
     // search result
     var user: User?
+    // user pid
+    var pid: String?
     
     let base_url = "http://eceinventory.azurewebsites.net"
     
     @IBOutlet weak var searchUserIdTextField: UITextField!
+    
+    @IBOutlet weak var pidTextLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +28,8 @@ class SearchUsersViewController: UIViewController {
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
+        
+        self.pidTextLabel.text = "Welcome: \(self.pid!)"
     }
     
     //Calls this function when the tap is recognized.

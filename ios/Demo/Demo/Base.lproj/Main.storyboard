@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name, First Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f97-c9-EhW">
-                                <rect key="frame" x="200" y="154" width="200" height="30"/>
+                                <rect key="frame" x="200" y="159" width="200" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="AMn-Sq-Oby"/>
                                     <constraint firstAttribute="width" constant="200" id="CkK-NW-yHX"/>
@@ -29,7 +29,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rAz-js-Dff">
-                                <rect key="frame" x="250" y="120" width="100.5" height="24"/>
+                                <rect key="frame" x="250" y="125" width="100.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -49,19 +49,46 @@
                                     <action selector="searchForUsers" destination="BYZ-38-t0r" eventType="touchUpInside" id="qCa-4B-mxU"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iox-zW-zd0">
+                                <rect key="frame" x="70" y="50" width="460" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="ANq-nu-iF0"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="PCe-1Z-4CY"/>
+                                    <constraint firstAttribute="width" constant="200" id="az8-dN-aMK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="PCe-1Z-4CY"/>
+                                        <exclude reference="az8-dN-aMK"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="rAz-js-Dff" firstAttribute="top" secondItem="iox-zW-zd0" secondAttribute="bottom" constant="50" id="5u6-58-ZoD"/>
                             <constraint firstItem="f97-c9-EhW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DbX-T2-XVh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iox-zW-zd0" secondAttribute="trailing" constant="50" id="FQt-KA-Nk5"/>
+                            <constraint firstItem="iox-zW-zd0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="50" id="KDb-Bo-5Tn"/>
                             <constraint firstItem="vCt-7B-cv9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Wfm-n2-Eaz"/>
                             <constraint firstItem="rAz-js-Dff" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kO2-jG-yzx"/>
                             <constraint firstItem="f97-c9-EhW" firstAttribute="top" secondItem="rAz-js-Dff" secondAttribute="bottom" constant="10" id="oTw-i1-VBm"/>
                             <constraint firstItem="rAz-js-Dff" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="qZl-K5-Hbg"/>
+                            <constraint firstItem="iox-zW-zd0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="s1F-Gc-99q"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="vCt-7B-cv9" secondAttribute="bottom" constant="200" id="ux7-ex-fUs"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="qZl-K5-Hbg"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="User" image="User Group-30" id="0Y3-Eo-gcP"/>
                     <connections>
+                        <outlet property="pidTextLabel" destination="iox-zW-zd0" id="SCE-qO-BDx"/>
                         <outlet property="searchUserIdTextField" destination="f97-c9-EhW" id="Q5b-j0-KSr"/>
                         <segue destination="iw5-3X-Bz6" kind="presentation" identifier="UserSelected" id="M1k-1v-fnT"/>
                     </connections>
@@ -1080,9 +1107,9 @@
                                     <constraint firstAttribute="width" constant="200" id="wNT-As-RGi"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6K-vG-UZN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6K-vG-UZN">
                                 <rect key="frame" x="257" y="120" width="86.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1264,6 +1291,6 @@
         <image name="User Group-30" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9gG-UO-kpK"/>
+        <segue reference="QbL-4v-tkp"/>
     </inferredMetricsTieBreakers>
 </document>
