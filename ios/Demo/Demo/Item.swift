@@ -42,33 +42,6 @@ class Item {
     var lastInvDate: String?
     var designation: String?
     
-//    public init?(json: JSON) {
-//        id = "Id" <~~ json
-//        owner = "Owner" <~~ json
-//        orgnCode = "OrgnCode" <~~ json
-//        orgnTitle = "OrgnTitle" <~~ json
-//        room = "Room" <~~ json
-//        bldg = "Bldg" <~~ json
-//        sortRoom = "SortRoom" <~~ json
-//        ptag = "Ptag" <~~ json
-//        manufacturer = "Manufacturer" <~~ json
-//        model = "Model" <~~ json
-//        sn = "SN" <~~ json
-//        description = "Description" <~~ json
-//        custodian = "Custodian" <~~ json
-//        po = "PO" <~~ json
-//        acqDate = "AcqDate" <~~ json
-//        amt = "Amt" <~~ json
-//        ownership = "Ownership" <~~ json
-//        schevYear = "SchevYear" <~~ json
-//        tagType = "TagType" <~~ json
-//        assetType = "AssetType" <~~ json
-//        atypTitle = "AtypTitle" <~~ json
-//        condition = "Condition" <~~ json
-//        lastInvDate = "LastInvDate" <~~ json
-//        designation = "Designation" <~~ json
-//    }
-    
     init(id: Int, owner: String, orgnCode: String, orgnTitle: String, room: String, bldg: String, sortRoom: String, ptag: String, manufacturer: String, model: String, sn: String, description: String, custodian: String, po: String, acqDate: String, amt: String, ownership: String, schevYear: String, tagType: String, assetType: String, atypTitle: String, condition: String, lastInvDate: String, designation: String) {
         self.id = id
         self.owner = owner

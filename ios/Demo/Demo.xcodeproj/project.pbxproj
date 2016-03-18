@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B1CAB4C1C9363C000C830C6 /* ImageCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CAB4B1C9363C000C830C6 /* ImageCollectionReusableView.swift */; };
+		9B3E52C91C87A779007EDC85 /* ImagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3E52C81C87A779007EDC85 /* ImagesCollectionViewController.swift */; };
+		9B3E52CB1C87C46A007EDC85 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3E52CA1C87C46A007EDC85 /* ImageCollectionViewCell.swift */; };
+		9B3E52D01C87E026007EDC85 /* AddNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B3E52CF1C87E026007EDC85 /* AddNotesViewController.m */; };
+		9B42A3301C9B4BE100F0E756 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B42A32F1C9B4BE100F0E756 /* libxml2.tbd */; };
 		9B5921071C6CF3E1005C6FEC /* ScanTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5921061C6CF3E1005C6FEC /* ScanTabViewController.swift */; };
 		9B5921091C6CF45A005C6FEC /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5921081C6CF45A005C6FEC /* BarcodeScannerViewController.swift */; };
-		9B59210B1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210A1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift */; };
 		9B59210D1C6D0858005C6FEC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210C1C6D0858005C6FEC /* User.swift */; };
 		9B59210F1C6D0915005C6FEC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210E1C6D0915005C6FEC /* Item.swift */; };
 		9B5921131C6D3D49005C6FEC /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */; };
+		9B7799691C948E4800FD2370 /* Azure Storage Client Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7799681C948E4800FD2370 /* Azure Storage Client Library.framework */; };
+		9B77E32C1C889B7700D7DCE4 /* ImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */; };
 		9B89009A1C6C28BA00BF5DE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900991C6C28BA00BF5DE1 /* AppDelegate.swift */; };
 		9B89009C1C6C28BA00BF5DE1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89009B1C6C28BA00BF5DE1 /* ViewController.swift */; };
 		9B89009F1C6C28BA00BF5DE1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B89009D1C6C28BA00BF5DE1 /* Main.storyboard */; };
@@ -21,18 +27,27 @@
 		9B8900B01C6C51D200BF5DE1 /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900AF1C6C51D200BF5DE1 /* UserDetailsViewController.swift */; };
 		9B8900B21C6C528700BF5DE1 /* SearchUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900B11C6C528700BF5DE1 /* SearchUsersViewController.swift */; };
 		9B8900B41C6C532900BF5DE1 /* ItemsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */; };
-		9B98D7171C7F818E002EA6F4 /* ItemImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B98D7161C7F818E002EA6F4 /* ItemImageViewController.m */; };
-		9B98D71D1C7FCB04002EA6F4 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B98D71C1C7FCB04002EA6F4 /* libxml2.2.tbd */; };
-		9B98D71F1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B98D71E1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework */; };
+		9B98D7171C7F818E002EA6F4 /* AddImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B98D7161C7F818E002EA6F4 /* AddImageViewController.m */; };
+		9BA74DD11C7FFB7B0035ABB3 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B98D71C1C7FCB04002EA6F4 /* libxml2.2.tbd */; };
+		A20F347824A8BA3AFBE69FD9 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13C306E745BB45C3C1434884 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13C306E745BB45C3C1434884 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		15674BDF806E14287B01DD1E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		9B1CAB4B1C9363C000C830C6 /* ImageCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionReusableView.swift; sourceTree = "<group>"; };
+		9B3E52C81C87A779007EDC85 /* ImagesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewController.swift; sourceTree = "<group>"; };
+		9B3E52CA1C87C46A007EDC85 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		9B3E52CE1C87E026007EDC85 /* AddNotesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNotesViewController.h; sourceTree = "<group>"; };
+		9B3E52CF1C87E026007EDC85 /* AddNotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNotesViewController.m; sourceTree = "<group>"; };
+		9B42A32F1C9B4BE100F0E756 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		9B5921061C6CF3E1005C6FEC /* ScanTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTabViewController.swift; sourceTree = "<group>"; };
 		9B5921081C6CF45A005C6FEC /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
-		9B59210A1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannedItemDetailsViewController.swift; sourceTree = "<group>"; };
 		9B59210C1C6D0858005C6FEC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9B59210E1C6D0915005C6FEC /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
+		9B7799681C948E4800FD2370 /* Azure Storage Client Library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Azure Storage Client Library.framework"; path = "AzureStorage/Azure Storage Client Library.framework"; sourceTree = "<group>"; };
+		9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailsViewController.swift; sourceTree = "<group>"; };
 		9B8900961C6C28BA00BF5DE1 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B8900991C6C28BA00BF5DE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B89009B1C6C28BA00BF5DE1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -44,10 +59,10 @@
 		9B8900B11C6C528700BF5DE1 /* SearchUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUsersViewController.swift; sourceTree = "<group>"; };
 		9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsListViewController.swift; sourceTree = "<group>"; };
 		9B98D7141C7F818E002EA6F4 /* Demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demo-Bridging-Header.h"; sourceTree = "<group>"; };
-		9B98D7151C7F818E002EA6F4 /* ItemImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemImageViewController.h; sourceTree = "<group>"; };
-		9B98D7161C7F818E002EA6F4 /* ItemImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemImageViewController.m; sourceTree = "<group>"; };
+		9B98D7151C7F818E002EA6F4 /* AddImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImageViewController.h; sourceTree = "<group>"; };
+		9B98D7161C7F818E002EA6F4 /* AddImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddImageViewController.m; sourceTree = "<group>"; };
 		9B98D71C1C7FCB04002EA6F4 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
-		9B98D71E1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Azure Storage Client Library.framework"; path = "Azure Storage/Azure Storage Client Library.framework"; sourceTree = "<group>"; };
+		F36C70E45ECF2E6CB0866C14 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +70,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B98D71F1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework in Frameworks */,
-				9B98D71D1C7FCB04002EA6F4 /* libxml2.2.tbd in Frameworks */,
+				9B42A3301C9B4BE100F0E756 /* libxml2.tbd in Frameworks */,
+				9B7799691C948E4800FD2370 /* Azure Storage Client Library.framework in Frameworks */,
+				9BA74DD11C7FFB7B0035ABB3 /* libxml2.2.tbd in Frameworks */,
+				A20F347824A8BA3AFBE69FD9 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,10 +83,13 @@
 		9B89008D1C6C28BA00BF5DE1 = {
 			isa = PBXGroup;
 			children = (
-				9B98D71E1C7FCB0D002EA6F4 /* Azure Storage Client Library.framework */,
+				9B42A32F1C9B4BE100F0E756 /* libxml2.tbd */,
+				9B7799681C948E4800FD2370 /* Azure Storage Client Library.framework */,
 				9B98D71C1C7FCB04002EA6F4 /* libxml2.2.tbd */,
 				9B8900981C6C28BA00BF5DE1 /* Demo */,
 				9B8900971C6C28BA00BF5DE1 /* Products */,
+				F072EAB143A9F497A69969C0 /* Pods */,
+				C979E9A96374D15ECC5C2409 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,16 +114,38 @@
 				9B8900AF1C6C51D200BF5DE1 /* UserDetailsViewController.swift */,
 				9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */,
 				9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */,
+				9B3E52C81C87A779007EDC85 /* ImagesCollectionViewController.swift */,
+				9B3E52CA1C87C46A007EDC85 /* ImageCollectionViewCell.swift */,
+				9B1CAB4B1C9363C000C830C6 /* ImageCollectionReusableView.swift */,
+				9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */,
+				9B98D7151C7F818E002EA6F4 /* AddImageViewController.h */,
+				9B98D7161C7F818E002EA6F4 /* AddImageViewController.m */,
+				9B3E52CE1C87E026007EDC85 /* AddNotesViewController.h */,
+				9B3E52CF1C87E026007EDC85 /* AddNotesViewController.m */,
 				9B5921061C6CF3E1005C6FEC /* ScanTabViewController.swift */,
 				9B5921081C6CF45A005C6FEC /* BarcodeScannerViewController.swift */,
-				9B59210A1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift */,
-				9B98D7151C7F818E002EA6F4 /* ItemImageViewController.h */,
-				9B98D7161C7F818E002EA6F4 /* ItemImageViewController.m */,
 				9B98D7141C7F818E002EA6F4 /* Demo-Bridging-Header.h */,
 				9B59210E1C6D0915005C6FEC /* Item.swift */,
 				9B59210C1C6D0858005C6FEC /* User.swift */,
 			);
 			path = Demo;
+			sourceTree = "<group>";
+		};
+		C979E9A96374D15ECC5C2409 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13C306E745BB45C3C1434884 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F072EAB143A9F497A69969C0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F36C70E45ECF2E6CB0866C14 /* Pods.debug.xcconfig */,
+				15674BDF806E14287B01DD1E /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -113,9 +155,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B8900A81C6C28BA00BF5DE1 /* Build configuration list for PBXNativeTarget "Demo" */;
 			buildPhases = (
+				D677149D98545F64A15E406B /* Check Pods Manifest.lock */,
 				9B8900921C6C28BA00BF5DE1 /* Sources */,
 				9B8900931C6C28BA00BF5DE1 /* Frameworks */,
 				9B8900941C6C28BA00BF5DE1 /* Resources */,
+				5A45576A06C8275CA55DD88D /* Embed Pods Frameworks */,
+				719AA39888C2CDE3B1C359DB /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -173,21 +218,73 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5A45576A06C8275CA55DD88D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		719AA39888C2CDE3B1C359DB /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D677149D98545F64A15E406B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9B8900921C6C28BA00BF5DE1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B59210B1C6CF6C3005C6FEC /* ScannedItemDetailsViewController.swift in Sources */,
+				9B3E52C91C87A779007EDC85 /* ImagesCollectionViewController.swift in Sources */,
 				9B89009C1C6C28BA00BF5DE1 /* ViewController.swift in Sources */,
+				9B1CAB4C1C9363C000C830C6 /* ImageCollectionReusableView.swift in Sources */,
 				9B5921131C6D3D49005C6FEC /* ItemDetailsViewController.swift in Sources */,
 				9B8900B21C6C528700BF5DE1 /* SearchUsersViewController.swift in Sources */,
+				9B3E52D01C87E026007EDC85 /* AddNotesViewController.m in Sources */,
+				9B77E32C1C889B7700D7DCE4 /* ImageDetailsViewController.swift in Sources */,
 				9B8900B41C6C532900BF5DE1 /* ItemsListViewController.swift in Sources */,
 				9B89009A1C6C28BA00BF5DE1 /* AppDelegate.swift in Sources */,
 				9B5921071C6CF3E1005C6FEC /* ScanTabViewController.swift in Sources */,
 				9B59210F1C6D0915005C6FEC /* Item.swift in Sources */,
 				9B8900B01C6C51D200BF5DE1 /* UserDetailsViewController.swift in Sources */,
-				9B98D7171C7F818E002EA6F4 /* ItemImageViewController.m in Sources */,
+				9B3E52CB1C87C46A007EDC85 /* ImageCollectionViewCell.swift in Sources */,
+				9B98D7171C7F818E002EA6F4 /* AddImageViewController.m in Sources */,
 				9B5921091C6CF45A005C6FEC /* BarcodeScannerViewController.swift in Sources */,
 				9B59210D1C6D0858005C6FEC /* User.swift in Sources */,
 			);
@@ -300,17 +397,16 @@
 		};
 		9B8900A91C6C28BA00BF5DE1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F36C70E45ECF2E6CB0866C14 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
+					"$(PROJECT_DIR)/AzureStorage",
 				);
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ningli.Demo;
@@ -322,17 +418,16 @@
 		};
 		9B8900AA1C6C28BA00BF5DE1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15674BDF806E14287B01DD1E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Azure",
-					Storage,
-					"$(PROJECT_DIR)/Azure",
-					Storage,
+					"$(PROJECT_DIR)/AzureStorage",
 				);
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ningli.Demo;

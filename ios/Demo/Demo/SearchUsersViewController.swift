@@ -12,18 +12,24 @@ class SearchUsersViewController: UIViewController {
     
     // search result
     var user: User?
+    // user pid
+    var pid: String?
     
-    var base_url = "http://eceinventory.azurewebsites.net"
+    let base_url = "http://eceinventory.azurewebsites.net"
     
     @IBOutlet weak var searchUserIdTextField: UITextField!
     
+    @IBOutlet weak var pidTextLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
+        
+        self.pidTextLabel.text = "Welcome: \(self.pid!)"
     }
     
     //Calls this function when the tap is recognized.
@@ -31,7 +37,7 @@ class SearchUsersViewController: UIViewController {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -40,7 +46,7 @@ class SearchUsersViewController: UIViewController {
     
     // MARK: - Navigation
     @IBAction func cancelFromUserDetailsViewToSearchUsersView(segue: UIStoryboardSegue) {
-    
+        
     }
     
     @IBAction func searchForUsers() {
@@ -57,72 +63,84 @@ class SearchUsersViewController: UIViewController {
         let requestURL: NSURL = NSURL(string: query)!
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
         let session = NSURLSession.sharedSession()
+        
+        // create alert
+        let loadingAlert = UIAlertController(title: "Searching", message: "\n\n\n\n", preferredStyle: .Alert)
+        loadingAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        indicator.color = UIColor.blackColor()
+        indicator.frame = loadingAlert.view.bounds
+        indicator.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        indicator.startAnimating()
+        loadingAlert.view.addSubview(indicator)
+        
         let task = session.dataTaskWithRequest(urlRequest) {
             (data, response, error) -> Void in
             
-            let httpResponse = response as! NSHTTPURLResponse
-            let statusCode = httpResponse.statusCode
-            
-            if (statusCode == 200) {
-                do{
-                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
-                    if (json.isEmpty) {
-                        // alert
-                        let alert = UIAlertController(title: "User not found", message: "User with name \(username!) does not exist", preferredStyle: UIAlertControllerStyle.Alert)
-                        alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        return
-                    }
-                    self.user = User()
-                    self.user!.name = username
-                    for item in json {
-                        // huge ugly init
-                        let id = item["Id"] as! Int
-                        let owner = item["Owner"] is NSNull ? "" : item["Owner"] as! String
-                        let orgnCode = item["OrgnCode"] is NSNull ? "" : item["OrgnCode"] as! String
-                        let orgnTitle = item["OrgnTitle"] is NSNull ? "" : item["OrgnTitle"] as! String
-                        let room = item["Room"] is NSNull ? "" : item["Room"] as! String
-                        let bldg = item["Bldg"] is NSNull ? "" : item["Bldg"] as! String
-                        let sortRoom = item["SortRoom"] is NSNull ? "" : item["SortRoom"] as! String
-                        let ptag = item["Ptag"] is NSNull ? "" : item["Ptag"] as! String
-                        let manufacturer = item["Manufacturer"] is NSNull ? "" : item["Manufacturer"] as! String
-                        let model = item["Model"] is NSNull ? "" : item["Model"] as! String
-                        let sn = item["SN"] is NSNull ? "" : item["SN"] as! String
-                        let description = item["Description"] is NSNull ? "" : item["Description"] as! String
-                        let custodian = item["Custodian"] is NSNull ? "" : item["Custodian"] as! String
-                        let po = item["PO"] is NSNull ? "" : item["PO"] as! String
-                        let acqDate = item["AcqDate"] is NSNull ? "" : item["AcqDate"] as! String
-                        let amt = item["Amt"] is NSNull ? "" : item["Amt"] as! String
-                        let ownership = item["Ownership"] is NSNull ? "" : item["Ownership"] as! String
-                        let schevYear = item["SchevYear"] is NSNull ? "" : item["SchevYear"] as! String
-                        let tagType = item["TagType"] is NSNull ? "" : item["TagType"] as! String
-                        let assetType = item["AssetType"] is NSNull ? "" : item["AssetType"] as! String
-                        let atypTitle = item["AtypTitle"] is NSNull ? "" : item["AtypTitle"] as! String
-                        let condition = item["Condition"] is NSNull ? "" : item["Condition"] as! String
-                        let lastInvDate = item["LastInvDate"] is NSNull ? "" : item["LastInvDate"] as! String
-                        let designation = item["Designation"] is NSNull ? "" : item["Designation"] as! String
-                        
-                        self.user!.items!.append(Item(id: id, owner: owner, orgnCode: orgnCode, orgnTitle: orgnTitle, room: room, bldg: bldg, sortRoom: sortRoom, ptag: ptag, manufacturer: manufacturer, model: model, sn: sn, description: description, custodian: custodian, po: po, acqDate: acqDate, amt: amt, ownership: ownership, schevYear: schevYear, tagType: tagType, assetType: assetType, atypTitle: atypTitle, condition: condition, lastInvDate: lastInvDate, designation: designation))
-                    }
-                    dispatch_async(dispatch_get_main_queue(), {
-                        // code here
+            loadingAlert.dismissViewControllerAnimated(true, completion: { () -> Void in
+                let httpResponse = response as! NSHTTPURLResponse
+                let statusCode = httpResponse.statusCode
+                
+                if (statusCode == 200) {
+                    do {
+                        let json = try NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
+                        if (json.isEmpty) {
+                            // alert
+                            let alert = UIAlertController(title: "User not found", message: "User with name \(username!) does not exist", preferredStyle: UIAlertControllerStyle.Alert)
+                            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
+                            self.presentViewController(alert, animated: true, completion: nil)
+                            return
+                        }
+                        self.user = User()
+                        self.user!.name = username
+                        for item in json {
+                            // huge ugly init
+                            let id = item["Id"] as! Int
+                            let owner = item["Owner"] is NSNull ? "" : item["Owner"] as! String
+                            let orgnCode = item["OrgnCode"] is NSNull ? "" : item["OrgnCode"] as! String
+                            let orgnTitle = item["OrgnTitle"] is NSNull ? "" : item["OrgnTitle"] as! String
+                            let room = item["Room"] is NSNull ? "" : item["Room"] as! String
+                            let bldg = item["Bldg"] is NSNull ? "" : item["Bldg"] as! String
+                            let sortRoom = item["SortRoom"] is NSNull ? "" : item["SortRoom"] as! String
+                            let ptag = item["Ptag"] is NSNull ? "" : item["Ptag"] as! String
+                            let manufacturer = item["Manufacturer"] is NSNull ? "" : item["Manufacturer"] as! String
+                            let model = item["Model"] is NSNull ? "" : item["Model"] as! String
+                            let sn = item["SN"] is NSNull ? "" : item["SN"] as! String
+                            let description = item["Description"] is NSNull ? "" : item["Description"] as! String
+                            let custodian = item["Custodian"] is NSNull ? "" : item["Custodian"] as! String
+                            let po = item["PO"] is NSNull ? "" : item["PO"] as! String
+                            let acqDate = item["AcqDate"] is NSNull ? "" : item["AcqDate"] as! String
+                            let amt = item["Amt"] is NSNull ? "" : item["Amt"] as! String
+                            let ownership = item["Ownership"] is NSNull ? "" : item["Ownership"] as! String
+                            let schevYear = item["SchevYear"] is NSNull ? "" : item["SchevYear"] as! String
+                            let tagType = item["TagType"] is NSNull ? "" : item["TagType"] as! String
+                            let assetType = item["AssetType"] is NSNull ? "" : item["AssetType"] as! String
+                            let atypTitle = item["AtypTitle"] is NSNull ? "" : item["AtypTitle"] as! String
+                            let condition = item["Condition"] is NSNull ? "" : item["Condition"] as! String
+                            let lastInvDate = item["LastInvDate"] is NSNull ? "" : item["LastInvDate"] as! String
+                            let designation = item["Designation"] is NSNull ? "" : item["Designation"] as! String
+                            
+                            self.user!.items!.append(Item(id: id, owner: owner, orgnCode: orgnCode, orgnTitle: orgnTitle, room: room, bldg: bldg, sortRoom: sortRoom, ptag: ptag, manufacturer: manufacturer, model: model, sn: sn, description: description, custodian: custodian, po: po, acqDate: acqDate, amt: amt, ownership: ownership, schevYear: schevYear, tagType: tagType, assetType: assetType, atypTitle: atypTitle, condition: condition, lastInvDate: lastInvDate, designation: designation))
+                        }
+                        //                    dispatch_async(dispatch_get_main_queue(), {
                         if (self.user != nil) {
                             self.performSegueWithIdentifier("UserSelected", sender: self.user)
                         }
-                    })
-                }catch {
-                    print("Error with Json: \(error)")
-                    return
+                        //                    })
+                    } catch {
+                        print("Error with Json: \(error)")
+                        return
+                    }
+                } else {
+                    // alert
+                    let alert = UIAlertController(title: "User not found", message: "Server returns \(statusCode)", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
                 }
-            } else {
-                // alert
-                let alert = UIAlertController(title: "User not found", message: "Server returns \(statusCode)", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
-                return
-            }
+            })
         }
         task.resume()
+        self.presentViewController(loadingAlert, animated: true, completion: nil)
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -135,5 +153,5 @@ class SearchUsersViewController: UIViewController {
             userDetailsView.user = self.user
         }
     }
-
+    
 }

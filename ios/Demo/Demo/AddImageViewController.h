@@ -10,7 +10,7 @@
 // Include the following import statement to use blob APIs.
 #import <Azure Storage Client Library/Azure_Storage_Client_Library.h>
 
-@interface ItemImageViewController : UIViewController <UINavigationControllerDelegate,
+@interface AddImageViewController : UIViewController <UINavigationControllerDelegate,
 UIImagePickerControllerDelegate>
 
 @property NSString* barcode;
@@ -22,6 +22,8 @@ UIImagePickerControllerDelegate>
 
 - (IBAction)updateImageFromGallery:(id)sender;
 
-- (IBAction)deleteImage:(id)sender;
+//- (IBAction)deleteImage:(id)sender;
+
+- (IBAction)addNotes:(id)sender;
 
 @end
