@@ -81,15 +81,15 @@ class ViewController: UIViewController {
                     
                     Alamofire.request(mutableUrlRequest).responseJSON { res in
                         //handling the response
-                        let twoFactorHTML = NSString(data: res.data!, encoding:NSUTF8StringEncoding)
-                        // this check is a trick, maybe invalid in the future
-                        if twoFactorHTML!.lowercaseString.containsString("enroll") {
-                            self.pid = pid
-                            self.performSegueWithIdentifier("LogInSucceeded", sender: nil)
-                        } else {
+                        let loginHTML = NSString(data: res.data!, encoding:NSUTF8StringEncoding)
+                        // this check is a reliable, maybe invalid in the future
+                        if loginHTML!.lowercaseString.containsString("invalid username or password") {
                             let alert = UIAlertController(title: "Invalid username or password", message: "", preferredStyle: UIAlertControllerStyle.Alert)
                             alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
                             self.presentViewController(alert, animated: true, completion: nil)
+                        } else {
+                            self.pid = pid
+                            self.performSegueWithIdentifier("LogInSucceeded", sender: nil)
                         }
                     }
             }
@@ -106,15 +106,15 @@ class ViewController: UIViewController {
             
             Alamofire.request(mutableUrlRequest).responseJSON { res in
                 //handling the response
-                let twoFactorHTML = NSString(data: res.data!, encoding:NSUTF8StringEncoding)
-                // this check is a trick, maybe invalid in the future
-                if twoFactorHTML!.lowercaseString.containsString("enroll") {
-                    self.pid = pid
-                    self.performSegueWithIdentifier("LogInSucceeded", sender: nil)
-                } else {
+                let loginHTML = NSString(data: res.data!, encoding:NSUTF8StringEncoding)
+                // this check is a reliable, maybe invalid in the future
+                if loginHTML!.lowercaseString.containsString("invalid username or password") {
                     let alert = UIAlertController(title: "Invalid username or password", message: "", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
+                } else {
+                    self.pid = pid
+                    self.performSegueWithIdentifier("LogInSucceeded", sender: nil)
                 }
             }
         }
