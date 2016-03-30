@@ -227,9 +227,9 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <None Include="Properties\PublishProfiles\ECEInventory %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\eceinventory - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\ECEInventory.pubxml" />
+    <None Include="Properties\PublishProfiles\hostoniisAWS.pubxml" />
+    <None Include="Properties\PublishProfiles\hostoniisAzure.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

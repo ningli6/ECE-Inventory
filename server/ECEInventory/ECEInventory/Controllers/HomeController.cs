@@ -30,6 +30,7 @@ namespace ECEInventory.Controllers
             var fileName = file.FileName;
             if (Path.GetExtension(fileName) != ".xlsx") return RedirectToAction("Index");
             // save the file
+            // save to local for now. Need to add permissions to access the file
             string savedFileName = Path.Combine(Server.MapPath("~/App_Data/"), fileName);
             file.SaveAs(savedFileName);
             // access the file
