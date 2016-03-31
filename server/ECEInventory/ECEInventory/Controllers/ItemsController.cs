@@ -23,21 +23,21 @@ namespace ECEInventory.Controllers
             return db.Items;
         }
 
-        // GET: api/Items/5
-        [ResponseType(typeof(Item))]
-        public async Task<IHttpActionResult> GetItem(int id)
-        {
-            Item item = await db.Items.FindAsync(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/Items/5
+        //[ResponseType(typeof(Item))]
+        //public async Task<IHttpActionResult> GetItem(int id)
+        //{
+        //    Item item = await db.Items.FindAsync(id);
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(item);
-        }
+        //    return Ok(item);
+        //}
 
         // get item by barcode
-        [Route("api/Items/barcode/{barcode}")]
+        [Route("api/Items/{barcode}")]
         public IQueryable<Item> GetItemByBarcode(String barcode)
         {
             return db.Items.Where(item => item.Ptag == barcode);
@@ -51,40 +51,40 @@ namespace ECEInventory.Controllers
         }
 
 
-        // PUT: api/Items/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutItem(int id, Item item)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/Items/5
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutItem(int id, Item item)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != item.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != item.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(item).State = EntityState.Modified;
+        //    db.Entry(item).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!ItemExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/Items
         [ResponseType(typeof(Item))]
@@ -98,7 +98,7 @@ namespace ECEInventory.Controllers
             db.Items.Add(item);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = item.Id }, item);
+            return CreatedAtRoute("DefaultApi", new { pTag = item.Ptag }, item);
         }
 
         // DELETE: api/Items/5
@@ -126,9 +126,9 @@ namespace ECEInventory.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ItemExists(int id)
-        {
-            return db.Items.Count(e => e.Id == id) > 0;
-        }
+        //private bool ItemExists(int id)
+        //{
+        //    return db.Items.Count(e => e.Id == id) > 0;
+        //}
     }
 }

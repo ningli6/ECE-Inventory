@@ -8,8 +8,6 @@ namespace ECEInventory.Models
 
     public partial class Item
     {
-        public int Id { get; set; }
-
         [StringLength(255)]
         public string Owner { get; set; }
 
@@ -28,6 +26,7 @@ namespace ECEInventory.Models
         [StringLength(255)]
         public string SortRoom { get; set; }
 
+        [Key]
         [StringLength(255)]
         public string Ptag { get; set; }
 

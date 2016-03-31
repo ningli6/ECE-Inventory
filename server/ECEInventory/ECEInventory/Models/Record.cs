@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,50 +8,32 @@ namespace ECEInventory.Models
 {
     public class Record
     {
-        public string Owner { get; set; }
+        public Record(string ptag, string custodian, string room, string bldg, string sortRoom)
+        {
+            Ptag = ptag;
+            Custodian = custodian;
+            Room = room;
+            Bldg = bldg;
+            SortRoom = sortRoom;
+        }
 
-        public string OrgnCode { get; set; }
-
-        public string OrgnTitle { get; set; }
-
-        public string Room { get; set; }
-
-        public string Bldg { get; set; }
-
-        public string SortRoom { get; set; }
-
+        [Key]
+        [StringLength(255)]
         public string Ptag { get; set; }
 
-        public string Manufacturer { get; set; }
-
-        public string Model { get; set; }
-
-        public string SN { get; set; }
-
-        public string Description { get; set; }
-
+        [StringLength(255)]
         public string Custodian { get; set; }
 
-        public string PO { get; set; }
+        [StringLength(255)]
+        public string Room { get; set; }
 
-        public string AcqDate { get; set; }
+        [StringLength(255)]
+        public string Bldg { get; set; }
 
-        public string Amt { get; set; }
+        [StringLength(255)]
+        public string SortRoom { get; set; }
 
-        public string Ownership { get; set; }
-
-        public string SchevYear { get; set; }
-
-        public string TagType { get; set; }
-
-        public string AssetType { get; set; }
-
-        public string AtypTitle { get; set; }
-
-        public string Condition { get; set; }
-
-        public string LastInvDate { get; set; }
-
-        public string Designation { get; set; }
+        [Timestamp]
+        public byte[] Time { get; set; }
     }
 }
