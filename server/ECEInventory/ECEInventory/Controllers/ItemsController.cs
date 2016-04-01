@@ -15,7 +15,7 @@ namespace ECEInventory.Controllers
 {
     public class ItemsController : ApiController
     {
-        private InventoryContext db = new InventoryContext();
+        private InventoryDBContext db = new InventoryDBContext();
 
         // GET: api/Items
         public IQueryable<Item> GetItems()
@@ -38,18 +38,24 @@ namespace ECEInventory.Controllers
 
         // get item by barcode
         [Route("api/Items/{barcode}")]
-        public IQueryable<Item> GetItemByBarcode(String barcode)
+        public IQueryable<Item> GetItemByBarcode(string barcode)
         {
             return db.Items.Where(item => item.Ptag == barcode);
         }
 
         // get items by user
-        [Route("api/Items/users/{user}")]
-        public IQueryable<Item> GetItemsByUser(String user)
+        [Route("api/Users/{user}")]
+        public IQueryable<Item> GetItemsByUser(string user)
         {
             return db.Items.Where(item => item.Custodian == user);
         }
 
+        // get item history
+        [Route("api/Items/{barcode}/history")]
+        public IQueryable<History> GetItemHistory(string barcode)
+        {
+            return db.Histories.Where(record => record.Ptag == barcode);
+        }
 
         //// PUT: api/Items/5
         //[ResponseType(typeof(void))]

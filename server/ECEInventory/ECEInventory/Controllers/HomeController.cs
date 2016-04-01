@@ -3,6 +3,7 @@ using LinqToExcel;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Validation;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace ECEInventory.Controllers
     public class HomeController : Controller
     {
 
-        private InventoryContext db = new InventoryContext();
+        private InventoryDBContext db = new InventoryDBContext();
 
         public ActionResult Index()
         {
@@ -43,8 +44,12 @@ namespace ECEInventory.Controllers
             // add new items or update existing items
             foreach (var r in updates)
             {
+                if (r.Ptag == null || r.Ptag == "") continue;
+                History record = new History(r);
+                int unixTimestamp = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                record.Time = unixTimestamp.ToString();
                 // update
-                if (db.Items.Any(item => item.Ptag.Equals(r.Ptag)))
+                if (db.Items.Any(item => item.Ptag == r.Ptag))
                 {
                     db.Items.Attach(r);
                     var entry = db.Entry(r);
@@ -52,16 +57,35 @@ namespace ECEInventory.Controllers
                     entry.Property(e => e.Room).IsModified = true;
                     entry.Property(e => e.Bldg).IsModified = true;
                     entry.Property(e => e.SortRoom).IsModified = true;
-                    // add new record history record
-                    Record record = new Record(r.Ptag, r.Custodian, r.Room, r.Bldg, r.SortRoom);
-                    db.History.Add(record);
-                    db.SaveChanges();
-                } else { // add new item
-                    db.Items.Add(r);
-                    db.SaveChanges();
                 }
+                else
+                {   // add new item
+                    db.Items.Add(r);
+                }
+                // add new history record
+                db.Histories.Add(record);
             }
-            
+            try
+            {   // update the database
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Retrieve the error messages as a list of strings.
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+            }
+
             var count = updates.Count();
             return RedirectToAction("Result", new { s = count.ToString() });
         }
