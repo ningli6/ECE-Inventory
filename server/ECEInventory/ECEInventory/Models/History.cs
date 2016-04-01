@@ -10,6 +10,8 @@ namespace ECEInventory.Models
     {
         public int Id { get; set; }
 
+        public History() { }
+
         public History(string ptag, string custodian, string room, string bldg, string sortRoom)
         {
             Ptag = ptag;

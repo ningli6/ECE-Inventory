@@ -54,7 +54,7 @@ namespace ECEInventory.Controllers
         [Route("api/Items/{barcode}/history")]
         public IQueryable<History> GetItemHistory(string barcode)
         {
-            return db.Histories.Where(record => record.Ptag == barcode);
+            return db.Histories.Where(record => record.Ptag == barcode).OrderByDescending(record => record.Time);
         }
 
         //// PUT: api/Items/5
