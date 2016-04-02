@@ -32,7 +32,7 @@ namespace ECEInventory.Controllers
             if (Request.Files[0].FileName == "") return RedirectToAction("Index");
             var file = Request.Files[0];
             var fileName = file.FileName;
-            if (Path.GetExtension(fileName) != ".xlsx") return RedirectToAction("Index");
+            if (Path.GetExtension(fileName) != ".xlsx") return RedirectToAction("FileFormatError");
             // save the file
             // save to local for now. Need to add permissions to access the file
             string savedFileName = Path.Combine(Server.MapPath("~/App_Data/"), fileName);
@@ -86,13 +86,17 @@ namespace ECEInventory.Controllers
                 throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
             }
 
-            var count = updates.Count();
-            return RedirectToAction("Result", new { s = count.ToString() });
+            return RedirectToAction("Result", new { s = "Inventory was updated!" });
         }
 
         public ActionResult Result(string s)
         {
-            ViewBag.FileName = s;
+            ViewBag.result = s;
+            return View();
+        }
+
+        public ActionResult FileFormatError()
+        {
             return View();
         }
     }

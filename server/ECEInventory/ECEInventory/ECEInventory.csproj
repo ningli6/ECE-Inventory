@@ -228,7 +228,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <None Include="Properties\PublishProfiles\ECEInventory.pubxml" />
-    <None Include="Properties\PublishProfiles\hostoniisAWS.pubxml" />
     <None Include="Properties\PublishProfiles\hostoniisAzure.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -254,6 +253,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Result.cshtml" />
+    <Content Include="Views\Home\FileFormatError.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
