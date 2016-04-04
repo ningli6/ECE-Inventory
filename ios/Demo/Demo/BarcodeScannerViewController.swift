@@ -13,7 +13,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     // searched item
     var item: Item?
-    var base_url = "http://eceinventory.azurewebsites.net"
+    let base_url = "http://13.92.99.2"
     
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
@@ -128,7 +128,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                                 } else {
                                     let json = jsonData[0]
                                     // huge ugly init
-                                    let id = json["Id"] as! Int
                                     let owner = json["Owner"] is NSNull ? "" : json["Owner"] as! String
                                     let orgnCode = json["OrgnCode"] is NSNull ? "" : json["OrgnCode"] as! String
                                     let orgnTitle = json["OrgnTitle"] is NSNull ? "" : json["OrgnTitle"] as! String
@@ -152,7 +151,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                                     let condition = json["Condition"] is NSNull ? "" : json["Condition"] as! String
                                     let lastInvDate = json["LastInvDate"] is NSNull ? "" : json["LastInvDate"] as! String
                                     let designation = json["Designation"] is NSNull ? "" : json["Designation"] as! String
-                                    self.item = Item(id: id, owner: owner, orgnCode: orgnCode, orgnTitle: orgnTitle, room: room, bldg: bldg, sortRoom: sortRoom, ptag: ptag, manufacturer: manufacturer, model: model, sn: sn, description: description, custodian: custodian, po: po, acqDate: acqDate, amt: amt, ownership: ownership, schevYear: schevYear, tagType: tagType, assetType: assetType, atypTitle: atypTitle, condition: condition, lastInvDate: lastInvDate, designation: designation)
+                                    self.item = Item(owner: owner, orgnCode: orgnCode, orgnTitle: orgnTitle, room: room, bldg: bldg, sortRoom: sortRoom, ptag: ptag, manufacturer: manufacturer, model: model, sn: sn, description: description, custodian: custodian, po: po, acqDate: acqDate, amt: amt, ownership: ownership, schevYear: schevYear, tagType: tagType, assetType: assetType, atypTitle: atypTitle, condition: condition, lastInvDate: lastInvDate, designation: designation)
                                     // perform segue
                                     self.performSegueWithIdentifier("ScanSuccess", sender: nil)
                                 }

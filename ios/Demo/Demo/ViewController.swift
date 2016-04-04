@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     
@@ -61,64 +61,65 @@ class ViewController: UIViewController {
             return
         }
         
-        if self.jsessionid == nil {
-            self.count = 1
-            Alamofire.request(.GET, hokieSpa)
-                .responseJSON { response in
-                    // get jsessionid
-                    self.url = response.response?.URL!.absoluteString
-                    let begin = self.url!.rangeOfString("=")!.startIndex.advancedBy(1)
-                    let end = self.url!.rangeOfString("?")!.startIndex
-                    self.jsessionid = self.url!.substringWithRange(Range<String.Index>(start: begin, end: end))
-                    // post to form
-                    let mutableUrlRequest = NSMutableURLRequest(URL: response.response!.URL!)
-                    mutableUrlRequest.HTTPMethod = "POST"
-                    mutableUrlRequest.HTTPBody = "j_username=\(pid!)&j_password=\(password!)&_eventId_proceed=".dataUsingEncoding(NSUTF8StringEncoding)
-                    
-                    mutableUrlRequest.setValue("JSESSIONID=\(self.jsessionid!)", forHTTPHeaderField: "Cookie")
-                    mutableUrlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-                    mutableUrlRequest.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36", forHTTPHeaderField: "User-Agent")
-                    
-                    Alamofire.request(mutableUrlRequest).responseJSON { res in
-                        //handling the response
-                        let loginHTML = NSString(data: res.data!, encoding:NSUTF8StringEncoding)
-                        // this check is a reliable, maybe invalid in the future
-                        if loginHTML!.lowercaseString.containsString("invalid username or password") {
-                            let alert = UIAlertController(title: "Invalid username or password", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-                            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-                            self.presentViewController(alert, animated: true, completion: nil)
-                        } else {
-                            self.pid = pid
-                            self.performSegueWithIdentifier("LogInSucceeded", sender: nil)
-                        }
-                    }
-            }
-        } else {
-            count = count! + 1
-            let newURL = self.url!.substringToIndex(self.url!.endIndex.advancedBy(-1)) + String(count!)
-            let mutableUrlRequest = NSMutableURLRequest(URL: NSURL(string: newURL)!)
-            mutableUrlRequest.HTTPMethod = "POST"
-            mutableUrlRequest.HTTPBody = "j_username=\(pid!)&j_password=\(password!)&_eventId_proceed=".dataUsingEncoding(NSUTF8StringEncoding)
-            
-            mutableUrlRequest.setValue("JSESSIONID=\(self.jsessionid!)", forHTTPHeaderField: "Cookie")
-            mutableUrlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            mutableUrlRequest.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36", forHTTPHeaderField: "User-Agent")
-            
-            Alamofire.request(mutableUrlRequest).responseJSON { res in
-                //handling the response
-                let loginHTML = NSString(data: res.data!, encoding:NSUTF8StringEncoding)
-                // this check is a reliable, maybe invalid in the future
-                if loginHTML!.lowercaseString.containsString("invalid username or password") {
-                    let alert = UIAlertController(title: "Invalid username or password", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
-                } else {
-                    self.pid = pid
-                    self.performSegueWithIdentifier("LogInSucceeded", sender: nil)
-                }
-            }
-        }
-        
+//        if self.jsessionid == nil {
+//            self.count = 1
+//            Alamofire.request(.GET, hokieSpa)
+//                .responseJSON { response in
+//                    // get jsessionid
+//                    self.url = response.response?.URL!.absoluteString
+//                    let begin = self.url!.rangeOfString("=")!.startIndex.advancedBy(1)
+//                    let end = self.url!.rangeOfString("?")!.startIndex
+//                    self.jsessionid = self.url!.substringWithRange(Range<String.Index>(start: begin, end: end))
+//                    // post to form
+//                    let mutableUrlRequest = NSMutableURLRequest(URL: response.response!.URL!)
+//                    mutableUrlRequest.HTTPMethod = "POST"
+//                    mutableUrlRequest.HTTPBody = "j_username=\(pid!)&j_password=\(password!)&_eventId_proceed=".dataUsingEncoding(NSUTF8StringEncoding)
+//                    
+//                    mutableUrlRequest.setValue("JSESSIONID=\(self.jsessionid!)", forHTTPHeaderField: "Cookie")
+//                    mutableUrlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//                    mutableUrlRequest.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36", forHTTPHeaderField: "User-Agent")
+//                    
+//                    Alamofire.request(mutableUrlRequest).responseJSON { res in
+//                        //handling the response
+//                        let loginHTML = NSString(data: res.data!, encoding:NSUTF8StringEncoding)
+//                        // this check is a reliable, maybe invalid in the future
+//                        if loginHTML!.lowercaseString.containsString("invalid username or password") {
+//                            let alert = UIAlertController(title: "Invalid username or password", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+//                            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
+//                            self.presentViewController(alert, animated: true, completion: nil)
+//                        } else {
+//                            self.pid = pid
+//                            self.performSegueWithIdentifier("LogInSucceeded", sender: nil)
+//                        }
+//                    }
+//            }
+//        } else {
+//            count = count! + 1
+//            let newURL = self.url!.substringToIndex(self.url!.endIndex.advancedBy(-1)) + String(count!)
+//            let mutableUrlRequest = NSMutableURLRequest(URL: NSURL(string: newURL)!)
+//            mutableUrlRequest.HTTPMethod = "POST"
+//            mutableUrlRequest.HTTPBody = "j_username=\(pid!)&j_password=\(password!)&_eventId_proceed=".dataUsingEncoding(NSUTF8StringEncoding)
+//            
+//            mutableUrlRequest.setValue("JSESSIONID=\(self.jsessionid!)", forHTTPHeaderField: "Cookie")
+//            mutableUrlRequest.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//            mutableUrlRequest.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36", forHTTPHeaderField: "User-Agent")
+//            
+//            Alamofire.request(mutableUrlRequest).responseJSON { res in
+//                //handling the response
+//                let loginHTML = NSString(data: res.data!, encoding:NSUTF8StringEncoding)
+//                // this check is a reliable, maybe invalid in the future
+//                if loginHTML!.lowercaseString.containsString("invalid username or password") {
+//                    let alert = UIAlertController(title: "Invalid username or password", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+//                    alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
+//                    self.presentViewController(alert, animated: true, completion: nil)
+//                } else {
+//                    self.pid = pid
+//                    self.performSegueWithIdentifier("LogInSucceeded", sender: nil)
+//                }
+//            }
+//        }
+        self.pid = pid
+        self.performSegueWithIdentifier("LogInSucceeded", sender: nil)
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation

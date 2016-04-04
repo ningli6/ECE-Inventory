@@ -15,7 +15,7 @@ class SearchUsersViewController: UIViewController {
     // user pid
     var pid: String?
     
-    let base_url = "http://eceinventory.azurewebsites.net"
+    let base_url = "http://13.92.99.2"
     
     @IBOutlet weak var searchUserIdTextField: UITextField!
     
@@ -26,7 +26,7 @@ class SearchUsersViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchUsersViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
         self.pidTextLabel.text = "Welcome: \(self.pid!)"
@@ -59,7 +59,7 @@ class SearchUsersViewController: UIViewController {
             return
         }
         let username = searchUserIdTextField.text
-        let query = base_url + "/api/items/users/" + username!.stringByReplacingOccurrencesOfString(" ", withString: "%20")
+        let query = base_url + "/api/users/" + username!.stringByReplacingOccurrencesOfString(" ", withString: "%20")
         let requestURL: NSURL = NSURL(string: query)!
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
         let session = NSURLSession.sharedSession()
@@ -95,7 +95,6 @@ class SearchUsersViewController: UIViewController {
                         self.user!.name = username
                         for item in json {
                             // huge ugly init
-                            let id = item["Id"] as! Int
                             let owner = item["Owner"] is NSNull ? "" : item["Owner"] as! String
                             let orgnCode = item["OrgnCode"] is NSNull ? "" : item["OrgnCode"] as! String
                             let orgnTitle = item["OrgnTitle"] is NSNull ? "" : item["OrgnTitle"] as! String
@@ -120,7 +119,7 @@ class SearchUsersViewController: UIViewController {
                             let lastInvDate = item["LastInvDate"] is NSNull ? "" : item["LastInvDate"] as! String
                             let designation = item["Designation"] is NSNull ? "" : item["Designation"] as! String
                             
-                            self.user!.items!.append(Item(id: id, owner: owner, orgnCode: orgnCode, orgnTitle: orgnTitle, room: room, bldg: bldg, sortRoom: sortRoom, ptag: ptag, manufacturer: manufacturer, model: model, sn: sn, description: description, custodian: custodian, po: po, acqDate: acqDate, amt: amt, ownership: ownership, schevYear: schevYear, tagType: tagType, assetType: assetType, atypTitle: atypTitle, condition: condition, lastInvDate: lastInvDate, designation: designation))
+                            self.user!.items!.append(Item(owner: owner, orgnCode: orgnCode, orgnTitle: orgnTitle, room: room, bldg: bldg, sortRoom: sortRoom, ptag: ptag, manufacturer: manufacturer, model: model, sn: sn, description: description, custodian: custodian, po: po, acqDate: acqDate, amt: amt, ownership: ownership, schevYear: schevYear, tagType: tagType, assetType: assetType, atypTitle: atypTitle, condition: condition, lastInvDate: lastInvDate, designation: designation))
                         }
                         //                    dispatch_async(dispatch_get_main_queue(), {
                         if (self.user != nil) {
