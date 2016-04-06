@@ -68,7 +68,7 @@ class ItemDetailsViewController: UITableViewController {
             let done = UIBarButtonItem(
                 barButtonSystemItem: .Done,
                 target: self,
-                action: "unwindTowardsSearchTab")
+                action: #selector(ItemDetailsViewController.unwindTowardsSearchTab))
             self.navigationItem.rightBarButtonItem = done
             self.navigationItem.rightBarButtonItem!.tintColor = UIColor.whiteColor()
         }

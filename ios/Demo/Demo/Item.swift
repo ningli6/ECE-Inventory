@@ -10,8 +10,6 @@ import Foundation
 
 
 class Item {
-    // id comes from the database
-    var id: Int?
     
     var owner: String?
     var orgnCode: String?
@@ -42,8 +40,7 @@ class Item {
     var lastInvDate: String?
     var designation: String?
     
-    init(id: Int, owner: String, orgnCode: String, orgnTitle: String, room: String, bldg: String, sortRoom: String, ptag: String, manufacturer: String, model: String, sn: String, description: String, custodian: String, po: String, acqDate: String, amt: String, ownership: String, schevYear: String, tagType: String, assetType: String, atypTitle: String, condition: String, lastInvDate: String, designation: String) {
-        self.id = id
+    init(owner: String, orgnCode: String, orgnTitle: String, room: String, bldg: String, sortRoom: String, ptag: String, manufacturer: String, model: String, sn: String, description: String, custodian: String, po: String, acqDate: String, amt: String, ownership: String, schevYear: String, tagType: String, assetType: String, atypTitle: String, condition: String, lastInvDate: String, designation: String) {
         self.owner = owner
         self.orgnCode = orgnCode
         self.orgnTitle = orgnTitle
