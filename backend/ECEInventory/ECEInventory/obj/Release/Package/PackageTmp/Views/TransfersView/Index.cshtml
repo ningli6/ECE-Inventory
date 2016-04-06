@@ -55,12 +55,12 @@
             @Html.DisplayFor(modelItem => time)
         </td>
         <td>
-            @Html.ActionLink("Accept", "Approve", new { barcode = item.Ptag}) |
+            @Html.ActionLink("Approve", "Approve", new { barcode = item.Ptag}) |
             @Html.ActionLink("Deny", "Deny", new { barcode = item.Ptag }) |
             @Html.ActionLink("Details", "Details", new { barcode = item.Ptag })
         </td>
     </tr>
 }
 </table>
-<p>Check all transfer requests: @Html.ActionLink("All requests", "AllRequests")</p>
+<p>Check previous transfer requests: @Html.ActionLink("All requests", "AllRequests")</p>
 

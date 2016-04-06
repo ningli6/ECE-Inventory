@@ -23,7 +23,7 @@ namespace ECEInventory.Controllers
         /// <returns></returns>
         public async Task<ActionResult> Index()
         {
-            return View(await db.Transfers.Where(t => t.Status == 0).ToListAsync());
+            return View(await db.Transfers.ToListAsync());
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace ECEInventory.Controllers
         /// <returns></returns>
         public async Task<ActionResult> AllRequests()
         {
-            return View(await db.Transfers.ToListAsync());
+            return View(await db.AllTimeRequests.ToListAsync());
         }
 
         /// <summary>
@@ -51,13 +51,12 @@ namespace ECEInventory.Controllers
             {
                 return HttpNotFound();
             }
-            // update transfer status
+            // remove from pending list
+            db.Transfers.Remove(transfer);
+            
+            // update transfer status and save to all time requests
             transfer.Status = 1;
-
-            // update the status in database
-            db.Transfers.Attach(transfer);
-            var entry = db.Entry(transfer);
-            entry.Property(e => e.Status).IsModified = true;
+            db.AllTimeRequests.Add(new AllTimeRequest(transfer));
 
             Item item = await db.Items.FindAsync(barcode);
             if (item == null)
@@ -101,10 +100,14 @@ namespace ECEInventory.Controllers
             {
                 return HttpNotFound();
             }
+
+            // remove from pending list
+            db.Transfers.Remove(transfer);
+
+            // update status and save to all time requests
             transfer.Status = 2;
-            db.Transfers.Attach(transfer);
-            var entry = db.Entry(transfer);
-            entry.Property(e => e.Status).IsModified = true;
+            db.AllTimeRequests.Add(new AllTimeRequest(transfer));
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }

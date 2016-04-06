@@ -15,6 +15,7 @@ namespace ECEInventory.Models
         public virtual DbSet<History> Histories { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Transfer> Transfers { get; set; }
+        public virtual DbSet<AllTimeRequest> AllTimeRequests { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -119,16 +119,35 @@ namespace ECEInventory.Controllers
                 return BadRequest(ModelState);
             }
 
+            // check
+            if (transfer.Sender == transfer.Receiver)
+            {
+                return BadRequest("User already own the item!");
+            }
+
             // check that it is transfered to a valid user of inventory
-            string receiver = transfer.Receiver;
-            if (!db.Items.Any(item => item.Custodian == receiver))
+            if (!db.Items.Any(item => item.Custodian == transfer.Receiver))
             {
                 return BadRequest("The receiver is not a valid user of inventory");
+            }
+
+            // check that it is transfered from current owner
+            string user = transfer.Sender;
+            if (!db.Items.Any(item => item.Custodian == transfer.Sender && item.Ptag == transfer.Ptag))
+            {
+                return BadRequest("The item either doesn't exist or has a different owner.");
+            }
+
+            // check that the request is not pending
+            if (db.Transfers.Any(t => t.Ptag == transfer.Ptag))
+            {
+                return BadRequest("This request is still pending.");
             }
 
             // initial request was not approved
             transfer.Status = 0;
             // generate timestamp for that request
+            // may need to change server time to make this local
             int unixTimestamp = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
             transfer.Time = unixTimestamp.ToString();
 
