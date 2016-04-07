@@ -71,6 +71,17 @@ namespace ECEInventory.Controllers
             return db.Transfers.Where(transfer => transfer.Receiver == receiver);
         }
 
+        /// <summary>
+        /// Get transfer requests by user, as either receiver or sender
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [Route("api/Transfers/User/{name}")]
+        public IQueryable<Transfer> GetTransfersByName(string name)
+        {
+            return db.Transfers.Where(transfer => transfer.Receiver == name || transfer.Sender == name);
+        }
+
         //// PUT: api/Transfers/5
         //[ResponseType(typeof(void))]
         //public async Task<IHttpActionResult> PutTransfer(int id, Transfer transfer)
