@@ -17,6 +17,7 @@
 		9B59210D1C6D0858005C6FEC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210C1C6D0858005C6FEC /* User.swift */; };
 		9B59210F1C6D0915005C6FEC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210E1C6D0915005C6FEC /* Item.swift */; };
 		9B5921131C6D3D49005C6FEC /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */; };
+		9B5DA4571CB6C5900007BCFE /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5DA4561CB6C5900007BCFE /* TransferViewController.swift */; };
 		9B7799691C948E4800FD2370 /* Azure Storage Client Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7799681C948E4800FD2370 /* Azure Storage Client Library.framework */; };
 		9B77E32C1C889B7700D7DCE4 /* ImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */; };
 		9B89009A1C6C28BA00BF5DE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900991C6C28BA00BF5DE1 /* AppDelegate.swift */; };
@@ -46,6 +47,7 @@
 		9B59210C1C6D0858005C6FEC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9B59210E1C6D0915005C6FEC /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
+		9B5DA4561CB6C5900007BCFE /* TransferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferViewController.swift; sourceTree = "<group>"; };
 		9B7799681C948E4800FD2370 /* Azure Storage Client Library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Azure Storage Client Library.framework"; path = "AzureStorage/Azure Storage Client Library.framework"; sourceTree = "<group>"; };
 		9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailsViewController.swift; sourceTree = "<group>"; };
 		9B8900961C6C28BA00BF5DE1 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +116,7 @@
 				9B8900AF1C6C51D200BF5DE1 /* UserDetailsViewController.swift */,
 				9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */,
 				9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */,
+				9B5DA4561CB6C5900007BCFE /* TransferViewController.swift */,
 				9B3E52C81C87A779007EDC85 /* ImagesCollectionViewController.swift */,
 				9B3E52CA1C87C46A007EDC85 /* ImageCollectionViewCell.swift */,
 				9B1CAB4B1C9363C000C830C6 /* ImageCollectionReusableView.swift */,
@@ -285,6 +288,7 @@
 				9B8900B01C6C51D200BF5DE1 /* UserDetailsViewController.swift in Sources */,
 				9B3E52CB1C87C46A007EDC85 /* ImageCollectionViewCell.swift in Sources */,
 				9B98D7171C7F818E002EA6F4 /* AddImageViewController.m in Sources */,
+				9B5DA4571CB6C5900007BCFE /* TransferViewController.swift in Sources */,
 				9B5921091C6CF45A005C6FEC /* BarcodeScannerViewController.swift in Sources */,
 				9B59210D1C6D0858005C6FEC /* User.swift in Sources */,
 			);

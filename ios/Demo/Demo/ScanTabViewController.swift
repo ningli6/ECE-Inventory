@@ -48,7 +48,7 @@ class ScanTabViewController: UIViewController {
             return
         }
         let barcode = barcodeTextField.text
-        let query = base_url + "/api/items/barcode/" + barcode!
+        let query = base_url + "/api/items/" + barcode!
         let requestURL: NSURL = NSURL(string: query)!
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
         let session = NSURLSession.sharedSession()

@@ -177,6 +177,10 @@ class ItemDetailsViewController: UITableViewController {
 
     // MARK: - Navigation
     
+    @IBAction func unwindFromTransferRequest (segue: UIStoryboardSegue) {
+        
+    }
+    
     func unwindTowardsSearchTab() {
         performSegueWithIdentifier("ReturnToSearchTab", sender: nil)
     }
@@ -189,6 +193,11 @@ class ItemDetailsViewController: UITableViewController {
             let imageGalleryView = segue.destinationViewController as! ImagesCollectionViewController
             imageGalleryView.bloblist = self.bloblist;
             imageGalleryView.barcode = self.item?.ptag;
+        }
+        if segue.identifier == "TransferOwnership" {
+            let transferRequestView = segue.destinationViewController as! TransferViewController
+            transferRequestView.barcode = item?.ptag
+            transferRequestView.currentOwner = item?.custodian
         }
     }
 
