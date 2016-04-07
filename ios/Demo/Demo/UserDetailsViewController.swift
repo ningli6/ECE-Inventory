@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import Alamofire
 
 class UserDetailsViewController: UITableViewController {
     
     // display information about this user
     var user: User?
+    
+    // pending requests
+    var pendingRequests: [Request] = []
+    
+    let base_url = "http://13.92.99.2"
+    let query_url = "/api/transfers/user/"
     
     @IBOutlet weak var userNameLabel: UILabel!
     
@@ -34,6 +41,30 @@ class UserDetailsViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath);
+        if (cell?.textLabel?.text)! == "Ownership Transfer Requests" {
+            Alamofire.request(.GET, base_url + query_url + "/\((user?.name)!)").responseJSON(completionHandler: { response in
+                if response.response?.statusCode == 200 {
+                    do {
+                        let json = try NSJSONSerialization.JSONObjectWithData(response.data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
+                        for request in json {
+                            let barcode = request["Ptag"] as! String
+                            let sender = request["Sender"] as! String
+                            let receiver = request["Receiver"] as! String
+                            let status = request["Status"] as! NSNumber
+                            let time = request["Time"] as! String
+                            self.pendingRequests.append(Request(barcode: barcode, sender: sender, receiver: receiver, status: status, time: time))
+                        }
+                        self.performSegueWithIdentifier("ShowTransferRequests", sender: nil)
+                    } catch {
+                        print("Error with Json: \(error)")
+                    }
+                }
+            })
+        }
+    }
     
     /*
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -99,6 +130,12 @@ class UserDetailsViewController: UITableViewController {
         if (segue.identifier == "ShowItemsList") {
             let itemsListView = segue.destinationViewController as! ItemsListViewController
             itemsListView.items = self.user?.items
+        }
+        
+        if (segue.identifier == "ShowTransferRequests") {
+            let requestsView = segue.destinationViewController as! RequestsViewController
+            requestsView.pendingRequests = self.pendingRequests
+            requestsView.name = self.user?.name
         }
     }
 

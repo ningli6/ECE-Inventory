@@ -65,5 +65,4 @@ class Item {
         self.lastInvDate = lastInvDate
         self.designation = designation
     }
-
 }
