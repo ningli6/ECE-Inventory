@@ -7,15 +7,22 @@
 //
 
 import UIKit
+import Alamofire
 
 class ItemDetailsViewController: UITableViewController {
     
     var connectionString =  "DefaultEndpointsProtocol=https;AccountName=eceinventory;AccountKey=rzuspKSY65DcSH6EzOFMJrL6067TXKUP7+3iGX+eCNMlDkUJgngPe2irrrMGMZli7RaIlGFVdWmB9GsqYv9kbQ=="
     
+    let base_url = "http://13.92.99.2"
+    let query_url = "/api/histories/"
+    
     var item: Item?
     var bloblist: AZSBlobResultSegment?
     // what is my source view controller
     var returnToSearchTab: Bool?
+    
+    // histories
+    var histories: [History]?
     
     @IBOutlet weak var itemDescriptionLabel: UILabel!
     
@@ -78,6 +85,8 @@ class ItemDetailsViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        self.histories = []
     }
 
     override func didReceiveMemoryWarning() {
@@ -125,6 +134,31 @@ class ItemDetailsViewController: UITableViewController {
                         })
                     }
                 })
+            })
+        }
+        
+        // histories column is selected
+        if cell?.textLabel?.text == "Ownership & Location Histories" {
+            Alamofire.request(.GET, base_url + query_url + "/\(self.item!.ptag!)").responseJSON(completionHandler: { response in
+                if response.response?.statusCode == 200 {
+                    do {
+                        let json = try NSJSONSerialization.JSONObjectWithData(response.data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
+                        self.histories?.removeAll()
+                        for h in json {
+                            let bldg = h["Bldg"] as! String
+                            let room = h["Room"] as! String
+                            let sortRoom = h["SortRoom"] as! String
+                            let barcode = h["Ptag"] as! String
+                            let custodian = h["Custodian"] as! String
+                            var time = h["Time"] as! String
+                            time = time.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                            self.histories?.append(History(barcode: barcode, custodian: custodian, bldg: bldg, room: room, sortRoom: sortRoom, time: time))
+                        }
+                        self.performSegueWithIdentifier("ShowHistories", sender: nil)
+                    } catch {
+                        print("Error with Json: \(error)")
+                    }
+                }
             })
         }
     }
@@ -198,6 +232,10 @@ class ItemDetailsViewController: UITableViewController {
             let transferRequestView = segue.destinationViewController as! TransferViewController
             transferRequestView.barcode = item?.ptag
             transferRequestView.currentOwner = item?.custodian
+        }
+        if segue.identifier == "ShowHistories" {
+            let historiesView = segue.destinationViewController as! HistoriesTableViewController
+            historiesView.histories = self.histories
         }
     }
 
