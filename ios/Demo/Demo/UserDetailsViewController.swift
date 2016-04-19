@@ -43,9 +43,16 @@ class UserDetailsViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 { // ignore name cell
+            return
+        }
+        
         let cell = tableView.cellForRowAtIndexPath(indexPath);
+        
         if (cell?.textLabel?.text)! == "Ownership Transfer Requests" {
-            Alamofire.request(.GET, base_url + query_url + "/\((user?.name)!)").responseJSON(completionHandler: { response in
+            self.pendingRequests.removeAll()
+            let usernameWithSpace = user?.name!.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            Alamofire.request(.GET, base_url + query_url + "\(usernameWithSpace!)").responseJSON(completionHandler: { response in
                 if response.response?.statusCode == 200 {
                     do {
                         let json = try NSJSONSerialization.JSONObjectWithData(response.data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]

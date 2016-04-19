@@ -108,7 +108,7 @@
                         <sections>
                             <tableViewSection headerTitle="NAME" id="ld3-yo-cjb">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserName" id="ppG-3c-YLe">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserName" id="ppG-3c-YLe">
                                         <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ppG-3c-YLe" id="zF1-j8-83Z">
