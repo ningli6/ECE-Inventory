@@ -104,7 +104,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 let barcode = metadataObj.stringValue
                 
                 // search through database
-                let query = base_url + "/api/items/barcode/\(barcode)"
+                let query = base_url + "/api/items/\(barcode)"
                 let requestURL: NSURL = NSURL(string: query)!
                 let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
                 let session = NSURLSession.sharedSession()

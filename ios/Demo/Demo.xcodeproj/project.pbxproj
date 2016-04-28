@@ -12,11 +12,17 @@
 		9B3E52CB1C87C46A007EDC85 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3E52CA1C87C46A007EDC85 /* ImageCollectionViewCell.swift */; };
 		9B3E52D01C87E026007EDC85 /* AddNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B3E52CF1C87E026007EDC85 /* AddNotesViewController.m */; };
 		9B42A3301C9B4BE100F0E756 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B42A32F1C9B4BE100F0E756 /* libxml2.tbd */; };
+		9B46944D1CC5A6EE00742D21 /* HistoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B46944C1CC5A6EE00742D21 /* HistoriesTableViewController.swift */; };
+		9B46944F1CC5A74300742D21 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B46944E1CC5A74300742D21 /* History.swift */; };
+		9B4694511CC5B7B300742D21 /* HistoryDetailsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4694501CC5B7B300742D21 /* HistoryDetailsTableView.swift */; };
 		9B5921071C6CF3E1005C6FEC /* ScanTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5921061C6CF3E1005C6FEC /* ScanTabViewController.swift */; };
 		9B5921091C6CF45A005C6FEC /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5921081C6CF45A005C6FEC /* BarcodeScannerViewController.swift */; };
 		9B59210D1C6D0858005C6FEC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210C1C6D0858005C6FEC /* User.swift */; };
 		9B59210F1C6D0915005C6FEC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B59210E1C6D0915005C6FEC /* Item.swift */; };
 		9B5921131C6D3D49005C6FEC /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */; };
+		9B5DA4571CB6C5900007BCFE /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5DA4561CB6C5900007BCFE /* TransferViewController.swift */; };
+		9B5DA45B1CB6E5EF0007BCFE /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5DA45A1CB6E5EF0007BCFE /* RequestsViewController.swift */; };
+		9B5DA45D1CB6E6EE0007BCFE /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5DA45C1CB6E6EE0007BCFE /* Request.swift */; };
 		9B7799691C948E4800FD2370 /* Azure Storage Client Library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B7799681C948E4800FD2370 /* Azure Storage Client Library.framework */; };
 		9B77E32C1C889B7700D7DCE4 /* ImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */; };
 		9B89009A1C6C28BA00BF5DE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8900991C6C28BA00BF5DE1 /* AppDelegate.swift */; };
@@ -41,11 +47,17 @@
 		9B3E52CE1C87E026007EDC85 /* AddNotesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNotesViewController.h; sourceTree = "<group>"; };
 		9B3E52CF1C87E026007EDC85 /* AddNotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNotesViewController.m; sourceTree = "<group>"; };
 		9B42A32F1C9B4BE100F0E756 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		9B46944C1CC5A6EE00742D21 /* HistoriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoriesTableViewController.swift; sourceTree = "<group>"; };
+		9B46944E1CC5A74300742D21 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		9B4694501CC5B7B300742D21 /* HistoryDetailsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryDetailsTableView.swift; sourceTree = "<group>"; };
 		9B5921061C6CF3E1005C6FEC /* ScanTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanTabViewController.swift; sourceTree = "<group>"; };
 		9B5921081C6CF45A005C6FEC /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		9B59210C1C6D0858005C6FEC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9B59210E1C6D0915005C6FEC /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
+		9B5DA4561CB6C5900007BCFE /* TransferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferViewController.swift; sourceTree = "<group>"; };
+		9B5DA45A1CB6E5EF0007BCFE /* RequestsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
+		9B5DA45C1CB6E6EE0007BCFE /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		9B7799681C948E4800FD2370 /* Azure Storage Client Library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Azure Storage Client Library.framework"; path = "AzureStorage/Azure Storage Client Library.framework"; sourceTree = "<group>"; };
 		9B77E32B1C889B7700D7DCE4 /* ImageDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailsViewController.swift; sourceTree = "<group>"; };
 		9B8900961C6C28BA00BF5DE1 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,8 +124,12 @@
 				9B89009B1C6C28BA00BF5DE1 /* ViewController.swift */,
 				9B8900B11C6C528700BF5DE1 /* SearchUsersViewController.swift */,
 				9B8900AF1C6C51D200BF5DE1 /* UserDetailsViewController.swift */,
+				9B5DA45A1CB6E5EF0007BCFE /* RequestsViewController.swift */,
 				9B8900B31C6C532900BF5DE1 /* ItemsListViewController.swift */,
 				9B5921121C6D3D49005C6FEC /* ItemDetailsViewController.swift */,
+				9B46944C1CC5A6EE00742D21 /* HistoriesTableViewController.swift */,
+				9B4694501CC5B7B300742D21 /* HistoryDetailsTableView.swift */,
+				9B5DA4561CB6C5900007BCFE /* TransferViewController.swift */,
 				9B3E52C81C87A779007EDC85 /* ImagesCollectionViewController.swift */,
 				9B3E52CA1C87C46A007EDC85 /* ImageCollectionViewCell.swift */,
 				9B1CAB4B1C9363C000C830C6 /* ImageCollectionReusableView.swift */,
@@ -127,6 +143,8 @@
 				9B98D7141C7F818E002EA6F4 /* Demo-Bridging-Header.h */,
 				9B59210E1C6D0915005C6FEC /* Item.swift */,
 				9B59210C1C6D0858005C6FEC /* User.swift */,
+				9B5DA45C1CB6E6EE0007BCFE /* Request.swift */,
+				9B46944E1CC5A74300742D21 /* History.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -275,16 +293,22 @@
 				9B89009C1C6C28BA00BF5DE1 /* ViewController.swift in Sources */,
 				9B1CAB4C1C9363C000C830C6 /* ImageCollectionReusableView.swift in Sources */,
 				9B5921131C6D3D49005C6FEC /* ItemDetailsViewController.swift in Sources */,
+				9B5DA45B1CB6E5EF0007BCFE /* RequestsViewController.swift in Sources */,
 				9B8900B21C6C528700BF5DE1 /* SearchUsersViewController.swift in Sources */,
 				9B3E52D01C87E026007EDC85 /* AddNotesViewController.m in Sources */,
 				9B77E32C1C889B7700D7DCE4 /* ImageDetailsViewController.swift in Sources */,
 				9B8900B41C6C532900BF5DE1 /* ItemsListViewController.swift in Sources */,
+				9B4694511CC5B7B300742D21 /* HistoryDetailsTableView.swift in Sources */,
+				9B46944F1CC5A74300742D21 /* History.swift in Sources */,
 				9B89009A1C6C28BA00BF5DE1 /* AppDelegate.swift in Sources */,
 				9B5921071C6CF3E1005C6FEC /* ScanTabViewController.swift in Sources */,
 				9B59210F1C6D0915005C6FEC /* Item.swift in Sources */,
+				9B5DA45D1CB6E6EE0007BCFE /* Request.swift in Sources */,
 				9B8900B01C6C51D200BF5DE1 /* UserDetailsViewController.swift in Sources */,
+				9B46944D1CC5A6EE00742D21 /* HistoriesTableViewController.swift in Sources */,
 				9B3E52CB1C87C46A007EDC85 /* ImageCollectionViewCell.swift in Sources */,
 				9B98D7171C7F818E002EA6F4 /* AddImageViewController.m in Sources */,
+				9B5DA4571CB6C5900007BCFE /* TransferViewController.swift in Sources */,
 				9B5921091C6CF45A005C6FEC /* BarcodeScannerViewController.swift in Sources */,
 				9B59210D1C6D0858005C6FEC /* User.swift in Sources */,
 			);
@@ -409,7 +433,7 @@
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ningli.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = ningli.ECEInventory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Demo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -430,7 +454,7 @@
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ningli.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = ningli.ECEInventory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Demo-Bridging-Header.h";
 			};

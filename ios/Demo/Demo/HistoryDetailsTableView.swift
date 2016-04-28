@@ -1,38 +1,44 @@
 //
-//  UserDetailsViewController.swift
+//  HistoryDetailsTableView.swift
 //  Demo
 //
-//  Created by Ning Li on 2/11/16.
+//  Created by Ning Li on 4/18/16.
 //  Copyright © 2016 ningli. All rights reserved.
 //
 
 import UIKit
-import Alamofire
 
-class UserDetailsViewController: UITableViewController {
+class HistoryDetailsTableView: UITableViewController {
     
-    // display information about this user
-    var user: User?
+    var history: History?
     
-    // pending requests
-    var pendingRequests: [Request] = []
+    @IBOutlet weak var barcodeLabel: UILabel!
+
+    @IBOutlet weak var ownerLabel: UILabel!
     
-    let base_url = "http://13.92.99.2"
-    let query_url = "/api/transfers/user/"
+    @IBOutlet weak var roomLabel: UILabel!
     
-    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var buildingLable: UILabel!
+    
+    @IBOutlet weak var sortRoomLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // display user name in the text label
-        userNameLabel.text = user?.name
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        barcodeLabel.text = history?.barcode
+        ownerLabel.text = history?.custodian
+        roomLabel.text = history?.room
+        buildingLable.text = history?.bldg
+        sortRoomLabel.text = history?.sortRoom
+        timeLabel.text = history?.time
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,38 +47,6 @@ class UserDetailsViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 { // ignore name cell
-            return
-        }
-        
-        let cell = tableView.cellForRowAtIndexPath(indexPath);
-        
-        if (cell?.textLabel?.text)! == "Ownership Transfer Requests" {
-            self.pendingRequests.removeAll()
-            let usernameWithSpace = user?.name!.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            Alamofire.request(.GET, base_url + query_url + "\(usernameWithSpace!)").responseJSON(completionHandler: { response in
-                if response.response?.statusCode == 200 {
-                    do {
-                        let json = try NSJSONSerialization.JSONObjectWithData(response.data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
-                        for request in json {
-                            let barcode = request["Ptag"] as! String
-                            let sender = request["Sender"] as! String
-                            let receiver = request["Receiver"] as! String
-                            let status = request["Status"] as! NSNumber
-                            let time = request["Time"] as! String
-                            self.pendingRequests.append(Request(barcode: barcode, sender: sender, receiver: receiver, status: status, time: time))
-                        }
-                        self.performSegueWithIdentifier("ShowTransferRequests", sender: nil)
-                    } catch {
-                        print("Error with Json: \(error)")
-                    }
-                }
-            })
-        }
-    }
-    
     /*
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -84,7 +58,6 @@ class UserDetailsViewController: UITableViewController {
         return 0
     }
     */
-
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
@@ -129,21 +102,15 @@ class UserDetailsViewController: UITableViewController {
         return true
     }
     */
-    
+
+    /*
+    // MARK: - Navigation
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if (segue.identifier == "ShowItemsList") {
-            let itemsListView = segue.destinationViewController as! ItemsListViewController
-            itemsListView.items = self.user?.items
-        }
-        
-        if (segue.identifier == "ShowTransferRequests") {
-            let requestsView = segue.destinationViewController as! RequestsViewController
-            requestsView.pendingRequests = self.pendingRequests
-            requestsView.name = self.user?.name
-        }
     }
+    */
 
 }
