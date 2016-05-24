@@ -15,7 +15,7 @@ class SearchUsersViewController: UIViewController {
     // user pid
     var pid: String?
     
-    let base_url = "http://13.92.99.2"
+    let base_url = "http://40.121.81.36"
     
     @IBOutlet weak var searchUserIdTextField: UITextField!
     

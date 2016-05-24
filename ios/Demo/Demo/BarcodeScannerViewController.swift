@@ -13,7 +13,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     // searched item
     var item: Item?
-    let base_url = "http://13.92.99.2"
+    let base_url = "http://40.121.81.36"
     
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?

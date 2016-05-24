@@ -11,7 +11,7 @@ import UIKit
 class ScanTabViewController: UIViewController {
     
     // base url for the backend
-    let base_url = "http://13.92.99.2"
+    let base_url = "http://40.121.81.36"
     // searched item
     var item: Item?
     

@@ -13,7 +13,7 @@ class ItemDetailsViewController: UITableViewController {
     
     var connectionString =  "DefaultEndpointsProtocol=https;AccountName=eceinventory;AccountKey=rzuspKSY65DcSH6EzOFMJrL6067TXKUP7+3iGX+eCNMlDkUJgngPe2irrrMGMZli7RaIlGFVdWmB9GsqYv9kbQ=="
     
-    let base_url = "http://13.92.99.2"
+    let base_url = "http://40.121.81.36"
     let query_url = "/api/histories/"
     
     var item: Item?

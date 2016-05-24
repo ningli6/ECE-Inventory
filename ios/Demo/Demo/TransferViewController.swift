@@ -15,7 +15,7 @@ class TransferViewController: UIViewController {
     var barcode: String?   // item barcode
     var receiver: String?  // receiver of the item
     
-    let base_url = "http://13.92.99.2"
+    let base_url = "http://40.121.81.36"
     let transfer_url = "/api/transfers"
 
     @IBOutlet weak var receiverNameLable: UITextField!

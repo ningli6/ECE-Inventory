@@ -17,7 +17,7 @@ class UserDetailsViewController: UITableViewController {
     // pending requests
     var pendingRequests: [Request] = []
     
-    let base_url = "http://13.92.99.2"
+    let base_url = "http://40.121.81.36"
     let query_url = "/api/transfers/user/"
     
     @IBOutlet weak var userNameLabel: UILabel!
