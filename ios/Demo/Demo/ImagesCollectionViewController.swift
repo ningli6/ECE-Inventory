@@ -29,7 +29,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     // timestamp array
     var sectionTimeStamp: [String]?
     
-    var connectionString =  "DefaultEndpointsProtocol=https;AccountName=eceinventory;AccountKey=rzuspKSY65DcSH6EzOFMJrL6067TXKUP7+3iGX+eCNMlDkUJgngPe2irrrMGMZli7RaIlGFVdWmB9GsqYv9kbQ=="
+    var connectionString =  "DefaultEndpointsProtocol=https;AccountName=inventory6897;AccountKey=u55YZhE8dvZHjkGkwwrOyBtQa86mFrIBtp+tJbnL/5B554TXMAq0WCyULPKWu5z1txc60MtvBC0nH3sYn/j09A=="
 
     override func viewDidLoad() {
         super.viewDidLoad()
