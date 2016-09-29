@@ -21,7 +21,7 @@ class ImageDetailsViewController: UIViewController {
     // notes dispalyed in the view
     var notes: String?
     // uploading date
-    var uploadingDate: NSDate?
+    var uploadingDate: Date?
 
     @IBOutlet weak var imageView: UIImageView!
     
@@ -35,8 +35,8 @@ class ImageDetailsViewController: UIViewController {
         // Set up elements displayed in the view
         self.imageView.image = self.image
         self.notesTextView.text = self.notes
-        let timeStr = String(self.uploadingDate!)
-        self.dateLabelView.text = timeStr.substringToIndex(timeStr.endIndex.advancedBy(-6))
+        let timeStr = String(describing: self.uploadingDate!)
+        self.dateLabelView.text = timeStr.substring(to: timeStr.characters.index(timeStr.endIndex, offsetBy: -6))
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,53 +44,53 @@ class ImageDetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func deleteImage(sender: AnyObject) {
+    @IBAction func deleteImage(_ sender: AnyObject) {
         /* Delete the image from azure cloud storage if exists */
         // Create a storage account object from a connection string.
         let account = AZSCloudStorageAccount(fromConnectionString:connectionString)
         
         // Create a blob service client object.
-        let blobClient: AZSCloudBlobClient = account.getBlobClient()
+        let blobClient: AZSCloudBlobClient = account!.getBlobClient()
         
         // Create a local container object.
-        let blobContainer: AZSCloudBlobContainer = blobClient.containerReferenceFromName(self.container!)
+        let blobContainer: AZSCloudBlobContainer = blobClient.containerReference(fromName: self.container!)
         
         // Create a local blob object
-        let blobObject: AZSCloudBlockBlob = blobContainer.blockBlobReferenceFromName(self.blobName!)
+        let blobObject: AZSCloudBlockBlob = blobContainer.blockBlobReference(fromName: self.blobName!)
         
-        blobObject.deleteWithCompletionHandler { (error: NSError?) -> Void in
+        blobObject.delete { (error: NSError?) -> Void in
             if (error != nil) {
                 print("Error deleting image")
             } else {
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self.imageView.image = nil
                     self.notesTextView.text = nil
-                    let alert = UIAlertController(title: "Image deleted!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Image deleted!", message: "", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(
                         UIAlertAction(
                             title: "Okay",
-                            style: UIAlertActionStyle.Default,
+                            style: UIAlertActionStyle.default,
                             handler: { (action: UIAlertAction? ) -> Void in
-                                self.performSegueWithIdentifier("FinishDeleting", sender: nil)
+                                self.performSegue(withIdentifier: "FinishDeleting", sender: nil)
                             }
                         )
                     )
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.present(alert, animated: true, completion: nil)
                 })
             }
-        }
+        } as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void
         
         // Create a local container object.
-        let blobTextContainer: AZSCloudBlobContainer = blobClient.containerReferenceFromName(self.container! + "text")
+        let blobTextContainer: AZSCloudBlobContainer = blobClient.containerReference(fromName: self.container! + "text")
         
         // Create a local blob object
-        let blobTextObject: AZSCloudBlockBlob = blobTextContainer.blockBlobReferenceFromName(self.blobName!)
+        let blobTextObject: AZSCloudBlockBlob = blobTextContainer.blockBlobReference(fromName: self.blobName!)
         
-        blobTextObject.deleteWithCompletionHandler { (error: NSError?) -> Void in
+        blobTextObject.delete { (error: NSError?) -> Void in
             if (error != nil) {
                 print("Error deleting image notes")
             }
-        }
+        } as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void
 
     }
     

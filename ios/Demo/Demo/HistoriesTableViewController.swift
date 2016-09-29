@@ -29,12 +29,12 @@ class HistoriesTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 2
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if histories == nil {
             return 0
@@ -45,21 +45,21 @@ class HistoriesTableViewController: UITableViewController {
         return histories!.count - 1
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath)
         // Configure the cell...
-        if indexPath.section == 0 {
-            cell.textLabel?.text = "Custodian: \(histories![indexPath.section].custodian!)"
-            cell.detailTextLabel?.text = "Location: \(histories![indexPath.section].sortRoom!)"
+        if (indexPath as NSIndexPath).section == 0 {
+            cell.textLabel?.text = "Custodian: \(histories![(indexPath as NSIndexPath).section].custodian!)"
+            cell.detailTextLabel?.text = "Location: \(histories![(indexPath as NSIndexPath).section].sortRoom!)"
             return cell
         }
-        cell.textLabel?.text = "Custodian: \(histories![1 + indexPath.row].custodian!)"
-        cell.detailTextLabel?.text = "Location: \(histories![1 + indexPath.row].sortRoom!)"
+        cell.textLabel?.text = "Custodian: \(histories![1 + (indexPath as NSIndexPath).row].custodian!)"
+        cell.detailTextLabel?.text = "Location: \(histories![1 + (indexPath as NSIndexPath).row].sortRoom!)"
         return cell
     }
     
     // add title
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "Current Custodian & Location"
         }
@@ -105,17 +105,17 @@ class HistoriesTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "ShowHistoryDetails" && self.histories != nil {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let historyDetails = segue.destinationViewController as! HistoryDetailsTableView
-                if indexPath.section == 0 {
+                let historyDetails = segue.destination as! HistoryDetailsTableView
+                if (indexPath as NSIndexPath).section == 0 {
                     historyDetails.history = self.histories![0]
                 }
                 else {
-                    historyDetails.history = self.histories![1 + indexPath.row]
+                    historyDetails.history = self.histories![1 + (indexPath as NSIndexPath).row]
                 }
             }
         }

@@ -41,21 +41,21 @@ class RequestsViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return pendingRequests == nil ? 0 : pendingRequests!.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("RequestCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RequestCell", for: indexPath)
 
         // Configure the cell...
-        let r = self.pendingRequests![indexPath.row]
+        let r = self.pendingRequests![(indexPath as NSIndexPath).row]
         cell.textLabel?.text = "Item barcode: \(r.barcode!)"
         if self.name == r.sender {
             cell.detailTextLabel?.text = "To: \(r.receiver!)  \(r.time!)"
@@ -66,14 +66,14 @@ class RequestsViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath);
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath);
         let str = cell!.textLabel!.text
-        let barcode = str!.substringWithRange(Range<String.Index>(start: str!.startIndex.advancedBy(14), end: str!.endIndex.advancedBy(0)))
+        let barcode = str!.substring(with: (str!.characters.index(str!.startIndex, offsetBy: 14) ..< str!.characters.index(str!.endIndex, offsetBy: 0)))
         Alamofire.request(.GET, base_url + query_url + "\(barcode)").responseJSON(completionHandler: { response in
             if response.response?.statusCode == 200 {
                 do {
-                    let json = try NSJSONSerialization.JSONObjectWithData(response.data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
+                    let json = try JSONSerialization.jsonObject(with: response.data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]
                     let item = json[0]
                     // huge ugly init
                     let owner = item["Owner"] is NSNull ? "" : item["Owner"] as! String
@@ -101,7 +101,7 @@ class RequestsViewController: UITableViewController {
                     let designation = item["Designation"] is NSNull ? "" : item["Designation"] as! String
                     
                     self.item = Item(owner: owner, orgnCode: orgnCode, orgnTitle: orgnTitle, room: room, bldg: bldg, sortRoom: sortRoom, ptag: ptag, manufacturer: manufacturer, model: model, sn: sn, description: description, custodian: custodian, po: po, acqDate: acqDate, amt: amt, ownership: ownership, schevYear: schevYear, tagType: tagType, assetType: assetType, atypTitle: atypTitle, condition: condition, lastInvDate: lastInvDate, designation: designation)
-                    self.performSegueWithIdentifier("PeekItemsByTransferRequests", sender: nil)
+                    self.performSegue(withIdentifier: "PeekItemsByTransferRequests", sender: nil)
                 } catch {
                     print("Error with Json: \(error)")
                 }
@@ -147,12 +147,12 @@ class RequestsViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
         if (segue.identifier == "PeekItemsByTransferRequests") {
-            let itemDetailView = segue.destinationViewController as! ItemDetailsViewController
+            let itemDetailView = segue.destination as! ItemDetailsViewController
             itemDetailView.item = self.item
             itemDetailView.returnToSearchTab = false
         }

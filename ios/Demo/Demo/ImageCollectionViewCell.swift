@@ -13,7 +13,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     // Notes Id (blob name)
     var notesId: String?
     // uploading date for that image and notes
-    var uploadingDate: NSDate?
+    var uploadingDate: Date?
     
     @IBOutlet weak var imageView: UIImageView!
 

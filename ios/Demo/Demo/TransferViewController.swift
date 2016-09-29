@@ -39,12 +39,12 @@ class TransferViewController: UIViewController {
 //                print(response.result)   // result of response serialization
                 if response.response?.statusCode == 200 {
                     do {
-                        let json = try NSJSONSerialization.JSONObjectWithData(response.data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
+                        let json = try JSONSerialization.jsonObject(with: response.data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]
                         if json.count > 0 {
-                            let alert = UIAlertController(title: "Ownership transfer requested!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-                            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-                            self.presentViewController(alert, animated: true, completion: nil)
-                            self.transferButton.enabled = false
+                            let alert = UIAlertController(title: "Ownership transfer requested!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+                            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                            self.transferButton.isEnabled = false
                         }
                     } catch {
                         print("Error with Json: \(error)")
@@ -66,62 +66,62 @@ class TransferViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func TransferRequest(sender: AnyObject) {
+    @IBAction func TransferRequest(_ sender: AnyObject) {
         if currentOwner == nil || currentOwner == "" || barcode == nil || barcode == "" {
-            let alert = UIAlertController(title: "Invalid item barcode or owner name", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Invalid item barcode or owner name", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             return
         }
         if receiverNameLable.text == nil || receiverNameLable.text == "" {
-            let alert = UIAlertController(title: "Invalid receiver name", message: "Please type lastname, firstname", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Invalid receiver name", message: "Please type lastname, firstname", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             return
         }
         self.receiver = receiverNameLable.text
         // post parameters
         let postParams = [
-            "ptag": self.barcode as! AnyObject,
-            "sender": self.currentOwner as! AnyObject,
-            "receiver": self.receiver as! AnyObject
+            "ptag": self.barcode as AnyObject,
+            "sender": self.currentOwner as AnyObject,
+            "receiver": self.receiver as AnyObject
         ]
         Alamofire.request(.POST, base_url + transfer_url, parameters: postParams).responseJSON { response in
             // successful post
             if response.response?.statusCode == 201 {
-                let alert = UIAlertController(title: "Transfer Request Sent!", message: "The inventory administrator will review this transfer request.", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: self.unwindTowardsItemDetailsView))
-                self.presentViewController(alert, animated: true, completion: nil)
+                let alert = UIAlertController(title: "Transfer Request Sent!", message: "The inventory administrator will review this transfer request.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: self.unwindTowardsItemDetailsView))
+                self.present(alert, animated: true, completion: nil)
                 return
             }
             // server returns error
             if response.response?.statusCode == 400 {
                 do {
-                    let json = try NSJSONSerialization.JSONObjectWithData(response.data!, options:NSJSONReadingOptions()) as! [String: AnyObject]
+                    let json = try JSONSerialization.jsonObject(with: response.data!, options:JSONSerialization.ReadingOptions()) as! [String: AnyObject]
                     let error = json["Message"] as! String
-                    let alert = UIAlertController(title: "Transfer Request Denied!", message: error, preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    let alert = UIAlertController(title: "Transfer Request Denied!", message: error, preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                     return
                 } catch {
                     print("Error with Json: \(error)")
                 }
             }
             // other results
-            let alert = UIAlertController(title: "Transfer Request Failed!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Transfer Request Failed!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             return
         }
     }
 
     // MARK: - Navigation
-    func unwindTowardsItemDetailsView(action : UIAlertAction) {
-        performSegueWithIdentifier("FinishTransferRequest", sender: nil)
+    func unwindTowardsItemDetailsView(_ action : UIAlertAction) {
+        performSegue(withIdentifier: "FinishTransferRequest", sender: nil)
     }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }

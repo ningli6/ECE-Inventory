@@ -55,9 +55,9 @@ class ViewController: UIViewController {
         
         // check for nil
         if pid == "" || password == "" {
-            let alert = UIAlertController(title: "Invalid username or password", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Invalid username or password", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             return
         }
         
@@ -119,15 +119,15 @@ class ViewController: UIViewController {
 //            }
 //        }
         self.pid = pid
-        self.performSegueWithIdentifier("LogInSucceeded", sender: nil)
+        self.performSegue(withIdentifier: "LogInSucceeded", sender: nil)
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if (segue.identifier == "LogInSucceeded") {
-            let tabBarView = segue.destinationViewController as! UITabBarController
+            let tabBarView = segue.destination as! UITabBarController
             let searchUsersView = tabBarView.viewControllers?.first as! SearchUsersViewController
             searchUsersView.pid = self.pid!
         }

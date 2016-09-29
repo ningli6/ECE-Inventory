@@ -17,7 +17,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     // blob name for the selected image
     var selectedBlobName: String?
     // uploading date for the image
-    var uploadingDate: NSDate?
+    var uploadingDate: Date?
     // notes of the selected image
     var notesOfImage: String?
     // barcode of the item (container name), set by previous view
@@ -49,40 +49,40 @@ class ImagesCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func divideBlobByTime(bloblist: AZSBlobResultSegment?) -> Void {
+    func divideBlobByTime(_ bloblist: AZSBlobResultSegment?) -> Void {
         self.blobBySection = nil
         self.sectionTimeStamp = nil
         if (bloblist != nil && bloblist!.blobs!.count > 0) {
-            let formatter = NSDateFormatter()
-            formatter.dateStyle = NSDateFormatterStyle.LongStyle
+            let formatter = DateFormatter()
+            formatter.dateStyle = DateFormatter.Style.long
             
             self.blobBySection = [[AZSCloudBlob]]()
             self.sectionTimeStamp = [String]()
-            var lastDate: NSDate?
+            var lastDate: Date?
             var index: Int?
             for blob in bloblist!.blobs! {
-                let newDate = NSDate(timeIntervalSince1970: Double(blob.blobName)! - 18000)
+                let newDate = Date(timeIntervalSince1970: Double((blob as AnyObject).blobName)! - 18000)
                 if lastDate == nil {
                     self.blobBySection?.append([AZSCloudBlob]())
                     self.blobBySection![0].append(blob as! AZSCloudBlob)
-                    self.sectionTimeStamp?.append(formatter.stringFromDate(newDate))
+                    self.sectionTimeStamp?.append(formatter.string(from: newDate))
                     lastDate = newDate
                     index = 0
-                } else if NSCalendar.currentCalendar().compareDate(newDate, toDate: lastDate!,
-                    toUnitGranularity: NSCalendarUnit.Day) == NSComparisonResult.OrderedSame {
+                } else if (Calendar.current as NSCalendar).compare(newDate, to: lastDate!,
+                    toUnitGranularity: NSCalendar.Unit.day) == ComparisonResult.orderedSame {
                         self.blobBySection![index!].append(blob as! AZSCloudBlob)
                 } else {
                     self.blobBySection?.append([AZSCloudBlob]())
                     index = index! + 1
                     self.blobBySection![index!].append(blob as! AZSCloudBlob)
                     lastDate = newDate
-                    self.sectionTimeStamp?.append(formatter.stringFromDate(newDate))
+                    self.sectionTimeStamp?.append(formatter.string(from: newDate))
                 }
             }
         }
     }
     
-    @IBAction func uploadingFromAddNotesViewController(segue: UIStoryboardSegue) {
+    @IBAction func uploadingFromAddNotesViewController(_ segue: UIStoryboardSegue) {
         print("Reload collection view!")
         
         /* Download the image from azure cloud storage if exists */
@@ -90,51 +90,51 @@ class ImagesCollectionViewController: UICollectionViewController {
         let account = AZSCloudStorageAccount(fromConnectionString:connectionString)
         
         // Create a blob service client object.
-        let blobClient: AZSCloudBlobClient = account.getBlobClient()
+        let blobClient: AZSCloudBlobClient = account!.getBlobClient()
         
         // Create a local container object.
-        let blobContainer: AZSCloudBlobContainer = blobClient.containerReferenceFromName(self.barcode!)
+        let blobContainer: AZSCloudBlobContainer = blobClient.containerReference(fromName: self.barcode!)
         
         // list blobs in a container
-        blobContainer.listBlobsSegmentedWithContinuationToken(nil, prefix: nil, useFlatBlobListing: true, blobListingDetails: AZSBlobListingDetails.All, maxResults: -1, completionHandler: { (error: NSError?, results: AZSBlobResultSegment?) -> Void in
+        blobContainer.listBlobsSegmented(with: nil, prefix: nil, useFlatBlobListing: true, blobListingDetails: AZSBlobListingDetails.all, maxResults: -1, completionHandler: { (error: NSError?, results: AZSBlobResultSegment?) -> Void in
             if (error != nil) {
                 NSLog("Error downloading blobs list")
             } else {
                 self.bloblist = results
                 self.divideBlobByTime(self.bloblist)
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self.collectionView?.reloadData()
                 })
             }
-        })
+        } as! (Error?, AZSBlobResultSegment?) -> Void)
     }
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return self.blobBySection == nil ? 0 : self.blobBySection!.count
     }
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return self.blobBySection![self.blobBySection!.count - 1 - section].count
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! ImageCollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageCollectionViewCell
         
         // Configure the cell
         // Download blob according to the blob list
-        let indexSection = self.blobBySection!.count - 1 - indexPath.section
-        let indexRow = self.blobBySection![indexSection].count - 1 - indexPath.row
+        let indexSection = self.blobBySection!.count - 1 - (indexPath as NSIndexPath).section
+        let indexRow = self.blobBySection![indexSection].count - 1 - (indexPath as NSIndexPath).row
         
-        self.blobBySection![indexSection][indexRow].downloadToDataWithCompletionHandler({ (error: NSError?, data: NSData?) -> Void in
+        self.blobBySection![indexSection][indexRow].downloadToData(completionHandler: { (error: NSError?, data: Data?) -> Void in
             if ((error) != nil) {
                 print("Error with downloading image!")
                 // image not exists in the cloud storage, clear ram
             } else {
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     cell.imageView.image = UIImage(data:data!,scale:1.0)
                 })
             }
@@ -142,21 +142,21 @@ class ImagesCollectionViewController: UICollectionViewController {
         
         cell.notesId = blobBySection![indexSection][indexRow].blobName
         // keep track of the uploading date, date comes from the system
-        cell.uploadingDate = NSDate(timeIntervalSince1970: Double(cell.notesId!)! - 18000)
+        cell.uploadingDate = Date(timeIntervalSince1970: Double(cell.notesId!)! - 18000)
         
-        cell.backgroundColor = UIColor.whiteColor()
+        cell.backgroundColor = UIColor.white
         return cell
     }
     
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         //1
         switch kind {
             //2
         case UICollectionElementKindSectionHeader:
             //3
-            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "ImageCollectionHeaderView", forIndexPath: indexPath) as! ImageCollectionReusableView
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ImageCollectionHeaderView", for: indexPath) as! ImageCollectionReusableView
             let sections = self.sectionTimeStamp?.count
-            headerView.headerLabel.text = self.sectionTimeStamp![sections! - 1 - indexPath.section]
+            headerView.headerLabel.text = self.sectionTimeStamp![sections! - 1 - (indexPath as NSIndexPath).section]
             return headerView
         default:
             //4
@@ -175,35 +175,35 @@ class ImagesCollectionViewController: UICollectionViewController {
 
 
     // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ImageCollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        let cell = collectionView.cellForItem(at: indexPath) as! ImageCollectionViewCell
         self.selectedImage = cell.imageView.image
-        self.uploadingDate = cell.uploadingDate
+        self.uploadingDate = cell.uploadingDate as Date?
         self.selectedBlobName = cell.notesId
         
         // Create a storage account object from a connection string.
         let account = AZSCloudStorageAccount(fromConnectionString:connectionString)
         
         // Create a blob service client object.
-        let blobClient: AZSCloudBlobClient = account.getBlobClient()
+        let blobClient: AZSCloudBlobClient = account!.getBlobClient()
         
         // Create a local container object.
-        let blobContainer: AZSCloudBlobContainer = blobClient.containerReferenceFromName(self.barcode! + "text")
+        let blobContainer: AZSCloudBlobContainer = blobClient.containerReference(fromName: self.barcode! + "text")
         
         // list blobs in a container
-        let textBlob: AZSCloudBlob = blobContainer.blockBlobReferenceFromName(cell.notesId!)
+        let textBlob: AZSCloudBlob = blobContainer.blockBlobReference(fromName: cell.notesId!)
         
         // Download blob
-        textBlob.downloadToTextWithCompletionHandler { (error: NSError?, results: String?) -> Void in
+        textBlob.downloadToText { (error: NSError?, results: String?) -> Void in
             if error != nil {
                 print("Error downloading text notes")
             } else {
                 self.notesOfImage = results
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.performSegueWithIdentifier("ShowImageDetails", sender: nil)
+                DispatchQueue.main.async(execute: {
+                    self.performSegue(withIdentifier: "ShowImageDetails", sender: nil)
                 })
             }
-        }
+        } as! (Error?, String?) -> Void as! (Error?, String?) -> Void as! (Error?, String?) -> Void as! (Error?, String?) -> Void as! (Error?, String?) -> Void as! (Error?, String?) -> Void as! (Error?, String?) -> Void
         return true
     }
 
@@ -226,16 +226,16 @@ class ImagesCollectionViewController: UICollectionViewController {
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "AddImage" {
-            let addImageView = segue.destinationViewController as! AddImageViewController
+            let addImageView = segue.destination as! AddImageViewController
             addImageView.barcode = self.barcode;
         }
         
         if segue.identifier == "ShowImageDetails" {
-            let imageDetailsView = segue.destinationViewController as! ImageDetailsViewController
+            let imageDetailsView = segue.destination as! ImageDetailsViewController
             imageDetailsView.container = self.barcode
             imageDetailsView.blobName = self.selectedBlobName
             imageDetailsView.image = self.selectedImage
