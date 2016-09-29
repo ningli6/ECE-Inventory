@@ -70,7 +70,7 @@ class RequestsViewController: UITableViewController {
         let cell = tableView.cellForRow(at: indexPath);
         let str = cell!.textLabel!.text
         let barcode = str!.substring(with: (str!.characters.index(str!.startIndex, offsetBy: 14) ..< str!.characters.index(str!.endIndex, offsetBy: 0)))
-        Alamofire.request(.GET, base_url + query_url + "\(barcode)").responseJSON(completionHandler: { response in
+        Alamofire.request(base_url + query_url + "\(barcode)").responseJSON(completionHandler: { response in
             if response.response?.statusCode == 200 {
                 do {
                     let json = try JSONSerialization.jsonObject(with: response.data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]

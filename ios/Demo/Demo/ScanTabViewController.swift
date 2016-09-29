@@ -62,8 +62,7 @@ class ScanTabViewController: UIViewController {
         indicator.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
         indicator.startAnimating()
         loadingAlert.view.addSubview(indicator)
-        
-        let task = session.dataTask(with: urlRequest, completionHandler: {
+        let task = session.dataTask(with: urlRequest as URLRequest , completionHandler: {
             (data, response, error) -> Void in
             
             DispatchQueue.main.async(execute: {

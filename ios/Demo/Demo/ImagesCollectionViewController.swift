@@ -129,7 +129,7 @@ class ImagesCollectionViewController: UICollectionViewController {
         let indexSection = self.blobBySection!.count - 1 - (indexPath as NSIndexPath).section
         let indexRow = self.blobBySection![indexSection].count - 1 - (indexPath as NSIndexPath).row
         
-        self.blobBySection![indexSection][indexRow].downloadToData(completionHandler: { (error: NSError?, data: Data?) -> Void in
+        self.blobBySection![indexSection][indexRow].downloadToData(completionHandler: { (error: Error?, data: Data?) -> Void in
             if ((error) != nil) {
                 print("Error with downloading image!")
                 // image not exists in the cloud storage, clear ram
@@ -194,7 +194,8 @@ class ImagesCollectionViewController: UICollectionViewController {
         let textBlob: AZSCloudBlob = blobContainer.blockBlobReference(fromName: cell.notesId!)
         
         // Download blob
-        textBlob.downloadToText { (error: NSError?, results: String?) -> Void in
+ 
+        textBlob.downloadToText { (error: Error?, results: String?) -> Void in
             if error != nil {
                 print("Error downloading text notes")
             } else {
@@ -203,7 +204,7 @@ class ImagesCollectionViewController: UICollectionViewController {
                     self.performSegue(withIdentifier: "ShowImageDetails", sender: nil)
                 })
             }
-        } as! (Error?, String?) -> Void as! (Error?, String?) -> Void as! (Error?, String?) -> Void as! (Error?, String?) -> Void as! (Error?, String?) -> Void as! (Error?, String?) -> Void as! (Error?, String?) -> Void
+        }
         return true
     }
 

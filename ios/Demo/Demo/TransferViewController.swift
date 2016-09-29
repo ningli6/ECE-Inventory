@@ -32,7 +32,7 @@ class TransferViewController: UIViewController {
         
         // check whether this item was requested to be transfered
         if self.barcode != nil {
-            Alamofire.request(.GET, base_url + transfer_url + "/\(barcode!)").responseJSON(completionHandler: { response in
+            Alamofire.request(base_url + transfer_url + "/\(barcode!)").responseJSON(completionHandler: { response in
 //                print(response.request)  // original URL request
 //                print(response.response) // URL response
 //                print("Response data: \(NSString(data: response.data!, encoding: NSUTF8StringEncoding)!)")     // server data
@@ -86,7 +86,7 @@ class TransferViewController: UIViewController {
             "sender": self.currentOwner as AnyObject,
             "receiver": self.receiver as AnyObject
         ]
-        Alamofire.request(.POST, base_url + transfer_url, parameters: postParams).responseJSON { response in
+        Alamofire.request(base_url + transfer_url, method:.post, parameters: postParams).responseJSON { response in
             // successful post
             if response.response?.statusCode == 201 {
                 let alert = UIAlertController(title: "Transfer Request Sent!", message: "The inventory administrator will review this transfer request.", preferredStyle: UIAlertControllerStyle.alert)

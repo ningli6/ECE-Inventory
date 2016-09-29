@@ -108,7 +108,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 let requestURL: URL = URL(string: query)!
                 let urlRequest: NSMutableURLRequest = NSMutableURLRequest(url: requestURL)
                 let session = URLSession.shared
-                let task = session.dataTask(with: urlRequest, completionHandler: {
+                let task = session.dataTask(with: urlRequest as URLRequest, completionHandler: {
                     (data, response, error) -> Void in
                     
                     DispatchQueue.main.async(execute: {

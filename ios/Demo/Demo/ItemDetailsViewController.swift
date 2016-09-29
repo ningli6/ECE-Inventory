@@ -139,7 +139,7 @@ class ItemDetailsViewController: UITableViewController {
         
         // histories column is selected
         if cell?.textLabel?.text == "Ownership & Location Histories" {
-            Alamofire.request(.GET, base_url + query_url + "/\(self.item!.ptag!)").responseJSON(completionHandler: { response in
+            Alamofire.request(base_url + query_url + "/\(self.item!.ptag!)").responseJSON(completionHandler: { response in
                 if response.response?.statusCode == 200 {
                     do {
                         let json = try JSONSerialization.jsonObject(with: response.data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]

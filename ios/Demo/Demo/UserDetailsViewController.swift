@@ -52,7 +52,7 @@ class UserDetailsViewController: UITableViewController {
         if (cell?.textLabel?.text)! == "Ownership Transfer Requests" {
             self.pendingRequests.removeAll()
             let usernameWithSpace = user?.name!.replacingOccurrences(of: " ", with: "%20", options: NSString.CompareOptions.literal, range: nil)
-            Alamofire.request(.GET, base_url + query_url + "\(usernameWithSpace!)").responseJSON(completionHandler: { response in
+            Alamofire.request(base_url + query_url + "\(usernameWithSpace!)").responseJSON(completionHandler: { response in
                 if response.response?.statusCode == 200 {
                     do {
                         let json = try JSONSerialization.jsonObject(with: response.data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]

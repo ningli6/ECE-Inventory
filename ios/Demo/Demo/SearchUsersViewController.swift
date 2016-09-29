@@ -74,7 +74,7 @@ class SearchUsersViewController: UIViewController {
         indicator.startAnimating()
         loadingAlert.view.addSubview(indicator)
         
-        let task = session.dataTask(with: urlRequest, completionHandler: {
+        let task = session.dataTask(with: urlRequest as URLRequest, completionHandler: {
             (data, response, error) -> Void in
             
             DispatchQueue.main.async(execute: { // dismiss alert in the main thread

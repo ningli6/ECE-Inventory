@@ -58,7 +58,7 @@ class ImageDetailsViewController: UIViewController {
         // Create a local blob object
         let blobObject: AZSCloudBlockBlob = blobContainer.blockBlobReference(fromName: self.blobName!)
         
-        blobObject.delete { (error: NSError?) -> Void in
+        blobObject.delete { (error: Error?) -> Void in
             if (error != nil) {
                 print("Error deleting image")
             } else {
@@ -78,7 +78,7 @@ class ImageDetailsViewController: UIViewController {
                     self.present(alert, animated: true, completion: nil)
                 })
             }
-        } as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void
+        }
         
         // Create a local container object.
         let blobTextContainer: AZSCloudBlobContainer = blobClient.containerReference(fromName: self.container! + "text")
@@ -86,12 +86,11 @@ class ImageDetailsViewController: UIViewController {
         // Create a local blob object
         let blobTextObject: AZSCloudBlockBlob = blobTextContainer.blockBlobReference(fromName: self.blobName!)
         
-        blobTextObject.delete { (error: NSError?) -> Void in
+        blobTextObject.delete { (error: Error?) -> Void in
             if (error != nil) {
                 print("Error deleting image notes")
             }
-        } as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void as! (Error?) -> Void
-
+        }
     }
     
     /*
