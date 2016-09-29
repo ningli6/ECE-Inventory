@@ -1,4 +1,4 @@
-How to use these project:
+How to use this project:
 =========================
 
 1. Install CocoaPods >= 1.1.0.
