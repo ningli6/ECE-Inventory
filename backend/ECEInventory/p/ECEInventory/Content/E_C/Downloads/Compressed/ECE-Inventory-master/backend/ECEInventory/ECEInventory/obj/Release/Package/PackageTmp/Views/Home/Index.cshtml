@@ -1,0 +1,36 @@
+﻿<div class="jumbotron">
+    <h1>Inventory Management Portal</h1>
+    <p class="lead">This website is the management portal for Mobile Inventory Database System of ECE department at Virginia Tech. It is built for administrators to update departmental inventory.</p>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Instructions</h2>
+        <h4>Add Items into Database</h4>
+        <p>To add items into database, please use button below to upload your new spreadsheet.</p>
+        <p>This application will automatically add new entries to database and update existing entries if necessary.</p>
+        <p>Your spreadsheet should not contain entries with same ptag (barcode).</p>
+        <p>Your spreadsheet should be an xlsx (Microsoft Office Excel) file.</p>
+		<div>
+        <form role="form" action='@Url.Action("AddItems")' method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" class="form-control" name="FileUpload">
+            </div>
+            <button type="submit" class="btn btn-success">Add Items</button>
+        </form>
+		</div>
+		<br />
+		<h4>Add PIDs into Database</h4>
+		<p>The same format file is needed when you try to add PID-Name matching pairs into database <p>
+		<div>
+			<form role="form" action='@Url.Action("AddPIDs")' method="post" enctype="multipart/form-data">
+				<div class="form-group">
+					<input type="file" class="form-control" name="FileUpload">
+				</div>
+				<button type="submit" class="btn btn-success">Add PIDs</button>
+			</form>
+		</div>
+        <br />
+        <h4>Process Ownership Transfer Requests</h4>
+        <p>To see all pending ownership transfer requests, to go @Html.ActionLink("Transfers", "Index", "TransfersView", new { area = "" }, null) tab. You can check out item details and process these requests.</p>
+    </div>
+</div>

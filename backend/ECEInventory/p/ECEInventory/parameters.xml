@@ -1,0 +1,12 @@
+﻿<parameters>
+  <parameter name="IIS Web Application Name" defaultValue="VTECEInventory" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^E:\\Downloads\\Compressed\\ECE-Inventory-master\\backend\\ECEInventory\\ECEInventory\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^E:\\Downloads\\Compressed\\ECE-Inventory-master\\backend\\ECEInventory\\ECEInventory\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="InventoryDBContext-Web.config Connection String" defaultValue="Data Source=inventorydb0.database.windows.net;Initial Catalog=VTECEInventory;Persist Security Info=True;User ID=pep3;Password=Invent0ryECE!">
+    <parameterEntry kind="XmlFile" scope="E:\\Downloads\\Compressed\\ECE-Inventory-master\\backend\\ECEInventory\\ECEInventory\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='InventoryDBContext']/@connectionString" />
+  </parameter>
+  <parameter name="InventoryDBContext_DatabasePublish-Web.config Connection String" description="InventoryDBContext Connection String used by Entity Framework Code First Model to deploy the database." defaultValue="Data Source=inventorydb0.database.windows.net;Initial Catalog=VTECEInventory;Persist Security Info=True;User ID=pep3;Password=Invent0ryECE!">
+    <parameterEntry kind="XmlFile" scope="E:\\Downloads\\Compressed\\ECE-Inventory-master\\backend\\ECEInventory\\ECEInventory\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='InventoryDBContext_DatabasePublish']/@connectionString" />
+  </parameter>
+</parameters>
