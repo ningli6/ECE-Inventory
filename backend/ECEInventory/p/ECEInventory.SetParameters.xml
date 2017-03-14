@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="VTECEInventory" />
+  <setParameter name="InventoryDBContext-Web.config Connection String" value="Data Source=inventorydb0.database.windows.net;Initial Catalog=VTECEInventory;Persist Security Info=True;User ID=pep3;Password=Invent0ryECE!" />
+  <setParameter name="InventoryDBContext_DatabasePublish-Web.config Connection String" value="Data Source=inventorydb0.database.windows.net;Initial Catalog=VTECEInventory;Persist Security Info=True;User ID=pep3;Password=Invent0ryECE!" />
+</parameters>
