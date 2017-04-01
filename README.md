@@ -6,6 +6,7 @@
 Capstone project on ECE inventory at Virginia Tech 2016~2017
 
 **Authors:**
+
 Abhijeet Tawar,    abhi007@vt.edu 
 
 Praneeth Gurram,   gpran93@vt.edu
