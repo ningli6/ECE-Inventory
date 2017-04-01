@@ -9,11 +9,11 @@
 import UIKit
 import AVFoundation
 
-class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     // searched item
     var item: Item?
-    let base_url = "http://40.121.81.36"
+    let base_url = Shared.shared.base_url
     
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
@@ -41,11 +41,12 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             
             // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
             let captureMetadataOutput = AVCaptureMetadataOutput()
+            let videoOutput = AVCaptureVideoDataOutput()
             captureSession?.addOutput(captureMetadataOutput)
-            
+            captureSession?.addOutput(videoOutput)
             // Set delegate and use the default dispatch queue to execute the call back
             captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            
+            videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue.main)
             // Detect all the supported bar code
             captureMetadataOutput.metadataObjectTypes = supportedBarCodes
             
@@ -64,6 +65,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             if let qrCodeFrameView = qrCodeFrameView {
                 qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
                 qrCodeFrameView.layer.borderWidth = 2
+                
                 view.addSubview(qrCodeFrameView)
                 view.bringSubview(toFront: qrCodeFrameView)
             }
@@ -104,7 +106,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 let barcode = metadataObj.stringValue
                 
                 // search through database
-                let query = base_url + "/api/items/\(barcode)"
+                let query = base_url + "/api/items/" + barcode!
                 let requestURL: URL = URL(string: query)!
                 let urlRequest: NSMutableURLRequest = NSMutableURLRequest(url: requestURL)
                 let session = URLSession.shared
@@ -120,7 +122,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                                 let jsonData = try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]
                                 if (jsonData.isEmpty) {
                                     // alert
-                                    let alert = UIAlertController(title: "Item not found", message: "Item with barcdoe \(barcode) does not exist", preferredStyle: UIAlertControllerStyle.alert)
+                                    let alert = UIAlertController(title: "Item not found", message: "Item with barcdoe \(barcode!) does not exist", preferredStyle: UIAlertControllerStyle.alert)
                                     alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: {(UIAlertAction) -> Void in
                                             self.captureSession?.startRunning()
                                     }))
@@ -171,6 +173,12 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 task.resume()
             }
         }
+    }
+    
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+        qrCodeFrameView?.frame = CGRect(x: 0, y: 0, width: view.frame.width/2, height: view.frame.height/2)
+        qrCodeFrameView?.center = view.center
+        
     }
     
     // MARK: - Navigation

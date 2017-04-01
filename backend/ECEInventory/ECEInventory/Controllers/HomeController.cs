@@ -17,6 +17,7 @@ namespace ECEInventory.Controllers
 
         private InventoryDBContext db = new InventoryDBContext();
 
+       
         public ActionResult Index()
         {
             ViewBag.Title = "ECE Inventory";
@@ -105,8 +106,11 @@ namespace ECEInventory.Controllers
         }
         public void AddPID(IQueryable<PID> updates) {
             foreach (var r in updates) {
-                System.Diagnostics.Debug.WriteLine(r);
-                db.PIDs.Add(r);
+                if (db.PIDs.Any(p => p.pid == r.pid)) { 
+                    db.PIDs.Attach(r);
+                } else {
+                    db.PIDs.Add(r);
+                }
             }
         }
         public ActionResult Result(string s)

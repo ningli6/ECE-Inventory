@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ECEInventory.Models;
+using ECEInventory;
 
 namespace ECEInventory.Controllers
 {
@@ -51,20 +52,28 @@ namespace ECEInventory.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        [Route("api/UsersByName/{user}")]
-        public IQueryable<Item> GetItemsByUser(string user)
+        [Route("api/UsersByName/{user}/")]
+        public List<Item> GetItemsByUser(string user)
         {
-            return db.Items.Where(item => item.Custodian == user);
+            List<Item> ans = new List<Item>();
+            string name = user;
+            foreach (Item i in db.Items) {
+                if (Utility.IsSameString(i.Custodian, name)) {
+                    ans.Add(i);
+                }
+            }
+            return ans;
         }
 
         [Route("api/UsersByPID/{pid}")]
         public List<Item> GetItemsByPID(string pid) {
+            List<Item> ans = new List<Item>();
             IQueryable<PID> PIDs = db.PIDs.Where(p => p.pid == pid);
             List<PID> list = PIDs.ToList<PID>();
+            if (list.Capacity == 0) return ans;
             string name = list[0].name;
-            List<Item> ans = new List<Item>();
             foreach (Item i in db.Items) {
-                if (IsSameString(i.Custodian, name)) {
+                if (Utility.IsSameString(i.Custodian, name)) {
                     ans.Add(i);
                 }
             }
@@ -80,27 +89,7 @@ namespace ECEInventory.Controllers
         {
             return db.Histories.Where(record => record.Ptag == barcode).OrderByDescending(record => record.Time);
         }
-        [NonAction]
-        public Boolean IsSameString(string s1, string s2) {
-            for (int i = 0; i < s1.Length && i < s2.Length; i++) {
-                if (s1[i] != s2[i]) return false;
-            }
-            return true;
-        }
-
-        [NonAction]
-        public int GetEditDistance(string s1, string s2) {
-            if (s1.Length == 0) return s2.Length;
-            if (s2.Length == 0) return s1.Length;
-            if (s1[0] == s2[0]) {
-                return GetEditDistance(s1.Substring(1), s2.Substring(1));
-            } else {
-                int tmp = int.MaxValue;
-                tmp = Math.Min(tmp, GetEditDistance(s1.Substring(1), s2.Substring(0)) + 1);
-                tmp = Math.Min(tmp, GetEditDistance(s1.Substring(0), s2.Substring(1)) + 1);
-                return tmp;
-            }
-        }
+        
 
         //// PUT: api/Items/5
         //[ResponseType(typeof(void))]

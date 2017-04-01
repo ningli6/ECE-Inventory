@@ -10,6 +10,8 @@
         <p>This application will automatically add new entries to database and update existing entries if necessary.</p>
         <p>Your spreadsheet should not contain entries with same ptag (barcode).</p>
         <p>Your spreadsheet should be an xlsx (Microsoft Office Excel) file.</p>
+		<b>Important: Please name the defualt sheet as "sheet1" so the program can recognize it.</b>
+		<p>Please click <a href="inventory_example.xlsx">here</a> to download an example.</p>
 		<div>
         <form role="form" action='@Url.Action("AddItems")' method="post" enctype="multipart/form-data">
             <div class="form-group">
@@ -20,7 +22,9 @@
 		</div>
 		<br />
 		<h4>Add PIDs into Database</h4>
-		<p>The same format file is needed when you try to add PID-Name matching pairs into database <p>
+		<p>The same format file is needed when you try to add PID-Name matching pairs into database.<p>
+		<p><b>Important: Please name the defualt sheet as "sheet1" so the program can recognize it.</b></p>
+		<p>Please click <a href="pid_example.xlsx">here</a> to download an example.</p>
 		<div>
 			<form role="form" action='@Url.Action("AddPIDs")' method="post" enctype="multipart/form-data">
 				<div class="form-group">

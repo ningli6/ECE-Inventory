@@ -29,7 +29,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     // timestamp array
     var sectionTimeStamp: [String]?
     
-    var connectionString =  "DefaultEndpointsProtocol=https;AccountName=inventory6897;AccountKey=u55YZhE8dvZHjkGkwwrOyBtQa86mFrIBtp+tJbnL/5B554TXMAq0WCyULPKWu5z1txc60MtvBC0nH3sYn/j09A=="
+    var connectionString =  "DefaultEndpointsProtocol=https;AccountName=inventory6897;AccountKey=u55YZhE8dvZHjkGkwwrOyBtQa86mFrIBtp+tJbnL/5B554TXMAq0WCyULPKWu5z1txc60MtvBC0nH3sYn/j09A==;EndpointSuffix=core.windows.net"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,7 +96,7 @@ class ImagesCollectionViewController: UICollectionViewController {
         let blobContainer: AZSCloudBlobContainer = blobClient.containerReference(fromName: self.barcode!)
         
         // list blobs in a container
-        blobContainer.listBlobsSegmented(with: nil, prefix: nil, useFlatBlobListing: true, blobListingDetails: AZSBlobListingDetails.all, maxResults: -1, completionHandler: { (error: NSError?, results: AZSBlobResultSegment?) -> Void in
+        blobContainer.listBlobsSegmented(with: nil, prefix: nil, useFlatBlobListing: true, blobListingDetails: AZSBlobListingDetails.all, maxResults: -1, completionHandler: { (error: Error?, results: AZSBlobResultSegment?) -> Void in
             if (error != nil) {
                 NSLog("Error downloading blobs list")
             } else {
@@ -106,7 +106,7 @@ class ImagesCollectionViewController: UICollectionViewController {
                     self.collectionView?.reloadData()
                 })
             }
-        } as! (Error?, AZSBlobResultSegment?) -> Void)
+        })
     }
 
     // MARK: UICollectionViewDataSource

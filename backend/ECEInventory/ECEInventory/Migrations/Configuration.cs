@@ -9,8 +9,7 @@ namespace ECEInventory.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            ContextKey = "ECEInventory.Models.InventoryDBContext";
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(ECEInventory.Models.InventoryDBContext context)

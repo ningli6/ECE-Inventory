@@ -285,10 +285,10 @@ E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\b
 E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\bin\System.Web.WebPages.Deployment.xml
 E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\bin\System.Web.WebPages.Razor.xml
 E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\bin\Antlr3.Runtime.pdb
-E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\obj\Release\ECEInventory.csprojResolveAssemblyReference.cache
 E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\obj\Release\ECEInventory.dll
 E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\obj\Release\ECEInventory.pdb
-E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\obj\Release\ECEInventory.Migrations.InitialCreate.resources
-E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\obj\Release\ECEInventory.csproj.GenerateResource.Cache
 E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\bin\EPPlus.dll
 E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\bin\EPPlus.xml
+E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\obj\Release\ECEInventory.Migrations.InitialCreate.resources
+E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\obj\Release\ECEInventory.csproj.GenerateResource.Cache
+E:\Downloads\Compressed\ECE-Inventory-master\backend\ECEInventory\ECEInventory\obj\Release\ECEInventory.csprojResolveAssemblyReference.cache
