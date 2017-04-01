@@ -1,11 +1,13 @@
 ------------------------------------------------------
 ------------------ 2.0 members -----------------------
 ------------------------------------------------------
+
 # ECE-Inventory
 Capstone project on ECE inventory at Virginia Tech 2016~2017
 
 **Authors:**
-Harsh Patel,       pharsh22@vt.edu
+
+Abhijeet Tawar,    abhi007@vt.edu 
 
 Praneeth Gurram,   gpran93@vt.edu
 

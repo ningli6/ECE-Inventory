@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ECEInventory.Models;
+using ECEInventory;
 
 namespace ECEInventory.Controllers
 {
@@ -46,18 +47,38 @@ namespace ECEInventory.Controllers
         {
             return db.Items.Where(item => item.Ptag == barcode);
         }
-
         /// <summary>
         /// Get items by username/id/pid/email
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        [Route("api/Users/{user}")]
-        public IQueryable<Item> GetItemsByUser(string user)
+        [Route("api/UsersByName/{user}/")]
+        public List<Item> GetItemsByUser(string user)
         {
-            return db.Items.Where(item => item.Custodian == user);
+            List<Item> ans = new List<Item>();
+            string name = user;
+            foreach (Item i in db.Items) {
+                if (Utility.IsSameString(i.Custodian, name)) {
+                    ans.Add(i);
+                }
+            }
+            return ans;
         }
 
+        [Route("api/UsersByPID/{pid}")]
+        public List<Item> GetItemsByPID(string pid) {
+            List<Item> ans = new List<Item>();
+            IQueryable<PID> PIDs = db.PIDs.Where(p => p.pid == pid);
+            List<PID> list = PIDs.ToList<PID>();
+            if (list.Capacity == 0) return ans;
+            string name = list[0].name;
+            foreach (Item i in db.Items) {
+                if (Utility.IsSameString(i.Custodian, name)) {
+                    ans.Add(i);
+                }
+            }
+            return ans;
+        }
         /// <summary>
         /// Get item ownership and location history
         /// </summary>
@@ -68,6 +89,7 @@ namespace ECEInventory.Controllers
         {
             return db.Histories.Where(record => record.Ptag == barcode).OrderByDescending(record => record.Time);
         }
+        
 
         //// PUT: api/Items/5
         //[ResponseType(typeof(void))]

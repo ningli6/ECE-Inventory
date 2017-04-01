@@ -1,7 +1,8 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '10.0'
+platform :ios, '10.2'
 use_frameworks!
 
-target 'Demo' do
-    pod 'Alamofire', '~> 4.0'
+target 'ECEInventory' do
+    pod 'Alamofire'
+    pod 'SearchTextField'
 end

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SearchTextField
+import Alamofire
 
 class SearchUsersViewController: UIViewController {
     
@@ -15,20 +17,38 @@ class SearchUsersViewController: UIViewController {
     // user pid
     var pid: String?
     
-    let base_url = "http://40.121.81.36"
-    
-    @IBOutlet weak var searchUserIdTextField: UITextField!
+    let base_url = Shared.shared.base_url
+    let users_url = "/api/users"
+    var searchUserIdTextField: SearchTextField?
     
     @IBOutlet weak var pidTextLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        var people: [String] = []
         // Do any additional setup after loading the view.
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchUsersViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        Alamofire.request(base_url + users_url).responseJSON(completionHandler: { response in
+            if response.response?.statusCode == 200 {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: response.data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]
+                    for person in json {
+                        people.append(person["name"] as! String)
+                    }
+                    self.searchUserIdTextField!.filterStrings(people)
+                } catch {
+                    print("Error with Json: \(error)")
+                }
+            }
+        })
+        searchUserIdTextField = SearchTextField(frame: CGRect(x:view.frame.width/4, y: view.frame.height/4, width: view.frame.width/2,height: 40))
+        searchUserIdTextField!.startVisible = true
+        searchUserIdTextField!.borderStyle = UITextBorderStyle.roundedRect
+        searchUserIdTextField!.theme.borderColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         
+        view.addSubview(searchUserIdTextField!)
         self.pidTextLabel.text = "Welcome: \(self.pid!)"
     }
     
@@ -51,15 +71,18 @@ class SearchUsersViewController: UIViewController {
     
     @IBAction func searchForUsers() {
         // http connection and get the data
-        if (searchUserIdTextField.text == "") {
+        if (searchUserIdTextField?.text == "") {
             // alert
             let alert = UIAlertController(title: "Empty Input", message: "Please enter the user name.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return
         }
-        let username = searchUserIdTextField.text
-        let query = base_url + "/api/users/" + username!.replacingOccurrences(of: " ", with: "%20")
+        var username: String? = searchUserIdTextField?.text
+        username = String(username!.characters.dropLast())
+        let query = base_url + "/api/UsersByName/" + username!.replacingOccurrences(of: " ", with: "%20") + "/"
+        
+        
         let requestURL: URL = URL(string: query)!
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(url: requestURL)
         let session = URLSession.shared

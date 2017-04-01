@@ -13,7 +13,7 @@ class ItemDetailsViewController: UITableViewController {
     
     var connectionString =  "DefaultEndpointsProtocol=https;AccountName=inventory6897;AccountKey=u55YZhE8dvZHjkGkwwrOyBtQa86mFrIBtp+tJbnL/5B554TXMAq0WCyULPKWu5z1txc60MtvBC0nH3sYn/j09A=="
     
-    let base_url = "http://40.121.81.36"
+    let base_url = Shared.shared.base_url
     let query_url = "/api/histories/"
     
     var item: Item?
@@ -110,6 +110,7 @@ class ItemDetailsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath);
         if (cell == self.imageDetailCell) {
+            
             /* Download the image from azure cloud storage if exists */
             // Create a storage account object from a connection string.
             let account = AZSCloudStorageAccount(fromConnectionString:connectionString)
@@ -121,9 +122,9 @@ class ItemDetailsViewController: UITableViewController {
             let blobContainer: AZSCloudBlobContainer = blobClient.containerReference(fromName: self.item!.ptag!)
             
             // Create container if not exists
-            blobContainer.createContainerIfNotExists(completionHandler: { (cerror: NSError?, exists: Bool) -> Void in
+            blobContainer.createContainerIfNotExists(completionHandler: { (cerror: Error?, exists: Bool) -> Void in
                 // list blobs in a container
-                blobContainer.listBlobsSegmented(with: nil, prefix: nil, useFlatBlobListing: true, blobListingDetails: AZSBlobListingDetails.all, maxResults: -1, completionHandler: { (error: NSError?, results: AZSBlobResultSegment?) -> Void in
+                blobContainer.listBlobsSegmented(with: nil, prefix: nil, useFlatBlobListing: true, blobListingDetails: AZSBlobListingDetails.all, maxResults: -1, completionHandler: { (error: Error?, results: AZSBlobResultSegment?) -> Void in
                     if (error != nil) {
                         print(error)
                         print("Error downloading blobs list")
@@ -133,8 +134,9 @@ class ItemDetailsViewController: UITableViewController {
                             self.performSegue(withIdentifier: "GallerySegue", sender: nil)
                         })
                     }
-                } as! (Error?, AZSBlobResultSegment?) -> Void)
-            } as! (Error?, Bool) -> Void)
+                } )
+            } )
+            
         }
         
         // histories column is selected
