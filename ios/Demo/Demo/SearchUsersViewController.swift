@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SearchTextField
+import Alamofire
 
 class SearchUsersViewController: UIViewController {
     
@@ -15,20 +17,38 @@ class SearchUsersViewController: UIViewController {
     // user pid
     var pid: String?
     
-    let base_url = "http://40.121.81.36"
-    
-    @IBOutlet weak var searchUserIdTextField: UITextField!
+    let base_url = Shared.shared.base_url
+    let users_url = "/api/users"
+    var searchUserIdTextField: SearchTextField?
     
     @IBOutlet weak var pidTextLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        var people: [String] = []
         // Do any additional setup after loading the view.
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchUsersViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        Alamofire.request(base_url + users_url).responseJSON(completionHandler: { response in
+            if response.response?.statusCode == 200 {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: response.data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]
+                    for person in json {
+                        people.append(person["name"] as! String)
+                    }
+                    self.searchUserIdTextField!.filterStrings(people)
+                } catch {
+                    print("Error with Json: \(error)")
+                }
+            }
+        })
+        searchUserIdTextField = SearchTextField(frame: CGRect(x:view.frame.width/4, y: view.frame.height/4, width: view.frame.width/2,height: 40))
+        searchUserIdTextField!.startVisible = true
+        searchUserIdTextField!.borderStyle = UITextBorderStyle.roundedRect
+        searchUserIdTextField!.theme.borderColor = UIColor (red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         
+        view.addSubview(searchUserIdTextField!)
         self.pidTextLabel.text = "Welcome: \(self.pid!)"
     }
     
@@ -45,52 +65,55 @@ class SearchUsersViewController: UIViewController {
     
     
     // MARK: - Navigation
-    @IBAction func cancelFromUserDetailsViewToSearchUsersView(segue: UIStoryboardSegue) {
+    @IBAction func cancelFromUserDetailsViewToSearchUsersView(_ segue: UIStoryboardSegue) {
         
     }
     
     @IBAction func searchForUsers() {
         // http connection and get the data
-        if (searchUserIdTextField.text == "") {
+        if (searchUserIdTextField?.text == "") {
             // alert
-            let alert = UIAlertController(title: "Empty Input", message: "Please enter the user name.", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Empty Input", message: "Please enter the user name.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             return
         }
-        let username = searchUserIdTextField.text
-        let query = base_url + "/api/users/" + username!.stringByReplacingOccurrencesOfString(" ", withString: "%20")
-        let requestURL: NSURL = NSURL(string: query)!
-        let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
-        let session = NSURLSession.sharedSession()
+        var username: String? = searchUserIdTextField?.text
+        username = String(username!.characters.dropLast())
+        let query = base_url + "/api/UsersByName/" + username!.replacingOccurrences(of: " ", with: "%20") + "/"
+        
+        
+        let requestURL: URL = URL(string: query)!
+        let urlRequest: NSMutableURLRequest = NSMutableURLRequest(url: requestURL)
+        let session = URLSession.shared
         
         // create alert
-        let loadingAlert = UIAlertController(title: "Searching", message: "\n\n\n\n", preferredStyle: .Alert)
-        loadingAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        indicator.color = UIColor.blackColor()
+        let loadingAlert = UIAlertController(title: "Searching", message: "\n\n\n\n", preferredStyle: .alert)
+        loadingAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        indicator.color = UIColor.black
         indicator.frame = loadingAlert.view.bounds
-        indicator.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        indicator.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
         indicator.startAnimating()
         loadingAlert.view.addSubview(indicator)
         
-        let task = session.dataTaskWithRequest(urlRequest) {
+        let task = session.dataTask(with: urlRequest as URLRequest, completionHandler: {
             (data, response, error) -> Void in
             
-            dispatch_async(dispatch_get_main_queue(), { // dismiss alert in the main thread
+            DispatchQueue.main.async(execute: { // dismiss alert in the main thread
                 
-                loadingAlert.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    let httpResponse = response as! NSHTTPURLResponse
+                loadingAlert.dismiss(animated: true, completion: { () -> Void in
+                    let httpResponse = response as! HTTPURLResponse
                     let statusCode = httpResponse.statusCode
                     
                     if (statusCode == 200) {
                         do {
-                            let json = try NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
+                            let json = try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]
                             if (json.isEmpty) {
                                 // alert
-                                let alert = UIAlertController(title: "User not found", message: "User with name \(username!) does not exist", preferredStyle: UIAlertControllerStyle.Alert)
-                                alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-                                self.presentViewController(alert, animated: true, completion: nil)
+                                let alert = UIAlertController(title: "User not found", message: "User with name \(username!) does not exist", preferredStyle: UIAlertControllerStyle.alert)
+                                alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
                                 return
                             }
                             self.user = User()
@@ -123,9 +146,9 @@ class SearchUsersViewController: UIViewController {
                                 
                                 self.user!.items!.append(Item(owner: owner, orgnCode: orgnCode, orgnTitle: orgnTitle, room: room, bldg: bldg, sortRoom: sortRoom, ptag: ptag, manufacturer: manufacturer, model: model, sn: sn, description: description, custodian: custodian, po: po, acqDate: acqDate, amt: amt, ownership: ownership, schevYear: schevYear, tagType: tagType, assetType: assetType, atypTitle: atypTitle, condition: condition, lastInvDate: lastInvDate, designation: designation))
                             }
-                            dispatch_async(dispatch_get_main_queue(), {
+                            DispatchQueue.main.async(execute: {
                                 if (self.user != nil) {
-                                    self.performSegueWithIdentifier("UserSelected", sender: self.user)
+                                    self.performSegue(withIdentifier: "UserSelected", sender: self.user)
                                 }
                             })
                         } catch {
@@ -133,26 +156,26 @@ class SearchUsersViewController: UIViewController {
                             return
                         }
                     } else {
-                        dispatch_async(dispatch_get_main_queue(), {
+                        DispatchQueue.main.async(execute: {
                             // alert
-                            let alert = UIAlertController(title: "User not found", message: "Server returns \(statusCode)", preferredStyle: UIAlertControllerStyle.Alert)
-                            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-                            self.presentViewController(alert, animated: true, completion: nil)
+                            let alert = UIAlertController(title: "User not found", message: "Server returns \(statusCode)", preferredStyle: UIAlertControllerStyle.alert)
+                            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
                         })
                     }
                 })
             })
-        }
+        }) 
         task.resume()
-        self.presentViewController(loadingAlert, animated: true, completion: nil)
+        self.present(loadingAlert, animated: true, completion: nil)
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if (segue.identifier == "UserSelected") {
-            let navView = segue.destinationViewController as! UINavigationController
+            let navView = segue.destination as! UINavigationController
             let userDetailsView = navView.viewControllers.first as! UserDetailsViewController
             userDetailsView.user = self.user
         }

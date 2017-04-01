@@ -9,11 +9,11 @@
 import UIKit
 import AVFoundation
 
-class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     // searched item
     var item: Item?
-    let base_url = "http://40.121.81.36"
+    let base_url = Shared.shared.base_url
     
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
@@ -28,7 +28,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         // Do any additional setup after loading the view.
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video
         // as the media type parameter.
-        let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         
         do {
             // Get an instance of the AVCaptureDeviceInput class using the previous device object.
@@ -41,11 +41,12 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             
             // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
             let captureMetadataOutput = AVCaptureMetadataOutput()
+            let videoOutput = AVCaptureVideoDataOutput()
             captureSession?.addOutput(captureMetadataOutput)
-            
+            captureSession?.addOutput(videoOutput)
             // Set delegate and use the default dispatch queue to execute the call back
-            captureMetadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
-            
+            captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+            videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue.main)
             // Detect all the supported bar code
             captureMetadataOutput.metadataObjectTypes = supportedBarCodes
             
@@ -62,10 +63,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
             qrCodeFrameView = UIView()
             
             if let qrCodeFrameView = qrCodeFrameView {
-                qrCodeFrameView.layer.borderColor = UIColor.greenColor().CGColor
+                qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
                 qrCodeFrameView.layer.borderWidth = 2
+                
                 view.addSubview(qrCodeFrameView)
-                view.bringSubviewToFront(qrCodeFrameView)
+                view.bringSubview(toFront: qrCodeFrameView)
             }
             
         } catch {
@@ -80,11 +82,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         // Dispose of any resources that can be recreated.
     }
     
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         
         // Check if the metadataObjects array is not nil and it contains at least one object.
         if metadataObjects == nil || metadataObjects.count == 0 {
-            qrCodeFrameView?.frame = CGRectZero
+            qrCodeFrameView?.frame = CGRect.zero
             return
         }
         
@@ -96,7 +98,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         // can be found in the array of supported bar codes.
         if supportedBarCodes.contains(metadataObj.type) {
             // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
-            let barCodeObject = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(metadataObj)
+            let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
             
             if metadataObj.stringValue != nil {
@@ -104,27 +106,27 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                 let barcode = metadataObj.stringValue
                 
                 // search through database
-                let query = base_url + "/api/items/\(barcode)"
-                let requestURL: NSURL = NSURL(string: query)!
-                let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
-                let session = NSURLSession.sharedSession()
-                let task = session.dataTaskWithRequest(urlRequest) {
+                let query = base_url + "/api/items/" + barcode!
+                let requestURL: URL = URL(string: query)!
+                let urlRequest: NSMutableURLRequest = NSMutableURLRequest(url: requestURL)
+                let session = URLSession.shared
+                let task = session.dataTask(with: urlRequest as URLRequest, completionHandler: {
                     (data, response, error) -> Void in
                     
-                    dispatch_async(dispatch_get_main_queue(), {
-                        let httpResponse = response as! NSHTTPURLResponse
+                    DispatchQueue.main.async(execute: {
+                        let httpResponse = response as! HTTPURLResponse
                         let statusCode = httpResponse.statusCode
 
                         if (statusCode == 200) {
                             do{
-                                let jsonData = try NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
+                                let jsonData = try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]
                                 if (jsonData.isEmpty) {
                                     // alert
-                                    let alert = UIAlertController(title: "Item not found", message: "Item with barcdoe \(barcode) does not exist", preferredStyle: UIAlertControllerStyle.Alert)
-                                    alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: {(UIAlertAction) -> Void in
+                                    let alert = UIAlertController(title: "Item not found", message: "Item with barcdoe \(barcode!) does not exist", preferredStyle: UIAlertControllerStyle.alert)
+                                    alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: {(UIAlertAction) -> Void in
                                             self.captureSession?.startRunning()
                                     }))
-                                    self.presentViewController(alert, animated: true, completion: nil)
+                                    self.present(alert, animated: true, completion: nil)
                                 } else {
                                     let json = jsonData[0]
                                     // huge ugly init
@@ -153,41 +155,47 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
                                     let designation = json["Designation"] is NSNull ? "" : json["Designation"] as! String
                                     self.item = Item(owner: owner, orgnCode: orgnCode, orgnTitle: orgnTitle, room: room, bldg: bldg, sortRoom: sortRoom, ptag: ptag, manufacturer: manufacturer, model: model, sn: sn, description: description, custodian: custodian, po: po, acqDate: acqDate, amt: amt, ownership: ownership, schevYear: schevYear, tagType: tagType, assetType: assetType, atypTitle: atypTitle, condition: condition, lastInvDate: lastInvDate, designation: designation)
                                     // perform segue
-                                    self.performSegueWithIdentifier("ScanSuccess", sender: nil)
+                                    self.performSegue(withIdentifier: "ScanSuccess", sender: nil)
                                 }
                             } catch {
                                 print("Error with Json: \(error)")
                             }
                         } else {
                             // alert
-                            let alert = UIAlertController(title: "Item not found", message: "Server returns \(statusCode)", preferredStyle: UIAlertControllerStyle.Alert)
-                            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: {(UIAlertAction) -> Void in
+                            let alert = UIAlertController(title: "Item not found", message: "Server returns \(statusCode)", preferredStyle: UIAlertControllerStyle.alert)
+                            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: {(UIAlertAction) -> Void in
                                     self.captureSession?.startRunning()
                             }))
-                            self.presentViewController(alert, animated: true, completion: nil)
+                            self.present(alert, animated: true, completion: nil)
                         }
                     })
-                }
+                }) 
                 task.resume()
             }
         }
     }
     
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+        qrCodeFrameView?.frame = CGRect(x: 0, y: 0, width: view.frame.width/2, height: view.frame.height/2)
+        qrCodeFrameView?.center = view.center
+        
+    }
+    
     // MARK: - Navigation
     
-    override func didMoveToParentViewController(parent: UIViewController?) {
+    override func didMove(toParentViewController parent: UIViewController?) {
         // keep capture session running
-        if self.captureSession != nil && !self.captureSession!.running {
+        if self.captureSession != nil && !self.captureSession!.isRunning {
             self.captureSession?.startRunning()
         }
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if (segue.identifier == "ScanSuccess") {
-            let itemDetailsView = segue.destinationViewController as! ItemDetailsViewController
+            let itemDetailsView = segue.destination as! ItemDetailsViewController
             itemDetailsView.item = self.item
             itemDetailsView.returnToSearchTab = true
         }

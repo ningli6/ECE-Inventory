@@ -13,7 +13,7 @@ class ItemDetailsViewController: UITableViewController {
     
     var connectionString =  "DefaultEndpointsProtocol=https;AccountName=inventory6897;AccountKey=u55YZhE8dvZHjkGkwwrOyBtQa86mFrIBtp+tJbnL/5B554TXMAq0WCyULPKWu5z1txc60MtvBC0nH3sYn/j09A=="
     
-    let base_url = "http://40.121.81.36"
+    let base_url = Shared.shared.base_url
     let query_url = "/api/histories/"
     
     var item: Item?
@@ -73,11 +73,11 @@ class ItemDetailsViewController: UITableViewController {
         // show the unwind button if navigate from search tab
         if self.returnToSearchTab! {
             let done = UIBarButtonItem(
-                barButtonSystemItem: .Done,
+                barButtonSystemItem: .done,
                 target: self,
                 action: #selector(ItemDetailsViewController.unwindTowardsSearchTab))
             self.navigationItem.rightBarButtonItem = done
-            self.navigationItem.rightBarButtonItem!.tintColor = UIColor.whiteColor()
+            self.navigationItem.rightBarButtonItem!.tintColor = UIColor.white
         }
 
         // Uncomment the following line to preserve selection between presentations
@@ -107,42 +107,44 @@ class ItemDetailsViewController: UITableViewController {
     }
     */
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath);
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath);
         if (cell == self.imageDetailCell) {
+            
             /* Download the image from azure cloud storage if exists */
             // Create a storage account object from a connection string.
             let account = AZSCloudStorageAccount(fromConnectionString:connectionString)
 
             // Create a blob service client object.
-            let blobClient: AZSCloudBlobClient = account.getBlobClient()
+            let blobClient: AZSCloudBlobClient = account!.getBlobClient()
 
             // Create a local container object.
-            let blobContainer: AZSCloudBlobContainer = blobClient.containerReferenceFromName(self.item!.ptag!)
+            let blobContainer: AZSCloudBlobContainer = blobClient.containerReference(fromName: self.item!.ptag!)
             
             // Create container if not exists
-            blobContainer.createContainerIfNotExistsWithCompletionHandler({ (cerror: NSError?, exists: Bool) -> Void in
+            blobContainer.createContainerIfNotExists(completionHandler: { (cerror: Error?, exists: Bool) -> Void in
                 // list blobs in a container
-                blobContainer.listBlobsSegmentedWithContinuationToken(nil, prefix: nil, useFlatBlobListing: true, blobListingDetails: AZSBlobListingDetails.All, maxResults: -1, completionHandler: { (error: NSError?, results: AZSBlobResultSegment?) -> Void in
+                blobContainer.listBlobsSegmented(with: nil, prefix: nil, useFlatBlobListing: true, blobListingDetails: AZSBlobListingDetails.all, maxResults: -1, completionHandler: { (error: Error?, results: AZSBlobResultSegment?) -> Void in
                     if (error != nil) {
                         print(error)
                         print("Error downloading blobs list")
                     } else {
                         self.bloblist = results
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.performSegueWithIdentifier("GallerySegue", sender: nil)
+                        DispatchQueue.main.async(execute: {
+                            self.performSegue(withIdentifier: "GallerySegue", sender: nil)
                         })
                     }
-                })
-            })
+                } )
+            } )
+            
         }
         
         // histories column is selected
         if cell?.textLabel?.text == "Ownership & Location Histories" {
-            Alamofire.request(.GET, base_url + query_url + "/\(self.item!.ptag!)").responseJSON(completionHandler: { response in
+            Alamofire.request(base_url + query_url + "/\(self.item!.ptag!)").responseJSON(completionHandler: { response in
                 if response.response?.statusCode == 200 {
                     do {
-                        let json = try NSJSONSerialization.JSONObjectWithData(response.data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
+                        let json = try JSONSerialization.jsonObject(with: response.data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]
                         self.histories?.removeAll()
                         for h in json {
                             let bldg = h["Bldg"] as! String
@@ -151,10 +153,10 @@ class ItemDetailsViewController: UITableViewController {
                             let barcode = h["Ptag"] as! String
                             let custodian = h["Custodian"] as! String
                             var time = h["Time"] as! String
-                            time = time.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                            time = time.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                             self.histories?.append(History(barcode: barcode, custodian: custodian, bldg: bldg, room: room, sortRoom: sortRoom, time: time))
                         }
-                        self.performSegueWithIdentifier("ShowHistories", sender: nil)
+                        self.performSegue(withIdentifier: "ShowHistories", sender: nil)
                     } catch {
                         print("Error with Json: \(error)")
                     }
@@ -211,30 +213,30 @@ class ItemDetailsViewController: UITableViewController {
 
     // MARK: - Navigation
     
-    @IBAction func unwindFromTransferRequest (segue: UIStoryboardSegue) {
+    @IBAction func unwindFromTransferRequest (_ segue: UIStoryboardSegue) {
         
     }
     
     func unwindTowardsSearchTab() {
-        performSegueWithIdentifier("ReturnToSearchTab", sender: nil)
+        performSegue(withIdentifier: "ReturnToSearchTab", sender: nil)
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "GallerySegue" {
-            let imageGalleryView = segue.destinationViewController as! ImagesCollectionViewController
+            let imageGalleryView = segue.destination as! ImagesCollectionViewController
             imageGalleryView.bloblist = self.bloblist;
             imageGalleryView.barcode = self.item?.ptag;
         }
         if segue.identifier == "TransferOwnership" {
-            let transferRequestView = segue.destinationViewController as! TransferViewController
+            let transferRequestView = segue.destination as! TransferViewController
             transferRequestView.barcode = item?.ptag
             transferRequestView.currentOwner = item?.custodian
         }
         if segue.identifier == "ShowHistories" {
-            let historiesView = segue.destinationViewController as! HistoriesTableViewController
+            let historiesView = segue.destination as! HistoriesTableViewController
             historiesView.histories = self.histories
         }
     }

@@ -17,7 +17,7 @@ class UserDetailsViewController: UITableViewController {
     // pending requests
     var pendingRequests: [Request] = []
     
-    let base_url = "http://40.121.81.36"
+    let base_url = Shared.shared.base_url
     let query_url = "/api/transfers/user/"
     
     @IBOutlet weak var userNameLabel: UILabel!
@@ -42,20 +42,20 @@ class UserDetailsViewController: UITableViewController {
 
     // MARK: - Table view data source
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 { // ignore name cell
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).section == 0 { // ignore name cell
             return
         }
         
-        let cell = tableView.cellForRowAtIndexPath(indexPath);
+        let cell = tableView.cellForRow(at: indexPath);
         
         if (cell?.textLabel?.text)! == "Ownership Transfer Requests" {
             self.pendingRequests.removeAll()
-            let usernameWithSpace = user?.name!.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            Alamofire.request(.GET, base_url + query_url + "\(usernameWithSpace!)").responseJSON(completionHandler: { response in
+            let usernameWithSpace = user?.name!.replacingOccurrences(of: " ", with: "%20", options: NSString.CompareOptions.literal, range: nil)
+            Alamofire.request(base_url + query_url + "\(usernameWithSpace!)").responseJSON(completionHandler: { response in
                 if response.response?.statusCode == 200 {
                     do {
-                        let json = try NSJSONSerialization.JSONObjectWithData(response.data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
+                        let json = try JSONSerialization.jsonObject(with: response.data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]
                         for request in json {
                             let barcode = request["Ptag"] as! String
                             let sender = request["Sender"] as! String
@@ -64,7 +64,7 @@ class UserDetailsViewController: UITableViewController {
                             let time = request["Time"] as! String
                             self.pendingRequests.append(Request(barcode: barcode, sender: sender, receiver: receiver, status: status, time: time))
                         }
-                        self.performSegueWithIdentifier("ShowTransferRequests", sender: nil)
+                        self.performSegue(withIdentifier: "ShowTransferRequests", sender: nil)
                     } catch {
                         print("Error with Json: \(error)")
                     }
@@ -131,16 +131,16 @@ class UserDetailsViewController: UITableViewController {
     */
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if (segue.identifier == "ShowItemsList") {
-            let itemsListView = segue.destinationViewController as! ItemsListViewController
+            let itemsListView = segue.destination as! ItemsListViewController
             itemsListView.items = self.user?.items
         }
         
         if (segue.identifier == "ShowTransferRequests") {
-            let requestsView = segue.destinationViewController as! RequestsViewController
+            let requestsView = segue.destination as! RequestsViewController
             requestsView.pendingRequests = self.pendingRequests
             requestsView.name = self.user?.name
         }

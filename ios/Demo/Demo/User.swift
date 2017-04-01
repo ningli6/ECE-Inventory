@@ -10,10 +10,15 @@ import Foundation
 
 
 class User {
+    
+    // user pid
+    var pid: String?
     // user name
     var name: String?
     // a list of item
     var items: [Item]?
+    
+    
     
     init() {
         self.items = []

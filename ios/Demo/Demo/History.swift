@@ -26,8 +26,8 @@ class History {
         self.room = room
         self.sortRoom = sortRoom
         // adjust based on local time and UTC
-        let timeStr = String(NSDate(timeIntervalSince1970: (Double(time)! - 14400)))
-        self.time = timeStr.substringToIndex(timeStr.endIndex.advancedBy(-6))
+        let timeStr = String(describing: Date(timeIntervalSince1970: (Double(time)! - 14400)))
+        self.time = timeStr.substring(to: timeStr.characters.index(timeStr.endIndex, offsetBy: -6))
     }
     
 }

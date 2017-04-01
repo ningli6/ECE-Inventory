@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using ECEInventory.Models;
 
+
 // This controller is for web api
 
 namespace ECEInventory.Controllers
@@ -131,13 +132,13 @@ namespace ECEInventory.Controllers
             }
 
             // check
-            if (transfer.Sender == transfer.Receiver)
+            if (Utility.IsSameString(transfer.Sender, transfer.Receiver))
             {
                 return BadRequest("User already own the item!");
             }
 
             // check that it is transfered to a valid user of inventory
-            if (!db.Items.Any(item => item.Custodian == transfer.Receiver))
+            if (!db.PIDs.Any(p => p.name == transfer.Receiver))
             {
                 return BadRequest("The receiver is not a valid user of inventory");
             }

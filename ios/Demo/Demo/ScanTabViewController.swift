@@ -11,7 +11,7 @@ import UIKit
 class ScanTabViewController: UIViewController {
     
     // base url for the backend
-    let base_url = "http://40.121.81.36"
+    let base_url = Shared.shared.base_url
     // searched item
     var item: Item?
     
@@ -38,49 +38,48 @@ class ScanTabViewController: UIViewController {
     }
     
     
-    @IBAction func searchBarcode(sender: AnyObject) {
+    @IBAction func searchBarcode(_ sender: AnyObject) {
         // http connection and get the data
         if (barcodeTextField.text == "") {
             // alert
-            let alert = UIAlertController(title: "Empty Input", message: "Please enter barcode.", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Empty Input", message: "Please enter barcode.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             return
         }
         let barcode = barcodeTextField.text
         let query = base_url + "/api/items/" + barcode!
-        let requestURL: NSURL = NSURL(string: query)!
-        let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: requestURL)
-        let session = NSURLSession.sharedSession()
+        let requestURL: URL = URL(string: query)!
+        let urlRequest: NSMutableURLRequest = NSMutableURLRequest(url: requestURL)
+        let session = URLSession.shared
         
         // create alert
-        let loadingAlert = UIAlertController(title: "Searching", message: "\n\n\n\n", preferredStyle: .Alert)
-        loadingAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        indicator.color = UIColor.blackColor()
+        let loadingAlert = UIAlertController(title: "Searching", message: "\n\n\n\n", preferredStyle: .alert)
+        loadingAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        indicator.color = UIColor.black
         indicator.frame = loadingAlert.view.bounds
-        indicator.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        indicator.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
         indicator.startAnimating()
         loadingAlert.view.addSubview(indicator)
-        
-        let task = session.dataTaskWithRequest(urlRequest) {
+        let task = session.dataTask(with: urlRequest as URLRequest , completionHandler: {
             (data, response, error) -> Void in
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 
-                loadingAlert.dismissViewControllerAnimated(true, completion: { () -> Void in
+                loadingAlert.dismiss(animated: true, completion: { () -> Void in
                     
-                    let httpResponse = response as! NSHTTPURLResponse
+                    let httpResponse = response as! HTTPURLResponse
                     let statusCode = httpResponse.statusCode
                     
                     if (statusCode == 200) {
                         do {
-                            let json = try NSJSONSerialization.JSONObjectWithData(data!, options:NSJSONReadingOptions()) as! [[String: AnyObject]]
+                            let json = try JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions()) as! [[String: AnyObject]]
                             if (json.isEmpty) {
                                 // alert
-                                let alert = UIAlertController(title: "Item not found", message: "Item with barcode \(barcode!) does not exist in the inventory", preferredStyle: UIAlertControllerStyle.Alert)
-                                alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-                                self.presentViewController(alert, animated: true, completion: nil)
+                                let alert = UIAlertController(title: "Item not found", message: "Item with barcode \(barcode!) does not exist in the inventory", preferredStyle: UIAlertControllerStyle.alert)
+                                alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
                                 return
                             }
                             for item in json {
@@ -112,7 +111,7 @@ class ScanTabViewController: UIViewController {
                                 self.item = Item(owner: owner, orgnCode: orgnCode, orgnTitle: orgnTitle, room: room, bldg: bldg, sortRoom: sortRoom, ptag: ptag, manufacturer: manufacturer, model: model, sn: sn, description: description, custodian: custodian, po: po, acqDate: acqDate, amt: amt, ownership: ownership, schevYear: schevYear, tagType: tagType, assetType: assetType, atypTitle: atypTitle, condition: condition, lastInvDate: lastInvDate, designation: designation)
                             }
                             if self.item != nil {
-                                self.performSegueWithIdentifier("BarcodeFound", sender: nil)
+                                self.performSegue(withIdentifier: "BarcodeFound", sender: nil)
                             }
                         } catch {
                             print("Error with Json: \(error)")
@@ -120,29 +119,29 @@ class ScanTabViewController: UIViewController {
                         }
                     } else {
                         // alert
-                        let alert = UIAlertController(title: "Item not found", message: "Item with barcode \(barcode!) does not exist in the inventory", preferredStyle: UIAlertControllerStyle.Alert)
-                        alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.Default, handler: nil))
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        let alert = UIAlertController(title: "Item not found", message: "Item with barcode \(barcode!) does not exist in the inventory", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "Try again", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                         return
                     }
                 })
             })
-        }
+        }) 
         task.resume()
-        self.presentViewController(loadingAlert, animated: true, completion: nil)
+        self.present(loadingAlert, animated: true, completion: nil)
     }
     
     // MARK: - Navigation
-    @IBAction func cancelFromSearchView(segue: UIStoryboardSegue) {
+    @IBAction func cancelFromSearchView(_ segue: UIStoryboardSegue) {
         
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if (segue.identifier == "BarcodeFound") {
-            let navView = segue.destinationViewController as! UINavigationController
+            let navView = segue.destination as! UINavigationController
             let itemDetailsView = navView.viewControllers.first as! ItemDetailsViewController
             itemDetailsView.item = self.item
             itemDetailsView.returnToSearchTab = true

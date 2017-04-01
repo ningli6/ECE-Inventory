@@ -29,21 +29,21 @@ class ItemsListViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return (items?.count)!
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = items![indexPath.row].description
+        cell.textLabel?.text = items![(indexPath as NSIndexPath).row].description
         
         return cell
     }
@@ -85,22 +85,22 @@ class ItemsListViewController: UITableViewController {
 
 
     // MARK: - Navigation
-    @IBAction func cancelFromAddItemViewToItemsListView (segue : UIStoryboardSegue) {
+    @IBAction func cancelFromAddItemViewToItemsListView (_ segue : UIStoryboardSegue) {
         
     }
     
-    @IBAction func saveFromAddItemViewToItemsListView (segue : UIStoryboardSegue) {
+    @IBAction func saveFromAddItemViewToItemsListView (_ segue : UIStoryboardSegue) {
         
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "LookForItemDetails" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let itemDetailView = segue.destinationViewController as! ItemDetailsViewController
-                itemDetailView.item = self.items![indexPath.row]
+                let itemDetailView = segue.destination as! ItemDetailsViewController
+                itemDetailView.item = self.items![(indexPath as NSIndexPath).row]
                 itemDetailView.returnToSearchTab = false
             }
         }
